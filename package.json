@@ -11,7 +11,9 @@
   "scripts": {
     "test": "node --test 'agent/**/*.test.ts'",
     "test:contracts": "cd contracts && forge test -vv",
-    "demo": "node agent/server.ts"
+    "demo": "node agent/server.ts",
+    "hsp:live": "node agent/hsp-live.ts",
+    "test:hsp-live": "HSP_LIVE_TEST=1 node --test agent/hsp/live.test.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",
