@@ -17,6 +17,9 @@ import type { FlowEvent, HumanGate } from './flow.ts';
 import { readBudgets, parseAgents, MAINNET_RPC, MAINNET_VAULT } from './budget.ts';
 import type { BudgetReport } from './budget.ts';
 import { whyBlocked } from './why.ts';
+import { readReceipt } from './receipt-view.ts';
+import type { ReceiptView } from './receipt-view.ts';
+import { hspMode, modeLabel } from './hsp/mode.ts';
 import type { Address } from 'viem';
 
 export const MAX_BODY = 4096;
@@ -67,6 +70,7 @@ export function startServer(port = 0, opts: { token?: string; budget?: () => Pro
   let running = false;
   let bound = 0;
 
+  let receiptCache: { at: number; p: Promise<ReceiptView> } | undefined;
   const broadcast = (e: FlowEvent) => {
     const line = `data: ${JSON.stringify(e)}\n\n`;
     for (const c of clients) c.write(line);
@@ -100,6 +104,16 @@ export function startServer(port = 0, opts: { token?: string; budget?: () => Pro
         try { report = await budgetCache.p; } catch { throw new HttpError(502, 'chain read failed'); }
         res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' });
         return res.end(JSON.stringify(report));
+      }
+      if (url.pathname === '/receipt') {
+        if (!receiptCache || Date.now() - receiptCache.at > 15000) {
+          receiptCache = { at: Date.now(), p: readReceipt() };
+          receiptCache.p.catch(() => { receiptCache = undefined; });
+        }
+        let view: ReceiptView;
+        try { view = await receiptCache.p; } catch (err) { throw new HttpError(502, String((err as Error).message).slice(0, 120)); }
+        res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' });
+        return res.end(JSON.stringify({ ...view, mode_now: hspMode(), mode_now_label: modeLabel(hspMode()) }));
       }
       if (url.pathname === '/why') {
         const q = url.searchParams.get('q') ?? '';

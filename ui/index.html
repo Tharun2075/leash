@@ -905,6 +905,13 @@ summary:focus-visible {
 .budget-name{font-weight:600}
 .budget-addr{font-size:12px;color:var(--muted)}
 .budget-foot{font-size:12px;color:var(--muted);margin:10px 0 0}
+.hsp-rcpt{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:12px}
+.hsp-steps{list-style:none;display:flex;flex-wrap:wrap;gap:4px;margin:8px 0;padding:0}
+.hsp-steps li{font-size:11px;padding:2px 6px;border:1px solid var(--line);border-radius:4px;color:var(--muted)}
+.hsp-steps li.on{border-color:var(--success);color:var(--success)}
+.hsp-steps li.now{border-color:var(--warn);color:var(--warn);font-weight:600}
+.hsp-kv{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:12px;margin:0}
+.hsp-kv dt{color:var(--muted)}.hsp-kv dd{margin:0;overflow-wrap:anywhere}
 .budget-foot a,.why-form a{color:var(--accent)}
 .why-form{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
 .why-row{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
@@ -959,6 +966,16 @@ summary:focus-visible {
           <span id="budget-pill" class="pill">READING</span>
         </div>
         <ul id="budget-list" class="budget-list" aria-live="polite"></ul>
+        <div id="hsp-rcpt" class="hsp-rcpt" aria-live="polite">
+          <div class="budget-head">
+            <span class="budget-name">Latest mainnet receipt</span>
+            <span id="hsp-rcpt-mode" class="pill pill--warn">HSP mock (QA access pending)</span>
+          </div>
+          <p id="hsp-rcpt-run" class="cap-footnote">HSP flow state: <span id="hsp-rcpt-state" class="mono">reading…</span></p>
+          <ol id="hsp-rcpt-steps" class="hsp-steps"></ol>
+          <dl id="hsp-rcpt-kv" class="hsp-kv mono"></dl>
+          <p class="budget-foot"><a id="hsp-rcpt-tx" href="#" target="_blank" rel="noopener" hidden>Settle tx on Blockscout</a> <span id="hsp-rcpt-check"></span></p>
+        </div>
         <p class="budget-foot mono"><a id="budget-vault" href="https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9" target="_blank" rel="noopener">PolicyVault on Blockscout</a> · <span id="budget-at">not read yet</span></p>
         <form id="why-form" class="why-form" autocomplete="off">
           <label for="why-input" class="cap-label-title">Why was a payment blocked?</label>
@@ -1808,6 +1825,11 @@ summary:focus-visible {
             break;
           case 'status':
             renderStatus(ev);
+            window.dispatchEvent(new CustomEvent('leash:hsp', { detail: ev }));
+            break;
+          case 'hsp_mode':
+            window.dispatchEvent(new CustomEvent('leash:hsp', { detail: ev }));
+            renderLog({ level: 'info', text: 'HSP mode: ' + ev.label });
             break;
           case 'receipt':
             renderReceipt(ev);
@@ -1933,6 +1955,64 @@ summary:focus-visible {
       }
       document.getElementById('why-form').addEventListener('submit', function (e) { e.preventDefault(); explain(input.value); });
       document.getElementById('why-example').addEventListener('click', function () { input.value = BLOCKED_DATA; explain(BLOCKED_DATA); });
+      load();
+      setInterval(load, 15000);
+    })();
+
+    // Receipt view in the budget panel: the agent-signed receipt of the latest mainnet payment (via /receipt,
+    // hashes re-checked on chain), and the HSP flow state, which follows SSE status events live during a run.
+    (function () {
+      'use strict';
+      var STEPS = [['payment-submitted', 'submitted'], ['payment-verified', 'verified'], ['payment-processing', 'processing'],
+        ['payment-included', 'included'], ['payment-safe', 'confirming'], ['payment-finalized', 'finalized']];
+      var stepsEl = document.getElementById('hsp-rcpt-steps');
+      var stateEl = document.getElementById('hsp-rcpt-state');
+      var runEl = document.getElementById('hsp-rcpt-run');
+      var modeEl = document.getElementById('hsp-rcpt-mode');
+      var kv = document.getElementById('hsp-rcpt-kv');
+      var tx = document.getElementById('hsp-rcpt-tx');
+      var check = document.getElementById('hsp-rcpt-check');
+      var live = false;
+      function short(h) { return h.length > 18 ? h.slice(0, 10) + '…' + h.slice(-6) : h; }
+      function drawSteps(reached) {
+        stepsEl.textContent = '';
+        var last = -1;
+        STEPS.forEach(function (s, i) { if (reached.indexOf(s[0]) >= 0) last = i; });
+        STEPS.forEach(function (s, i) {
+          var li = document.createElement('li'); li.textContent = s[1];
+          if (i < last || (i === last && s[0] === 'payment-finalized')) li.className = 'on';
+          else if (i === last) li.className = 'now';
+          stepsEl.appendChild(li);
+        });
+        stateEl.textContent = last < 0 ? 'not started' : STEPS[last][1];
+      }
+      function setMode(label, isMock) { modeEl.textContent = label; modeEl.className = 'pill ' + (isMock ? 'pill--warn' : 'pill--live'); }
+      function row(k, v) { var dt = document.createElement('dt'); dt.textContent = k; var dd = document.createElement('dd'); dd.textContent = v; kv.appendChild(dt); kv.appendChild(dd); }
+      var reachedLive = [];
+      window.addEventListener('leash:hsp', function (e) {
+        var ev = e.detail;
+        if (ev.type === 'hsp_mode') { live = true; reachedLive = []; setMode(ev.label, ev.mode === 'mock'); runEl.firstChild.textContent = 'HSP flow state (live run): '; drawSteps([]); return; }
+        live = true; reachedLive.push(String(ev.status)); drawSteps(reachedLive);
+      });
+      async function load() {
+        try {
+          var res = await fetch('/receipt', { headers: { Accept: 'application/json' } });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          var v = await res.json(); var r = v.receipt;
+          if (!live) { setMode(r.hsp_label, r.hsp_mode === 'mock'); drawSteps(r.hsp_status_history.map(function (h) { return h.status; })); runEl.firstChild.textContent = 'HSP flow state (recorded): '; }
+          kv.textContent = '';
+          row('intent', '#' + r.intent_id);
+          row('flow_id', r.flow_id);
+          row('payment_request_id', r.payment_request_id);
+          row('policyHash', short(r.policy_hash));
+          row('signed by', short(r.agent) + (v.signatureOk ? ' ✓' : ' ✗ bad signature'));
+          tx.href = v.txUrl; tx.hidden = false;
+          var c = v.onChain, ok = c.flowIdHashMatch && c.paymentRequestIdHashMatch && c.policyHashMatch;
+          check.textContent = ok ? '· ids match PolicyVault.getReceipt hashes' : '· MISMATCH with on-chain receipt';
+        } catch (e) {
+          if (!live) stateEl.textContent = 'receipt unavailable';
+        }
+      }
       load();
       setInterval(load, 15000);
     })();
