@@ -57,8 +57,8 @@ export async function mainnetPay(rpcUrl: string, vault: Address, ownerKey: Hex, 
   const history: { status: string; label: string }[] = [];
   const forced: string[] = [];
   const emit = (e: FlowEvent) => {
-    if (e.type === 'status') history.push({ status: e.status, label: e.label });
-    if (e.type === 'log') { console.error(`[${e.level}] ${e.text}`); if (/expired|30043/i.test(e.text)) forced.push(e.text); }
+    if (e.type === 'status' && history[history.length - 1]?.status !== e.status) history.push({ status: e.status, label: e.label });
+    if (e.type === 'log') { console.error(`[${e.level}] ${e.text}`); if (/expired|30043/i.test(e.text)) { forced.push(e.text); history.push({ status: 'forced-failure', label: e.text }); } }
   };
   let hsp;
   if (hspMode() === 'live') { const live = new McpHspAdapter(); await live.connect(); hsp = live; } else hsp = new MockHspAdapter(force === '30043' ? { gateway30043Once: true } : force === 'expired' ? { expireFirstQuote: true } : {}, clock.now);

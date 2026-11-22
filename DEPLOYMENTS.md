@@ -46,6 +46,6 @@ https://testnet-explorer.hsk.xyz/tx/<hash>.
 - agent top-up to 0.3 HSK, canary: https://hsk.blockscout.com/tx/0x6573b362771155a2a64ba2475a59c79371e0086918aad974015a1e04f98ffbc2
 - agent top-up, rest: https://hsk.blockscout.com/tx/0x3e5ad679e3ab65c00556435279ef546fe851354e565de5ce671c325c7d0a1eab
 - intent 2 allowed and settled with HSP ids flow_id=mock-flow-1, payment_request_id=mock-pr-1 (block 30515431): https://hsk.blockscout.com/tx/0x82b597ec2ead6427af134c75fc10c4d9123c82139b4aa9e4c78736b49921678b
-- forced failure first: quote expired, prepared again; then payment-safe -> payment-finalized
+- forced failure was exercised first (quote expired, prepared again; not in this signed receipt's history, runs from now on record it as `forced-failure`); then payment-safe -> payment-finalized
 - signed receipt: receipts/latest-177.json (signer = agent); on-chain getReceipt hashes match flow_id, payment_request_id and policyHash
 - deployer out 0.29999 HSK (cap 0.6); how: `LEASH_OWNER_KEY="$(secret-get hsk-horizon-deployer privkey)" LEASH_AGENT_KEY="$(secret-get leash-agent privkey)" node agent/mainnet-pay.ts --rpc https://mainnet.hsk.xyz --vault 0x7360…13a9 --mainnet --out receipts --topup 0.3`

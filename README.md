@@ -62,7 +62,7 @@ mirror to the deployed contract.
 
 One payment runs prepare_payment -> owner signs (EIP-712) -> finalize_payment -> query_payment through
 payment-safe ("confirming") to payment-finalized. `agent/mainnet-pay.ts --force expired|30043` also
-forces one failure first (an expired quote that is prepared again, or error 30043) and records it.
+forces one failure first (an expired quote that is prepared again, or error 30043) and records it as a `forced-failure` entry in the signed status history (the first mainnet receipt predates this; there the failure was exercised, not recorded).
 
 Receipt design, no PolicyVault redeploy and no extra tx: `PolicyVault.settle()` already stores
 keccak(flow_id), keccak(payment_request_id), policyHash and the HSP tx hash in its on-chain Receipt
