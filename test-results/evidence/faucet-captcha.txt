@@ -1,0 +1,1 @@
+2026-11-22 faucet.hsk.xyz (frame faucet.hskchain.net) shows Google reCAPTCHA v2 (anchor+bframe) before 'Send me 1 HSK'. Stopped per brief: captcha = owner step. Deployer 0xbB23B962F512b8fD9fb1B0311bd6d8F0fbb93043 balance on chain 133 = 0x0.

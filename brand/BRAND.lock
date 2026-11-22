@@ -1,0 +1,54 @@
+{
+  "app": "leash-hsp",
+  "kind": "SELL",
+  "status": "proposed (worker draft; owner may revise)",
+  "version": 1,
+  "approved_by": "chair:5x-2",
+  "approved_at": "2026-11-22T18:30Z",
+  "method_run": "contests/hsk-chain-horizon-hackathon-seoul/build/leash/brand/METHOD-RUN.md",
+  "lane": {
+    "accent": "#840B33",
+    "highlight": "#7DE8DA"
+  },
+  "light": {
+    "bg": "#FAF8F4",
+    "surface": "#FFFFFF",
+    "ink": "#16181D",
+    "muted": "#5E5866",
+    "line": "#8F8796",
+    "accent": "#840B33",
+    "tint": "#F6E4EA",
+    "highlight": "#7DE8DA",
+    "success": "#1D6E45",
+    "warn": "#8A4E00",
+    "error": "#C4320A"
+  },
+  "dark": {
+    "bg": "#13110E",
+    "surface": "#1D1A17",
+    "ink": "#F3EFF4",
+    "muted": "#C4BCC8",
+    "line": "#6E6674",
+    "accent": "#F9C0CF",
+    "tint": "#3A1822",
+    "highlight": "#7DE8DA",
+    "success": "#5FD39A",
+    "warn": "#F0A84A",
+    "error": "#FFA06B"
+  },
+  "chart": [
+    "#840B33",
+    "#7DE8DA",
+    "#1D6E45",
+    "#8A4E00"
+  ],
+  "type": {
+    "display": "Instrument Serif",
+    "body": "Geist",
+    "mono": "Geist Mono"
+  },
+  "motion": {},
+  "print": {},
+  "allow_external": [],
+  "tolerance_de00": 1.0
+}

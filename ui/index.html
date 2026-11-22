@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leash — Policy-Bound Agent Payments</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+:root{--bg:#FAF8F4;--surface:#FFFFFF;--ink:#16181D;--muted:#5E5866;--line:#8F8796;--accent:#840B33;--tint:#F6E4EA;--highlight:#7DE8DA;--success:#1D6E45;--warn:#8A4E00;--error:#C4320A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13110E;--surface:#1D1A17;--ink:#F3EFF4;--muted:#C4BCC8;--line:#6E6674;--accent:#F9C0CF;--tint:#3A1822;--highlight:#7DE8DA;--success:#5FD39A;--warn:#F0A84A;--error:#FFA06B}}
+:root[data-theme="dark"]{--bg:#13110E;--surface:#1D1A17;--ink:#F3EFF4;--muted:#C4BCC8;--line:#6E6674;--accent:#F9C0CF;--tint:#3A1822;--highlight:#7DE8DA;--success:#5FD39A;--warn:#F0A84A;--error:#FFA06B}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Geist', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.mono {
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Highlight fill always uses dark ink text in light mode and dark bg text in dark mode for contrast */
+.highlight-fill {
+  background: var(--highlight);
+  color: var(--ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .highlight-fill {
+    color: var(--bg);
+  }
+}
+
+:root[data-theme="dark"] .highlight-fill {
+  color: var(--bg);
+}
+
+/* Header */
+.site-header {
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 32%, transparent);
+  background: var(--surface);
+}
+
+.header-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+}
+
+.brand-group {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.brand-title {
+  margin: 0;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  font-size: 2.25rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.brand-subtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, var(--line) 45%, transparent);
+  background: var(--bg);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.pill--live {
+  border-color: var(--success);
+  color: var(--success);
+  background: color-mix(in srgb, var(--success) 10%, var(--surface));
+}
+
+.pill--warn {
+  border-color: var(--warn);
+  color: var(--warn);
+  background: color-mix(in srgb, var(--warn) 12%, var(--surface));
+}
+
+.pill--error {
+  border-color: var(--error);
+  color: var(--error);
+  background: color-mix(in srgb, var(--error) 12%, var(--surface));
+}
+
+.pill--accent {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--tint);
+}
+
+.pill--solid-success {
+  border-color: var(--success);
+  background: var(--success);
+  color: var(--surface);
+}
+
+.pill--solid-error {
+  border-color: var(--error);
+  background: var(--error);
+  color: var(--surface);
+}
+
+.pill--solid-warn {
+  border-color: var(--warn);
+  background: var(--warn);
+  color: var(--surface);
+}
+
+.theme-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--line) 45%, transparent);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.theme-btn:hover {
+  border-color: var(--ink);
+  background: var(--bg);
+}
+
+/* Workspace Grid: Mobile-first (390px) -> 3 columns on desktop (1440px) */
+.workspace {
+  flex: 1;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+@media (min-width: 820px) {
+  .header-inner {
+    padding: 20px 28px;
+  }
+  .workspace {
+    padding: 24px 28px;
+    gap: 20px;
+  }
+  .column {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1120px) {
+  .workspace {
+    grid-template-columns: minmax(320px, 1.05fr) minmax(360px, 1.15fr) minmax(340px, 1.05fr);
+    padding: 28px 32px;
+    gap: 24px;
+  }
+  .column {
+    gap: 24px;
+  }
+}
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--line) 32%, transparent);
+  border-radius: 12px;
+  padding: 18px;
+  min-width: 0;
+}
+
+@media (min-width: 820px) {
+  .card {
+    padding: 22px;
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 22%, transparent);
+}
+
+.card-title {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.empty-state {
+  margin: 0;
+  padding: 16px 0 4px;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* Scenarios */
+.scenario-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scenario-btn {
+  width: 100%;
+  text-align: left;
+  padding: 11px 14px;
+  border-radius: 9px;
+  border: 1px solid color-mix(in srgb, var(--line) 38%, transparent);
+  background: var(--bg);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.scenario-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--tint);
+}
+
+.scenario-btn[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--tint);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.scenario-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.scenario-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.scenario-name {
+  font-size: 0.72rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.scenario-error {
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  color: var(--error);
+}
+
+/* Chat Transcript */
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 460px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.chat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 92%;
+}
+
+.chat-item--buyer {
+  align-self: flex-start;
+}
+
+.chat-item--seller {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.chat-item--human {
+  align-self: stretch;
+  max-width: 100%;
+}
+
+.chat-sender {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chat-sender-badge {
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.chat-bubble {
+  margin: 0;
+  padding: 10px 13px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  word-break: break-word;
+  border: 1px solid color-mix(in srgb, var(--line) 30%, transparent);
+}
+
+.chat-item--buyer .chat-bubble {
+  background: var(--bg);
+  color: var(--ink);
+  border-top-left-radius: 3px;
+}
+
+.chat-item--seller .chat-bubble {
+  background: var(--tint);
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+  border-top-right-radius: 3px;
+}
+
+.chat-item--human .chat-bubble {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+/* Policy Card */
+.policy-verdict-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.policy-verdict-word {
+  margin: 0;
+  font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.policy-verdict-word--allowed {
+  color: var(--success);
+}
+
+.policy-verdict-word--blocked {
+  color: var(--error);
+}
+
+.policy-explain {
+  margin: 0 0 18px;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.cap-block {
+  padding: 14px;
+  border-radius: 9px;
+  background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--line) 28%, transparent);
+  margin-bottom: 14px;
+}
+
+.cap-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+}
+
+.cap-label-title {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.cap-numbers {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.bar-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 24%, transparent);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--success);
+  width: 0%;
+  transition: width 260ms ease;
+}
+
+.bar-fill--blocked {
+  background: var(--error);
+}
+
+.bar-fill--low {
+  background: var(--warn);
+}
+
+.cap-footnote {
+  margin: 7px 0 0;
+  font-size: 0.76rem;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.kv-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 0;
+}
+
+.kv-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 10px;
+  border-top: 1px solid color-mix(in srgb, var(--line) 20%, transparent);
+}
+
+.kv-row:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.kv-key {
+  font-size: 0.74rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.kv-val-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.kv-val {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+/* Human Approval Panel */
+.approval-card {
+  border: 2px solid var(--accent);
+  background: var(--tint);
+}
+
+.approval-card[hidden] {
+  display: none;
+}
+
+.approval-step-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.approval-step-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.approval-details {
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--line) 32%, transparent);
+  border-radius: 9px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.countdown-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--line) 35%, transparent);
+  margin-bottom: 16px;
+  font-size: 0.84rem;
+}
+
+.countdown-value {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.countdown-value--warn {
+  color: var(--warn);
+}
+
+.countdown-value--expired {
+  color: var(--error);
+}
+
+.approval-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.btn {
+  padding: 11px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: opacity 140ms ease, background-color 140ms ease, border-color 140ms ease;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--approve {
+  background: var(--accent);
+  color: var(--surface);
+}
+
+.btn--approve:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.btn--refuse {
+  background: var(--surface);
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.btn--refuse:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--error) 10%, var(--surface));
+}
+
+.approval-feedback {
+  margin: 12px 0 0;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* HSP Status Ticker */
+.status-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.status-item {
+  padding: 11px 13px;
+  border-radius: 9px;
+  border: 1px solid color-mix(in srgb, var(--line) 28%, transparent);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.status-item--latest {
+  border-color: var(--ink);
+  background: var(--surface);
+}
+
+.status-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.status-label-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.status-word {
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.status-word--default {
+  background: color-mix(in srgb, var(--line) 16%, var(--surface));
+  color: var(--ink);
+}
+
+.status-word--warn {
+  background: color-mix(in srgb, var(--warn) 16%, var(--surface));
+  color: var(--warn);
+}
+
+.status-word--final {
+  background: var(--success);
+  color: var(--surface);
+}
+
+.status-tag-latest {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.status-time {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.status-raw {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.status-note {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--warn);
+  font-weight: 500;
+}
+
+/* Receipt Card */
+.copy-btn {
+  flex-shrink: 0;
+  padding: 4px 9px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--line) 42%, transparent);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.copy-btn:hover {
+  border-color: var(--ink);
+}
+
+.explorer-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: var(--tint);
+  color: var(--accent);
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 140ms ease;
+}
+
+.explorer-link:hover {
+  background: color-mix(in srgb, var(--accent) 16%, var(--tint));
+}
+
+/* Collapsible Log */
+.log-details {
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--line) 32%, transparent);
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+
+.log-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.log-summary::-webkit-details-marker {
+  display: none;
+}
+
+.log-summary-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.log-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 12px 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--line) 22%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.log-entry {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.log-level {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.log-level--info {
+  background: color-mix(in srgb, var(--line) 18%, var(--surface));
+  color: var(--ink);
+}
+
+.log-level--warn {
+  background: color-mix(in srgb, var(--warn) 16%, var(--surface));
+  color: var(--warn);
+}
+
+.log-level--error {
+  background: color-mix(in srgb, var(--error) 16%, var(--surface));
+  color: var(--error);
+}
+
+.log-time {
+  color: var(--muted);
+}
+
+.log-text {
+  color: var(--ink);
+}
+
+/* Footer */
+.site-footer {
+  margin-top: auto;
+  border-top: 1px solid color-mix(in srgb, var(--line) 28%, transparent);
+  background: var(--surface);
+}
+
+.footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (min-width: 820px) {
+  .footer-inner {
+    padding: 14px 28px;
+    text-align: left;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <h1 class="brand-title">Leash</h1>
+        <p class="brand-subtitle">Policy-bound agent payments · HSK Chain testnet</p>
+      </div>
+      <div class="header-controls">
+        <span id="outcome-pill" class="pill" hidden></span>
+        <span id="sse-pill" class="pill pill--warn" role="status" aria-live="polite">CONNECTING</span>
+        <button id="theme-toggle" class="theme-btn" type="button" aria-label="Switch colour theme">Dark mode</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <!-- Left Column: Scenarios + Chat Transcript -->
+    <div class="column">
+      <section class="card" aria-labelledby="scenarios-heading">
+        <div class="card-header">
+          <h2 id="scenarios-heading" class="card-title">Scenarios</h2>
+          <span id="scenario-status" class="pill">IDLE</span>
+        </div>
+        <div id="scenario-list" class="scenario-list" role="group" aria-label="Demo scenarios">
+          <p class="empty-state">Loading scenarios…</p>
+        </div>
+        <p id="scenario-error" class="scenario-error" hidden></p>
+      </section>
+
+      <section class="card" aria-labelledby="chat-heading">
+        <div class="card-header">
+          <h2 id="chat-heading" class="card-title">Agent &amp; Owner Transcript</h2>
+          <span id="chat-count" class="mono pill">0</span>
+        </div>
+        <div id="chat-list" class="chat-list" aria-live="polite" aria-relevant="additions">
+          <p class="empty-state">Select a scenario to watch the buyer and seller agents negotiate.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Middle Column: On-Chain Policy + Human Approval Gate -->
+    <div class="column">
+      <section id="policy-card" class="card" aria-labelledby="policy-heading" aria-live="polite" aria-atomic="true">
+        <div class="card-header">
+          <h2 id="policy-heading" class="card-title">On-Chain Policy Vault</h2>
+          <span id="policy-reason-pill" class="pill">STANDBY</span>
+        </div>
+        <div id="policy-body">
+          <p class="empty-state">Awaiting policy check before any funds move.</p>
+        </div>
+      </section>
+
+      <section id="approval-card" class="card approval-card" aria-labelledby="approval-heading" aria-live="assertive" hidden>
+        <div class="card-header">
+          <h2 id="approval-heading" class="card-title">Human Approval Required</h2>
+          <span id="approval-step-pill" class="pill highlight-fill">ACTION</span>
+        </div>
+        <div class="approval-step-banner">
+          <p id="approval-step-title" class="approval-step-title"></p>
+        </div>
+        <div class="approval-details">
+          <dl class="kv-grid">
+            <div class="kv-row">
+              <dt class="kv-key">Pay To (Merchant)</dt>
+              <dd class="kv-val-wrap">
+                <span id="appr-payto" class="kv-val mono"></span>
+                <button id="copy-appr-payto" class="copy-btn" type="button">Copy</button>
+              </dd>
+            </div>
+            <div class="kv-row">
+              <dt class="kv-key">Payer (Human Wallet)</dt>
+              <dd class="kv-val-wrap">
+                <span id="appr-payer" class="kv-val mono"></span>
+                <button id="copy-appr-payer" class="copy-btn" type="button">Copy</button>
+              </dd>
+            </div>
+            <div class="kv-row">
+              <dt class="kv-key">Token Total (raw units)</dt>
+              <dd class="kv-val-wrap">
+                <span id="appr-amount" class="kv-val mono"></span>
+              </dd>
+            </div>
+          </dl>
+        </div>
+        <div class="countdown-row">
+          <span>Quote expires in</span>
+          <span id="appr-countdown" class="mono countdown-value">—</span>
+        </div>
+        <div class="approval-actions">
+          <button id="btn-approve" class="btn btn--approve" type="button">Approve</button>
+          <button id="btn-refuse" class="btn btn--refuse" type="button">Refuse</button>
+        </div>
+        <p id="approval-feedback" class="approval-feedback" hidden></p>
+      </section>
+    </div>
+
+    <!-- Right Column: HSP Status Ticker + Receipt + Collapsible Log -->
+    <div class="column">
+      <section class="card" aria-labelledby="status-heading">
+        <div class="card-header">
+          <h2 id="status-heading" class="card-title">HSP Settlement Status</h2>
+          <span id="status-count" class="mono pill">0</span>
+        </div>
+        <div id="status-region" aria-live="polite" aria-relevant="additions">
+          <p id="status-empty" class="empty-state">No payment status events received yet.</p>
+          <ol id="status-list" class="status-list" hidden></ol>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="receipt-heading">
+        <div class="card-header">
+          <h2 id="receipt-heading" class="card-title">On-Chain Receipt</h2>
+          <span id="receipt-pill" class="pill">UNISSUED</span>
+        </div>
+        <div id="receipt-body">
+          <p class="empty-state">Receipt metadata appears after settlement is recorded on PolicyVault.</p>
+        </div>
+      </section>
+
+      <details id="log-details" class="log-details">
+        <summary class="log-summary">
+          <span>Event Log</span>
+          <span class="log-summary-right">
+            <span id="log-count" class="mono pill">0</span>
+            <span aria-hidden="true">Toggle</span>
+          </span>
+        </summary>
+        <p id="log-empty" class="empty-state">No log lines recorded yet.</p>
+        <ul id="log-list" class="log-list" hidden></ul>
+      </details>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      Hackathon prototype on HSK Chain testnet. Not a financial service; no custody; no returns promised.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const dom = {
+        themeToggle: document.getElementById('theme-toggle'),
+        ssePill: document.getElementById('sse-pill'),
+        outcomePill: document.getElementById('outcome-pill'),
+        scenarioStatus: document.getElementById('scenario-status'),
+        scenarioList: document.getElementById('scenario-list'),
+        scenarioError: document.getElementById('scenario-error'),
+        chatList: document.getElementById('chat-list'),
+        chatCount: document.getElementById('chat-count'),
+        policyReasonPill: document.getElementById('policy-reason-pill'),
+        policyBody: document.getElementById('policy-body'),
+        approvalCard: document.getElementById('approval-card'),
+        approvalStepPill: document.getElementById('approval-step-pill'),
+        approvalStepTitle: document.getElementById('approval-step-title'),
+        apprPayTo: document.getElementById('appr-payto'),
+        apprPayer: document.getElementById('appr-payer'),
+        apprAmount: document.getElementById('appr-amount'),
+        copyApprPayTo: document.getElementById('copy-appr-payto'),
+        copyApprPayer: document.getElementById('copy-appr-payer'),
+        apprCountdown: document.getElementById('appr-countdown'),
+        btnApprove: document.getElementById('btn-approve'),
+        btnRefuse: document.getElementById('btn-refuse'),
+        approvalFeedback: document.getElementById('approval-feedback'),
+        statusCount: document.getElementById('status-count'),
+        statusEmpty: document.getElementById('status-empty'),
+        statusList: document.getElementById('status-list'),
+        receiptPill: document.getElementById('receipt-pill'),
+        receiptBody: document.getElementById('receipt-body'),
+        logCount: document.getElementById('log-count'),
+        logEmpty: document.getElementById('log-empty'),
+        logList: document.getElementById('log-list')
+      };
+
+      const state = {
+        activeScenario: null,
+        pendingReset: false,
+        chatCount: 0,
+        statusCount: 0,
+        logCount: 0,
+        hasFinalConfirmation: false,
+        currentApproval: null,
+        countdownTimer: null,
+        eventSource: null,
+        reconnectDelayMs: 1000,
+        reconnectTimer: null
+      };
+
+      /* Theme toggle */
+      function getEffectiveTheme() {
+        const explicit = document.documentElement.getAttribute('data-theme');
+        if (explicit === 'dark' || explicit === 'light') return explicit;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function syncThemeButton() {
+        const isDark = getEffectiveTheme() === 'dark';
+        dom.themeToggle.textContent = isDark ? 'Light mode' : 'Dark mode';
+        dom.themeToggle.setAttribute('aria-pressed', String(isDark));
+      }
+
+      dom.themeToggle.addEventListener('click', function () {
+        const next = getEffectiveTheme() === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        syncThemeButton();
+      });
+      syncThemeButton();
+
+      /* Formatting & Utility Helpers */
+      function nowTimeLabel() {
+        return new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        });
+      }
+
+      function shortenHash(value) {
+        const str = String(value || '');
+        if (str.length <= 18) return str || '—';
+        return str.slice(0, 10) + '…' + str.slice(-6);
+      }
+
+      function formatMicroUsd(microBig) {
+        const neg = microBig < 0n;
+        const abs = neg ? -microBig : microBig;
+        const whole = abs / 1000000n;
+        const frac = (abs % 1000000n).toString().padStart(6, '0').slice(0, 2);
+        return (neg ? '-' : '') + whole.toString() + '.' + frac + ' USD';
+      }
+
+      function parseUsdValue(raw) {
+        const str = String(raw == null ? '' : raw).trim();
+        if (!str) return { num: 0, display: '0.00 USD' };
+        if (/^-?\d+$/.test(str)) {
+          const bi = BigInt(str);
+          return { num: Number(bi) / 1000000, display: formatMicroUsd(bi) };
+        }
+        const match = str.match(/-?\d+(?:\.\d+)?/);
+        const num = match ? parseFloat(match[0]) : 0;
+        return { num: isNaN(num) ? 0 : num, display: str };
+      }
+
+      function parseExpiryMs(value) {
+        if (value == null || value === '') return NaN;
+        const str = String(value).trim();
+        if (/^\d+$/.test(str)) {
+          const n = Number(str);
+          return n < 1e12 ? n * 1000 : n;
+        }
+        return Date.parse(str);
+      }
+
+      function isSafeHttpUrl(url) {
+        try {
+          const parsed = new URL(String(url));
+          return parsed.protocol === 'https:' || parsed.protocol === 'http:';
+        } catch (_) {
+          return false;
+        }
+      }
+
+      function attachCopyHandler(button, getValue, labelDesc) {
+        button.setAttribute('aria-label', 'Copy ' + labelDesc);
+        button.onclick = function () {
+          const text = String(getValue() || '');
+          if (!text) return;
+          const finish = function () {
+            button.textContent = 'Copied';
+            setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1400);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(finish, function () {
+              fallbackCopy(text);
+              finish();
+            });
+          } else {
+            fallbackCopy(text);
+            finish();
+          }
+        };
+      }
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (_) {}
+        document.body.removeChild(ta);
+      }
+
+      /* Panel Reset (invoked on the first event after POST /run) */
+      function clearCountdown() {
+        if (state.countdownTimer) {
+          clearInterval(state.countdownTimer);
+          state.countdownTimer = null;
+        }
+      }
+
+      function clearPanels() {
+        clearCountdown();
+        state.chatCount = 0;
+        state.statusCount = 0;
+        state.logCount = 0;
+        state.hasFinalConfirmation = false;
+        state.currentApproval = null;
+
+        dom.outcomePill.hidden = true;
+        dom.outcomePill.textContent = '';
+        dom.outcomePill.className = 'pill';
+
+        dom.chatCount.textContent = '0';
+        dom.chatList.innerHTML = '';
+
+        dom.policyReasonPill.textContent = 'EVALUATING';
+        dom.policyReasonPill.className = 'pill';
+        dom.policyBody.innerHTML = '<p class="empty-state">Awaiting policy verdict…</p>';
+
+        dom.approvalCard.hidden = true;
+        dom.approvalFeedback.hidden = true;
+        dom.approvalFeedback.textContent = '';
+        dom.btnApprove.disabled = false;
+        dom.btnRefuse.disabled = false;
+
+        dom.statusCount.textContent = '0';
+        dom.statusList.innerHTML = '';
+        dom.statusList.hidden = true;
+        dom.statusEmpty.hidden = false;
+
+        dom.receiptPill.textContent = 'UNISSUED';
+        dom.receiptPill.className = 'pill';
+        dom.receiptBody.innerHTML = '<p class="empty-state">Receipt metadata appears after settlement is recorded on PolicyVault.</p>';
+
+        dom.logCount.textContent = '0';
+        dom.logList.innerHTML = '';
+        dom.logList.hidden = true;
+        dom.logEmpty.hidden = false;
+      }
+
+      /* Scenarios */
+      async function loadScenarios() {
+        try {
+          const res = await fetch('/scenarios', { headers: { Accept: 'application/json' } });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const scenarios = await res.json();
+          renderScenarios(Array.isArray(scenarios) ? scenarios : []);
+        } catch (err) {
+          dom.scenarioList.innerHTML = '';
+          const retry = document.createElement('button');
+          retry.type = 'button';
+          retry.className = 'scenario-btn';
+          retry.textContent = 'Retry loading scenarios';
+          retry.addEventListener('click', loadScenarios);
+          dom.scenarioList.appendChild(retry);
+          showScenarioError('Could not load scenarios (' + err.message + ').');
+        }
+      }
+
+      function renderScenarios(scenarios) {
+        dom.scenarioList.innerHTML = '';
+        dom.scenarioError.hidden = true;
+        if (!scenarios.length) {
+          dom.scenarioList.innerHTML = '<p class="empty-state">No scenarios registered by server.</p>';
+          return;
+        }
+        scenarios.forEach(function (sc) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'scenario-btn';
+          btn.dataset.scenario = sc.name;
+          btn.setAttribute('aria-pressed', 'false');
+
+          const titleSpan = document.createElement('span');
+          titleSpan.className = 'scenario-title';
+          titleSpan.textContent = sc.title || sc.name;
+
+          const nameSpan = document.createElement('span');
+          nameSpan.className = 'scenario-name mono';
+          nameSpan.textContent = sc.name;
+
+          btn.appendChild(titleSpan);
+          btn.appendChild(nameSpan);
+          btn.addEventListener('click', function () {
+            startScenario(sc.name);
+          });
+          dom.scenarioList.appendChild(btn);
+        });
+      }
+
+      function showScenarioError(msg) {
+        dom.scenarioError.textContent = msg;
+        dom.scenarioError.hidden = false;
+      }
+
+      function updateScenarioSelection(activeName) {
+        const buttons = dom.scenarioList.querySelectorAll('.scenario-btn');
+        buttons.forEach(function (btn) {
+          btn.setAttribute('aria-pressed', String(btn.dataset.scenario === activeName));
+        });
+      }
+
+      async function startScenario(name) {
+        dom.scenarioError.hidden = true;
+        state.activeScenario = name;
+        state.pendingReset = true;
+        updateScenarioSelection(name);
+        dom.scenarioStatus.textContent = 'RUNNING';
+        dom.scenarioStatus.className = 'pill pill--accent';
+
+        try {
+          const res = await fetch('/run?scenario=' + encodeURIComponent(name), {
+            method: 'POST'
+          });
+          if (!res.ok) {
+            throw new Error('Server returned HTTP ' + res.status);
+          }
+        } catch (err) {
+          state.pendingReset = false;
+          dom.scenarioStatus.textContent = 'ERROR';
+          dom.scenarioStatus.className = 'pill pill--error';
+          showScenarioError('Failed to start scenario: ' + err.message);
+        }
+      }
+
+      /* Event Renderers */
+      function renderChat(ev) {
+        if (state.chatCount === 0) {
+          dom.chatList.innerHTML = '';
+        }
+        state.chatCount += 1;
+        dom.chatCount.textContent = String(state.chatCount);
+
+        const role = ev.from === 'buyer' || ev.from === 'seller' || ev.from === 'human' ? ev.from : 'buyer';
+        const item = document.createElement('div');
+        item.className = 'chat-item chat-item--' + role;
+
+        const sender = document.createElement('div');
+        sender.className = 'chat-sender';
+
+        if (role === 'human') {
+          const badge = document.createElement('span');
+          badge.className = 'chat-sender-badge highlight-fill';
+          badge.textContent = 'Human Owner';
+          sender.appendChild(badge);
+        } else {
+          sender.textContent = role === 'buyer' ? 'Buyer Agent' : 'Seller Agent';
+        }
+
+        const bubble = document.createElement('p');
+        bubble.className = 'chat-bubble';
+        bubble.textContent = String(ev.text || '');
+
+        item.appendChild(sender);
+        item.appendChild(bubble);
+        dom.chatList.appendChild(item);
+        dom.chatList.scrollTop = dom.chatList.scrollHeight;
+      }
+
+      function renderPolicy(ev) {
+        const allowed = Boolean(ev.allowed);
+        const reason = String(ev.reason || (allowed ? 'OK' : 'NO_POLICY'));
+        const explain = String(ev.explain || '');
+        const remaining = parseUsdValue(ev.remainingToday);
+        const dailyCap = parseUsdValue(ev.dailyCap);
+        const maxPerPayment = parseUsdValue(ev.maxPerPayment);
+        const merchant = String(ev.merchant || '—');
+
+        const pct = dailyCap.num > 0
+          ? Math.max(0, Math.min(100, (remaining.num / dailyCap.num) * 100))
+          : 0;
+
+        dom.policyReasonPill.textContent = reason;
+        dom.policyReasonPill.className = allowed ? 'pill pill--live' : 'pill pill--error';
+
+        dom.policyBody.innerHTML = '';
+
+        const verdictRow = document.createElement('div');
+        verdictRow.className = 'policy-verdict-row';
+
+        const verdictWord = document.createElement('p');
+        verdictWord.className = 'policy-verdict-word ' + (allowed ? 'policy-verdict-word--allowed' : 'policy-verdict-word--blocked');
+        verdictWord.textContent = allowed ? 'ALLOWED' : 'BLOCKED';
+        verdictRow.appendChild(verdictWord);
+
+        const stateTag = document.createElement('span');
+        stateTag.className = allowed ? 'pill pill--solid-success' : 'pill pill--solid-error';
+        stateTag.textContent = allowed ? 'POLICY PERMITS' : 'POLICY BLOCKS';
+        verdictRow.appendChild(stateTag);
+
+        const explainEl = document.createElement('p');
+        explainEl.className = 'policy-explain';
+        explainEl.textContent = explain;
+
+        const capBlock = document.createElement('div');
+        capBlock.className = 'cap-block';
+
+        const capLabels = document.createElement('div');
+        capLabels.className = 'cap-labels';
+
+        const capTitle = document.createElement('span');
+        capTitle.className = 'cap-label-title';
+        capTitle.textContent = 'Remaining today / Daily cap';
+
+        const capNums = document.createElement('span');
+        capNums.className = 'cap-numbers mono';
+        capNums.textContent = remaining.display + ' / ' + dailyCap.display;
+
+        capLabels.appendChild(capTitle);
+        capLabels.appendChild(capNums);
+
+        const barTrack = document.createElement('div');
+        barTrack.className = 'bar-track';
+        barTrack.setAttribute('role', 'progressbar');
+        barTrack.setAttribute('aria-label', 'Remaining daily spending allowance');
+        barTrack.setAttribute('aria-valuemin', '0');
+        barTrack.setAttribute('aria-valuemax', '100');
+        barTrack.setAttribute('aria-valuenow', String(Math.round(pct)));
+
+        const barFill = document.createElement('div');
+        barFill.className = 'bar-fill' + (!allowed ? ' bar-fill--blocked' : (pct < 25 ? ' bar-fill--low' : ''));
+        barFill.style.width = pct.toFixed(1) + '%';
+        barTrack.appendChild(barFill);
+
+        const capFootnote = document.createElement('div');
+        capFootnote.className = 'cap-footnote mono';
+        const pctLabel = document.createElement('span');
+        pctLabel.textContent = Math.round(pct) + '% remaining';
+        const windowLabel = document.createElement('span');
+        windowLabel.textContent = 'UTC day window';
+        capFootnote.appendChild(pctLabel);
+        capFootnote.appendChild(windowLabel);
+
+        capBlock.appendChild(capLabels);
+        capBlock.appendChild(barTrack);
+        capBlock.appendChild(capFootnote);
+
+        const dl = document.createElement('dl');
+        dl.className = 'kv-grid';
+
+        const maxRow = createKvRow('Max per payment', maxPerPayment.display, false, null);
+        const merchRow = createKvRow('Merchant', shortenHash(merchant), true, merchant, 'merchant address');
+
+        dl.appendChild(maxRow);
+        dl.appendChild(merchRow);
+
+        dom.policyBody.appendChild(verdictRow);
+        dom.policyBody.appendChild(explainEl);
+        dom.policyBody.appendChild(capBlock);
+        dom.policyBody.appendChild(dl);
+      }
+
+      function renderApproval(ev) {
+        clearCountdown();
+        const step = ev.step === 'submit' ? 'submit' : 'sign';
+        state.currentApproval = {
+          step: step,
+          payTo: String(ev.payTo || ''),
+          payer: String(ev.payer || ''),
+          tokenTotalRaw: String(ev.tokenTotalRaw || ''),
+          quoteExpiresAt: ev.quoteExpiresAt
+        };
+
+        dom.approvalStepPill.textContent = step === 'sign' ? 'STEP 1 · SIGN' : 'STEP 2 · SUBMIT';
+        dom.approvalStepTitle.textContent = step === 'sign'
+          ? 'Authorize EIP-712 payment signature'
+          : 'Confirm payment submission to HSP Gateway';
+
+        dom.apprPayTo.textContent = shortenHash(state.currentApproval.payTo);
+        dom.apprPayTo.title = state.currentApproval.payTo;
+        dom.apprPayer.textContent = shortenHash(state.currentApproval.payer);
+        dom.apprPayer.title = state.currentApproval.payer;
+        dom.apprAmount.textContent = state.currentApproval.tokenTotalRaw + ' raw units';
+
+        attachCopyHandler(dom.copyApprPayTo, function () { return state.currentApproval && state.currentApproval.payTo; }, 'merchant address');
+        attachCopyHandler(dom.copyApprPayer, function () { return state.currentApproval && state.currentApproval.payer; }, 'payer address');
+
+        dom.btnApprove.disabled = false;
+        dom.btnRefuse.disabled = false;
+        dom.approvalFeedback.hidden = true;
+        dom.approvalFeedback.textContent = '';
+
+        const expiryMs = parseExpiryMs(ev.quoteExpiresAt);
+        function tickCountdown() {
+          if (isNaN(expiryMs)) {
+            dom.apprCountdown.textContent = String(ev.quoteExpiresAt || '—');
+            dom.apprCountdown.className = 'mono countdown-value';
+            return;
+          }
+          const diffSec = Math.ceil((expiryMs - Date.now()) / 1000);
+          if (diffSec <= 0) {
+            dom.apprCountdown.textContent = 'EXPIRED (00:00)';
+            dom.apprCountdown.className = 'mono countdown-value countdown-value--expired';
+            clearCountdown();
+            return;
+          }
+          const mins = Math.floor(diffSec / 60);
+          const secs = diffSec % 60;
+          dom.apprCountdown.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+          dom.apprCountdown.className = 'mono countdown-value' + (diffSec <= 20 ? ' countdown-value--warn' : '');
+        }
+        tickCountdown();
+        if (!isNaN(expiryMs)) {
+          state.countdownTimer = setInterval(tickCountdown, 250);
+        }
+
+        dom.approvalCard.hidden = false;
+      }
+
+      async function submitDecision(answer) {
+        if (!state.currentApproval) return;
+        const step = state.currentApproval.step;
+        dom.btnApprove.disabled = true;
+        dom.btnRefuse.disabled = true;
+        dom.approvalFeedback.textContent = 'Sending ' + answer + ' decision for ' + step + '…';
+        dom.approvalFeedback.hidden = false;
+
+        try {
+          const url = '/decision?step=' + encodeURIComponent(step) + '&answer=' + encodeURIComponent(answer);
+          const res = await fetch(url, { method: 'POST' });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          clearCountdown();
+          dom.approvalFeedback.textContent = answer === 'approve'
+            ? 'APPROVED (' + step + ') — awaiting next step.'
+            : 'REFUSED (' + step + ') — halting payment.';
+        } catch (err) {
+          dom.btnApprove.disabled = false;
+          dom.btnRefuse.disabled = false;
+          dom.approvalFeedback.textContent = 'Decision failed (' + err.message + '). Try again.';
+        }
+      }
+
+      dom.btnApprove.addEventListener('click', function () { submitDecision('approve'); });
+      dom.btnRefuse.addEventListener('click', function () { submitDecision('refuse'); });
+
+      function renderStatus(ev) {
+        const status = String(ev.status || '').trim();
+        const rawLabel = String(ev.label || '').trim();
+        const isFinalConfirmation = status === 'payment-finalized';
+
+        let displayLabel = rawLabel || status || 'unknown';
+        let note = '';
+        let wordClass = 'status-word--default';
+
+        if (status === 'payment-safe' && rawLabel.toLowerCase() !== 'pending confirmation') {
+          displayLabel = 'confirming';
+          note = 'on-chain, not final yet';
+          wordClass = 'status-word--warn';
+        } else if (isFinalConfirmation) {
+          displayLabel = 'finalized';
+          wordClass = 'status-word--final';
+          state.hasFinalConfirmation = true;
+        } else if (displayLabel.toLowerCase() === 'pending confirmation') {
+          wordClass = 'status-word--warn';
+        }
+
+        state.statusCount += 1;
+        dom.statusCount.textContent = String(state.statusCount);
+        dom.statusEmpty.hidden = true;
+        dom.statusList.hidden = false;
+
+        const previousLatest = dom.statusList.querySelector('.status-item--latest');
+        if (previousLatest) {
+          previousLatest.classList.remove('status-item--latest');
+          const oldTag = previousLatest.querySelector('.status-tag-latest');
+          if (oldTag) oldTag.remove();
+        }
+
+        const li = document.createElement('li');
+        li.className = 'status-item status-item--latest';
+
+        const top = document.createElement('div');
+        top.className = 'status-item-top';
+
+        const labelGroup = document.createElement('div');
+        labelGroup.className = 'status-label-group';
+
+        const word = document.createElement('span');
+        word.className = 'status-word mono ' + wordClass;
+        word.textContent = displayLabel;
+
+        const latestTag = document.createElement('span');
+        latestTag.className = 'status-tag-latest highlight-fill';
+        latestTag.textContent = 'Latest';
+
+        labelGroup.appendChild(word);
+        labelGroup.appendChild(latestTag);
+
+        const time = document.createElement('span');
+        time.className = 'status-time mono';
+        time.textContent = nowTimeLabel();
+
+        top.appendChild(labelGroup);
+        top.appendChild(time);
+        li.appendChild(top);
+
+        if (status && status !== displayLabel) {
+          const rawEl = document.createElement('span');
+          rawEl.className = 'status-raw mono';
+          rawEl.textContent = 'status: ' + status;
+          li.appendChild(rawEl);
+        }
+
+        if (note) {
+          const noteEl = document.createElement('p');
+          noteEl.className = 'status-note';
+          noteEl.textContent = note;
+          li.appendChild(noteEl);
+        }
+
+        dom.statusList.prepend(li);
+      }
+
+      function createKvRow(label, displayValue, withCopy, fullValue, copyDesc) {
+        const row = document.createElement('div');
+        row.className = 'kv-row';
+
+        const dt = document.createElement('dt');
+        dt.className = 'kv-key';
+        dt.textContent = label;
+
+        const dd = document.createElement('dd');
+        dd.className = 'kv-val-wrap';
+
+        const span = document.createElement('span');
+        span.className = 'kv-val mono';
+        span.textContent = displayValue || '—';
+        if (fullValue) span.title = fullValue;
+        dd.appendChild(span);
+
+        if (withCopy && fullValue) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'copy-btn';
+          btn.textContent = 'Copy';
+          attachCopyHandler(btn, function () { return fullValue; }, copyDesc || label);
+          dd.appendChild(btn);
+        }
+
+        row.appendChild(dt);
+        row.appendChild(dd);
+        return row;
+      }
+
+      function renderReceipt(ev) {
+        dom.receiptPill.textContent = state.hasFinalConfirmation ? 'RECORDED' : 'CONFIRMING';
+        dom.receiptPill.className = state.hasFinalConfirmation ? 'pill pill--live' : 'pill pill--warn';
+
+        dom.receiptBody.innerHTML = '';
+        const dl = document.createElement('dl');
+        dl.className = 'kv-grid';
+
+        const intentId = String(ev.intentId || '');
+        const flowId = String(ev.flowId || '');
+        const paymentRequestId = String(ev.paymentRequestId || '');
+        const policyHash = String(ev.policyHash || '');
+        const txHash = String(ev.txHash || '');
+
+        dl.appendChild(createKvRow('Intent ID', intentId || '—', Boolean(intentId), intentId, 'intent ID'));
+        dl.appendChild(createKvRow('Flow ID', shortenHash(flowId), Boolean(flowId), flowId, 'flow ID'));
+        dl.appendChild(createKvRow('Payment Request ID', shortenHash(paymentRequestId), Boolean(paymentRequestId), paymentRequestId, 'payment request ID'));
+        dl.appendChild(createKvRow('Policy Hash', shortenHash(policyHash), Boolean(policyHash), policyHash, 'policy hash'));
+        dl.appendChild(createKvRow('Transaction Hash', shortenHash(txHash), Boolean(txHash), txHash, 'transaction hash'));
+
+        dom.receiptBody.appendChild(dl);
+
+        if (isSafeHttpUrl(ev.explorerUrl)) {
+          const link = document.createElement('a');
+          link.className = 'explorer-link';
+          link.href = ev.explorerUrl;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = 'View transaction on HSK Chain Explorer';
+          dom.receiptBody.appendChild(link);
+        }
+      }
+
+      function renderLog(ev) {
+        state.logCount += 1;
+        dom.logCount.textContent = String(state.logCount);
+        dom.logEmpty.hidden = true;
+        dom.logList.hidden = false;
+
+        const level = ev.level === 'warn' || ev.level === 'error' ? ev.level : 'info';
+        const li = document.createElement('li');
+        li.className = 'log-entry mono';
+
+        const lvl = document.createElement('span');
+        lvl.className = 'log-level log-level--' + level;
+        lvl.textContent = level.toUpperCase();
+
+        const time = document.createElement('span');
+        time.className = 'log-time';
+        time.textContent = nowTimeLabel();
+
+        const txt = document.createElement('span');
+        txt.className = 'log-text';
+        txt.textContent = String(ev.text || '');
+
+        li.appendChild(lvl);
+        li.appendChild(time);
+        li.appendChild(txt);
+        dom.logList.appendChild(li);
+        dom.logList.scrollTop = dom.logList.scrollHeight;
+        if (level !== 'info') { var det = document.getElementById('log-details'); if (det) det.open = true; }
+      }
+
+      function renderDone(ev) {
+        clearCountdown();
+        const outcome = String(ev.outcome || 'failed');
+
+        dom.scenarioStatus.textContent = 'DONE';
+        dom.scenarioStatus.className = 'pill';
+
+        let label = outcome.toUpperCase();
+        let pillClass = 'pill';
+
+        if (outcome === 'settled') {
+          if (state.hasFinalConfirmation) {
+            label = 'SETTLED';
+            pillClass = 'pill pill--solid-success';
+          } else {
+            label = 'AWAITING FINAL CONFIRMATION';
+            pillClass = 'pill pill--solid-warn';
+          }
+        } else if (outcome === 'blocked' || outcome === 'failed') {
+          pillClass = 'pill pill--solid-error';
+        } else if (outcome === 'refused' || outcome === 'pending') {
+          pillClass = 'pill pill--solid-warn';
+        } else if (outcome === 'handoff') {
+          pillClass = 'pill pill--accent';
+        }
+
+        dom.outcomePill.textContent = label;
+        dom.outcomePill.className = pillClass;
+        dom.outcomePill.hidden = false;
+
+        if (!dom.approvalCard.hidden) {
+          dom.btnApprove.disabled = true;
+          dom.btnRefuse.disabled = true;
+        }
+      }
+
+      /* Incoming Event Dispatcher */
+      function handleServerEvent(ev) {
+        if (!ev || typeof ev !== 'object') return;
+
+        if (state.pendingReset) {
+          clearPanels();
+          state.pendingReset = false;
+        }
+
+        switch (ev.type) {
+          case 'chat':
+            renderChat(ev);
+            break;
+          case 'policy':
+            renderPolicy(ev);
+            break;
+          case 'approval_needed':
+            renderApproval(ev);
+            break;
+          case 'status':
+            renderStatus(ev);
+            break;
+          case 'receipt':
+            renderReceipt(ev);
+            break;
+          case 'log':
+            renderLog(ev);
+            break;
+          case 'done':
+            renderDone(ev);
+            break;
+          default:
+            renderLog({ level: 'info', text: 'Unhandled event: ' + JSON.stringify(ev) });
+        }
+      }
+
+      /* SSE Connection with Automatic Reconnect */
+      function setSseBadge(text, modifier) {
+        dom.ssePill.textContent = text;
+        dom.ssePill.className = 'pill ' + modifier;
+      }
+
+      function connectEvents() {
+        if (state.reconnectTimer) {
+          clearTimeout(state.reconnectTimer);
+          state.reconnectTimer = null;
+        }
+        if (state.eventSource) {
+          try { state.eventSource.close(); } catch (_) {}
+          state.eventSource = null;
+        }
+
+        setSseBadge('CONNECTING', 'pill--warn');
+        const es = new EventSource('/events');
+        state.eventSource = es;
+
+        es.onopen = function () {
+          state.reconnectDelayMs = 1000;
+          setSseBadge('LIVE', 'pill--live');
+        };
+
+        es.onmessage = function (messageEvent) {
+          if (!messageEvent.data) return;
+          try {
+            const payload = JSON.parse(messageEvent.data);
+            handleServerEvent(payload);
+          } catch (err) {
+            renderLog({ level: 'error', text: 'Malformed SSE payload: ' + err.message });
+          }
+        };
+
+        es.onerror = function () {
+          setSseBadge('RECONNECTING', 'pill--error');
+          try { es.close(); } catch (_) {}
+          state.eventSource = null;
+
+          const delay = state.reconnectDelayMs;
+          state.reconnectDelayMs = Math.min(state.reconnectDelayMs * 2, 8000);
+          state.reconnectTimer = setTimeout(connectEvents, delay);
+        };
+      }
+
+      /* Bootstrap */
+      loadScenarios();
+      connectEvents();
+    })();
+  </script>
+</body>
+</html>

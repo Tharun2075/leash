@@ -1,0 +1,1 @@
+2026-11-22 17:09Z GET https://mcp-qa.hashkeymerchant.com/health -> Cloudflare 'Sorry, you have been blocked' (egress IP not allowlisted). Single check, no retry per HSP guide.

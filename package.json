@@ -1,0 +1,21 @@
+{
+  "name": "leash-hsp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Leash: policy-bound agent-to-agent payments on HSP with an on-chain spending policy on HSK Chain",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "node --test 'agent/**/*.test.ts'",
+    "test:contracts": "cd contracts && forge test -vv",
+    "demo": "node agent/server.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "@openzeppelin/contracts": "^5.6.1",
+    "viem": "^2.58.4"
+  }
+}

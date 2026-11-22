@@ -1,0 +1,80 @@
+# Leash
+
+A spending leash for AI agents that pay through HSP (HashKey Settlement Protocol) on HSK Chain.
+HSK Chain Horizon Hackathon Seoul, Track 2: Agent Payments & A2A Settlement.
+
+**Hackathon prototype.** Leash is not an electronic financial service, holds no one's keys or funds
+(non-custodial), and promises no returns. Testnet only.
+
+## What it does
+
+A buyer agent negotiates with a seller agent in a conversational interface. Before any money moves:
+
+1. **Policy first.** An on-chain `PolicyVault` holds the owner's rules for the agent: daily cap,
+   per-payment limit, allowed merchants, cooldown. The agent must reserve each payment with
+   `requestPayment`; the contract reverts with a reason when the rule says no. The card in the UI
+   explains the reason in plain words. Blocked payments never reach HSP.
+2. **Human approves twice.** The HSP Gateway flow is `create_order` -> `prepare_payment` ->
+   the human approves -> EIP-712 signature in the payer's wallet -> `finalize_payment` -> the human
+   approves again -> `submit_payment`. The owner's approval is also an on-chain `approve` call on the vault.
+3. **Honest status.** The agent polls `query_payment` every 15 s. `payment-safe` is shown as
+   "confirming"; the word "finalized" appears only after `payment-finalized`. After 10 minutes it
+   prints `flow_id` and `payment_request_id`, marks the payment pending, and never places a second order.
+4. **Receipt.** On `payment-finalized`, the agent calls `settle`, which mints an on-chain receipt
+   binding the intent, the HSP flow, the payment request, the policy hash and the HSP tx hash.
+
+Hard faults handled (tests in `agent/flow.test.ts`):
+over daily cap, merchant not allowed, quote older than 5 min, Gateway error 30043 (re-prepare once,
+never resubmit an old signature), stuck at payment-safe, restart between prepare and finalize
+(compare-and-set against `query_payment`, conflicts go to the human), refused signature.
+
+## Run
+
+```sh
+npm install
+export PATH="$HOME/.foundry/bin:$PATH"
+(cd contracts && forge build && forge test)
+npm test                       # agent tests, incl. a local anvil end-to-end run
+npm run demo                   # console at http://127.0.0.1:8787
+```
+
+Environment: `LEASH_HSP=live` uses the real HSP MCP server (needs `HSP_ALLOWLIST_CONFIRMED=1`; see below).
+`LEASH_RPC`, `LEASH_VAULT`, `LEASH_AGENT_KEY`, `LEASH_OWNER_KEY` switch the vault from the in-memory
+mirror to the deployed contract.
+
+## Status
+
+- HSP live calls: **pending allowlist.** `agent/hsp/mcp.ts` implements the 8 documented MCP tools
+  (get_chain_config, create_order, get_order, prepare_payment, finalize_payment, estimate_fee,
+  submit_payment, query_payment) against https://mcp-qa.hashkeymerchant.com/ and refuses to connect
+  until the QA allowlist is confirmed. All flows run today against `agent/hsp/mock.ts`, which follows
+  the documented shapes and verifies real EIP-712 signatures.
+- Contract: tested (forge) and deployed end-to-end on a local chain. Testnet deploy: see `DEPLOYMENTS.md`.
+- HSK Chain mainnet deployment is required by the rules to claim a prize; it is not done and needs an owner decision.
+
+## Guardrails we acknowledge
+
+- Uses the HSP Gateway and the EIP-712 payment authorization protocol; the payer signs in their own wallet.
+- Non-custodial: no user keys are held; the agent cannot move funds without the human's signature.
+- Korean law applies to the host event: Electronic Financial Transactions Act (EFTA), Act on the Protection
+  of Virtual Asset Users (VAUPA), and the Supervisory Regulation on Electronic Financial Services
+  (IT asset management, vulnerability testing). A prototype cannot disclaim those duties; it stays on
+  testnet and moves no customer funds.
+- Agent risk is managed in the spirit of the NIST AI Risk Management Framework (AI RMF): hard limits
+  outside the model, human approval at each money step, no fabricated confirmations.
+- No private keys or secrets in the repository or logs (checked with gitleaks).
+
+## Reuse
+
+- REUSE: EVM client, EIP-712 signing and verification -> viem (MIT)
+- REUSE: MCP client -> @modelcontextprotocol/sdk (MIT)
+- REUSE: Ownable -> @openzeppelin/contracts (MIT)
+- REUSE: contract tests and local chain -> Foundry forge-std (MIT/Apache-2.0), anvil
+- REUSE: test runner and HTTP/SSE server -> Node.js built-ins (`node:test`, `node:http`)
+
+Home-made parts: the policy engine mirror (`agent/policy.ts`, must match the contract bit for bit),
+the payment state machine (`agent/flow.ts`, HSP-specific), the HSP mock (`agent/hsp/mock.ts`).
+
+## License
+
+MIT, see `LICENSE`.
