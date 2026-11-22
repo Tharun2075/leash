@@ -1,0 +1,19 @@
+No files changed, compilation skipped
+
+Ran 13 tests for test/PolicyVault.t.sol:PolicyVaultTest
+[PASS] test_AgentCannotSettleBeforeApprove_AndNonAgentCannotSettle() (gas: 297911)
+[PASS] test_CancelReleasesDailyReservation() (gas: 612977)
+[PASS] test_DayRolloverResetsDailyCap() (gas: 636643)
+[PASS] test_HappyPath_RequestApproveSettle() (gas: 586976)
+[PASS] test_NonOwnerCannotAdminOrApprove() (gas: 317638)
+[PASS] test_PolicyHashChangesWhenPolicyChanges() (gas: 122014)
+[PASS] test_Reason_Cooldown() (gas: 290494)
+[PASS] test_Reason_NoPolicy_UnsetAndPaused() (gas: 162303)
+[PASS] test_Reason_NotAllowedMerchant() (gas: 63931)
+[PASS] test_Reason_OverDailyCap() (gas: 269055)
+[PASS] test_Reason_OverPerPayment() (gas: 64098)
+[PASS] test_Reason_ZeroAmount() (gas: 59308)
+[PASS] test_StrangerCannotCancel() (gas: 237596)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 13.35ms (23.05ms CPU time)
+
+Ran 1 test suite in 16.14ms (13.35ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)

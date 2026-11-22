@@ -1,0 +1,6 @@
+{"type":"chat","from":"buyer","text":"I need one day of hourly weather data for Seoul. What is your price?"}
+{"type":"chat","from":"seller","text":"3.00 USD, paid through HSP to 0x5e11...00a1. Quote valid 5 minutes."}
+{"type":"chat","from":"buyer","text":"Checking my owner's spending policy before anything moves."}
+{"type":"policy","allowed":false,"reason":"OVER_DAILY_CAP","explain":"Blocked: 3.00 USD would exceed today's cap (1.00 USD left of 50.00 USD).","remainingToday":"1.00 USD","dailyCap":"50.00 USD","maxPerPayment":"5.00 USD","merchant":"0x5e11e700000000000000000000000000000000a1"}
+{"type":"log","level":"info","text":"policy blocked (OVER_DAILY_CAP) before any HSP call"}
+{"type":"done","outcome":"blocked"}

@@ -1,0 +1,8 @@
+happy              -> settled
+blocked-merchant   -> blocked
+over-cap           -> blocked
+quote-expired      -> settled
+gateway-30043      -> settled
+stuck-safe         -> pending
+restart            -> handoff
+refuse-sign        -> refused

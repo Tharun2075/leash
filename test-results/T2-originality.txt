@@ -1,0 +1,28 @@
+# T2 originality  2026-11-22T17:16:34Z
+## first commit
+d766ea6 2026-11-22 18:16:28 +0100 Leash: policy-bound agent payments on HSP (testnet prototype)
+rule: on or after 2026-11-20
+## dependencies (direct) and licences
+@modelcontextprotocol/sdk 1.32.2 MIT
+@openzeppelin/contracts 5.6.1 MIT
+viem 2.58.4 MIT
+## vendored: contracts/lib/forge-std
+LICENSE-APACHE
+LICENSE-MIT
+  "version": "1.17.0",
+## transitive licences (package-lock.json, all packages)
+  99 MIT
+   7 ISC
+   2 BSD-3-Clause
+   1 BSD-2-Clause
+outside MIT/Apache/BSD/ISC/MPL/CC0: none
+## files outside agent/ contracts/src contracts/test ui/ brand/ that are code
+.gitignore
+DEPLOYMENTS.md
+LICENSE
+README.md
+contracts/foundry.toml
+package-lock.json
+package.json
+
+verdict: PASS if first commit >= 2026-11-20 and every licence above is permissive

@@ -1,0 +1,26 @@
+✔ e2e on anvil: on-chain policy, human approval tx, receipt minted; blocked + refused paths (263.507542ms)
+✔ happy path: policy ok, two human approvals, finalized, receipt (26.8775ms)
+✔ T6a payment above daily cap is blocked before any HSP call (0.54375ms)
+✔ T6b merchant not on the allow list is blocked before any HSP call (1.238417ms)
+✔ T6c expired quote: re-prepare once, old quote never signed or submitted (3.242ms)
+✔ T6c quote expires while the human waits: prepare again, no submit of the old signature (5.03575ms)
+✔ T6d Gateway 30043: re-prepare once with a new signature, never resubmit the old one (5.622459ms)
+✔ T6e stuck at payment-safe 11 minutes: pending, ids printed, no re-order (3.101083ms)
+✔ T6f restart between prepare and finalize: compare with query_payment, hand conflict to human, no duplicate mandate (0.615417ms)
+✔ T6f restart after submit: resumes polling the same ids, no second submit (2.599917ms)
+✔ T6f restart with only an order: prepares on the same flow_id, never a new order (2.925041ms)
+✔ T7 refused signature: no finalize_payment, "awaiting human signature" logged, no receipt (0.589541ms)
+✔ T8 "finalized" appears only for payment-finalized; payment-safe renders as confirming (11.861334ms)
+✔ REASONS order matches PolicyVault.Reason enum (0.646ms)
+✔ each reason (0.235333ms)
+✔ check order: unknown merchant AND over cap -> NOT_ALLOWED_MERCHANT (0.058834ms)
+✔ boundaries (0.080542ms)
+✔ formatUsd truncates (0.063667ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 682.560084

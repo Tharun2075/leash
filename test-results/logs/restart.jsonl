@@ -1,0 +1,13 @@
+{"type":"chat","from":"buyer","text":"I need one day of hourly weather data for Seoul. What is your price?"}
+{"type":"chat","from":"seller","text":"1.00 USD, paid through HSP to 0x5e11...00a1. Quote valid 5 minutes."}
+{"type":"chat","from":"buyer","text":"Checking my owner's spending policy before anything moves."}
+{"type":"policy","allowed":true,"reason":"OK","explain":"Allowed: 49.00 USD of 50.00 USD left today after this payment.","remainingToday":"50.00 USD","dailyCap":"50.00 USD","maxPerPayment":"5.00 USD","merchant":"0x5e11e700000000000000000000000000000000a1"}
+{"type":"log","level":"info","text":"intent 1 reserved on PolicyVault"}
+{"type":"log","level":"info","text":"order created flow_id=mock-flow-1 payment_request_id=mock-pr-1"}
+{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0xBea77220D093bf02B47AECD3ca553DcCdEd971DA","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:22:08.982Z"}
+{"type":"log","level":"info","text":"awaiting human signature"}
+{"type":"log","level":"error","text":"agent process killed (simulated)"}
+{"type":"log","level":"info","text":"agent restarted; reading its journal"}
+{"type":"log","level":"info","text":"resuming demo-restart-1795367828982 from stage \"prepared\""}
+{"type":"log","level":"warn","text":"conflict: journal stage \"prepared\" but gateway shows \"order-created\" (no payment). A signature may exist for an old quote; it is never resubmitted. Human decides. flow_id=mock-flow-1 payment_request_id=mock-pr-1"}
+{"type":"done","outcome":"handoff"}

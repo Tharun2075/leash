@@ -1,0 +1,6 @@
+{"type":"chat","from":"buyer","text":"I need one day of hourly weather data for Seoul. What is your price?"}
+{"type":"chat","from":"seller","text":"1.00 USD, paid through HSP to 0x0dd5...0b0b. Quote valid 5 minutes."}
+{"type":"chat","from":"buyer","text":"Checking my owner's spending policy before anything moves."}
+{"type":"policy","allowed":false,"reason":"NOT_ALLOWED_MERCHANT","explain":"Blocked: merchant 0x0dd5...0b0b is not on your allowed list.","remainingToday":"50.00 USD","dailyCap":"50.00 USD","maxPerPayment":"5.00 USD","merchant":"0x0dd5e11e00000000000000000000000000000b0b"}
+{"type":"log","level":"info","text":"policy blocked (NOT_ALLOWED_MERCHANT) before any HSP call"}
+{"type":"done","outcome":"blocked"}
