@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leash: a budget your AI agent cannot overspend (HSK mainnet)</title>
+  <meta name="description" content="Give each AI agent a budget it cannot overspend, enforced on HSK mainnet (chain 177).">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/tokens.css">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-row">
+    <a class="logo" href="#top" aria-label="Leash home">Leash</a>
+    <nav class="top-nav" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#live">Live budget</a>
+      <a href="#hsp">HSP</a>
+      <a href="#team">Team</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- 1. HERO -->
+  <section class="hero wrap">
+    <p class="eyebrow">HSK Chain Horizon Hackathon Seoul · Track 2: Agent Payments</p>
+    <h1>Give each AI agent a budget it cannot overspend, enforced on HSK mainnet.</h1>
+    <p class="lede">The owner sets a daily allowance, a per-payment limit, the shops the agent may pay and a cooldown.
+      The agent must ask the contract before every payment. If the budget says no, the payment is blocked on chain
+      with a plain reason, and only the owner can change the budget.</p>
+    <ul class="badges" aria-label="On-chain proof">
+      <li><a class="badge badge-chain" href="https://hsk.blockscout.com" rel="noopener"><span class="dot" aria-hidden="true"></span>HSK Chain mainnet · chain 177</a></li>
+      <li><a class="badge" href="https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9?tab=contract" rel="noopener">✓ Contract source verified on Blockscout</a></li>
+      <li><a class="badge mono" href="https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9" rel="noopener">PolicyVault 0x7360…13a9</a></li>
+    </ul>
+    <div class="video-slot" role="img" aria-label="Demo video placeholder">
+      <div class="video-inner">
+        <span class="play" aria-hidden="true">▶</span>
+        <p><strong>2-minute demo video</strong></p>
+        <p class="muted">Coming soon. Until then, every claim on this page links to a mainnet transaction.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. HOW IT WORKS -->
+  <section id="how" class="band">
+    <div class="wrap">
+      <h2>How it works, in three steps</h2>
+      <svg class="how" viewBox="0 0 960 240" role="img" aria-labelledby="how-t how-d">
+        <title id="how-t">How Leash works</title>
+        <desc id="how-d">Step 1: the human owner sets the agent budget on the contract. Step 2: the agent asks the contract before each payment. Step 3: the contract either allows it and records a receipt, or blocks it with a reason.</desc>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" class="svg-accent-fill"/>
+          </marker>
+        </defs>
+        <g class="step">
+          <rect x="10" y="30" width="260" height="186" rx="14"/>
+          <text x="30" y="68" class="n">1</text>
+          <text x="30" y="104" class="h">Owner sets the budget</text>
+          <text x="30" y="132" class="b">50 USD a day, 5 USD max</text>
+          <text x="30" y="154" class="b">per payment, listed shops,</text>
+          <text x="30" y="176" class="b">cooldown. Only the owner.</text>
+        </g>
+        <line x1="276" y1="115" x2="340" y2="115" class="svg-arrow" marker-end="url(#arr)"/>
+        <g class="step">
+          <rect x="350" y="30" width="260" height="186" rx="14"/>
+          <text x="370" y="68" class="n">2</text>
+          <text x="370" y="104" class="h">Agent asks first</text>
+          <text x="370" y="132" class="b">Every payment starts with</text>
+          <text x="370" y="154" class="b">requestPayment on the</text>
+          <text x="370" y="176" class="b">mainnet contract.</text>
+        </g>
+        <line x1="616" y1="115" x2="680" y2="115" class="svg-arrow" marker-end="url(#arr)"/>
+        <g class="step">
+          <rect x="690" y="30" width="260" height="186" rx="14"/>
+          <text x="710" y="68" class="n">3</text>
+          <text x="710" y="104" class="h">Allowed or blocked</text>
+          <text x="710" y="132" class="b ok">✓ within budget: owner</text>
+          <text x="710" y="154" class="b ok">  approves, receipt minted</text>
+          <text x="710" y="176" class="b no">✕ over budget: reverts</text>
+          <text x="710" y="196" class="b no">  with a plain reason</text>
+        </g>
+      </svg>
+      <ol class="how-list">
+        <li><strong>Owner sets the budget.</strong> Daily allowance, per-payment limit, listed shops, cooldown. Only the owner key can change it.</li>
+        <li><strong>Agent asks first.</strong> Every payment starts with <code>requestPayment</code> on the mainnet contract.</li>
+        <li><strong>Allowed or blocked.</strong> Within budget: the owner approves and a receipt is minted. Over budget: the call reverts with a plain reason.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3. WHAT IS DIFFERENT -->
+  <section class="wrap">
+    <h2>What is different</h2>
+    <p class="muted">Several agent-payment entries prove that one signed payment matches its quote. Leash is about the budget around all the payments.</p>
+    <div class="cards">
+      <article class="card">
+        <h3>A budget per agent, on mainnet</h3>
+        <p>Daily cap, per-payment max, shop list and cooldown live in a verified contract on HSK mainnet, not in a demo server or on testnet.</p>
+      </article>
+      <article class="card">
+        <h3>Owner and agent are two keys</h3>
+        <p>The agent can only ask. The owner alone edits the budget and approves. You can see the two different addresses on Blockscout.</p>
+        <p class="mono small">owner <a href="https://hsk.blockscout.com/address/0xbB23B962F512b8fD9fb1B0311bd6d8F0fbb93043" rel="noopener">0xbB23…3043</a><br>agent <a href="https://hsk.blockscout.com/address/0x186d6E32EB784e3483acb56acc1c560Eeb49e368" rel="noopener">0x186d…e368</a></p>
+      </article>
+      <article class="card">
+        <h3>A real blocked payment, with its reason</h3>
+        <p>The agent tried 9.00 USD against a 5.00 USD per-payment limit. Mainnet said no, and Blockscout shows the decoded reason.</p>
+        <p class="small"><a href="https://hsk.blockscout.com/tx/0xd89d291a4b6f396993f6d42b00a23a03f424ce82f6c75fe29016f838873259f5" rel="noopener">See the blocked tx →</a></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 4. LIVE PANEL -->
+  <section id="live" class="band">
+    <div class="wrap">
+      <h2>Live budget, read from mainnet</h2>
+      <p class="muted">Read-only. This page calls the contract directly over the public HSK RPC; no wallet, nothing is sent. <span id="block-note" class="mono"></span></p>
+      <div class="live-grid">
+        <article class="panel" id="budget-panel" aria-live="polite">
+          <div class="panel-head">
+            <h3>Agent <span class="mono">0x186d…e368</span></h3>
+            <span class="pill" id="policy-state">reading…</span>
+          </div>
+          <div class="meter" role="meter" aria-label="Budget used today" aria-valuemin="0" aria-valuemax="100" id="meter">
+            <div class="meter-fill" id="meter-fill"></div>
+          </div>
+          <dl class="stats">
+            <div><dt>Left today</dt><dd class="mono big" id="remaining">…</dd></div>
+            <div><dt>Daily allowance</dt><dd class="mono" id="cap">…</dd></div>
+            <div><dt>Max per payment</dt><dd class="mono" id="per">…</dd></div>
+            <div><dt>Cooldown</dt><dd class="mono" id="cool">…</dd></div>
+            <div><dt>Listed shop</dt><dd class="mono"><span id="shop-ok">…</span> 0x5e11…00a1</dd></div>
+            <div><dt>Payment intents so far</dt><dd class="mono" id="intents">…</dd></div>
+          </dl>
+          <p class="small muted" id="live-error" hidden></p>
+        </article>
+
+        <article class="panel" id="decoder">
+          <h3>Why blocked? Ask the contract</h3>
+          <p class="small muted">Runs the contract's own <code>check()</code> as a read-only call for this agent. Nothing is spent.</p>
+          <form id="check-form" class="check-form">
+            <label>Amount (USD)
+              <input id="amt" type="number" min="0" step="0.01" value="9.00" inputmode="decimal">
+            </label>
+            <label>Shop
+              <select id="shop">
+                <option value="0x5e11e700000000000000000000000000000000a1">Listed shop 0x5e11…00a1</option>
+                <option value="0x000000000000000000000000000000000000dead">Unknown shop 0x0000…dead</option>
+              </select>
+            </label>
+            <button type="submit">Ask mainnet</button>
+          </form>
+          <p class="verdict" id="verdict" aria-live="polite">Try 9.00 USD: it is over the 5.00 USD per-payment limit.</p>
+          <details class="codes">
+            <summary>All reason codes</summary>
+            <ol start="0" class="small" id="code-list"></ol>
+          </details>
+        </article>
+
+        <article class="panel" id="receipt">
+          <div class="panel-head">
+            <h3>Latest signed receipt</h3>
+            <span class="pill pill-mock">HSP mock (QA access pending)</span>
+          </div>
+          <dl class="stats one">
+            <div><dt>Intent</dt><dd class="mono" id="r-intent">…</dd></div>
+            <div><dt>HSP flow</dt><dd class="mono" id="r-flow">…</dd></div>
+            <div><dt>Status trail</dt><dd class="small" id="r-trail">…</dd></div>
+            <div><dt>Settle tx</dt><dd class="mono small" id="r-tx">…</dd></div>
+            <div><dt>Signature</dt><dd class="mono small" id="r-sig">…</dd></div>
+          </dl>
+          <ul class="checks small" id="r-checks" aria-label="On-chain re-check"></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. HSP -->
+  <section id="hsp" class="wrap">
+    <h2>Paying through HSP</h2>
+    <p class="mock-note"><span class="pill pill-mock">HSP mock (QA access pending)</span> HashKey's HSP QA gateway has not allowlisted us yet. Until it does, the HSP steps run against a mock that follows the documented shapes and checks real signatures. The budget contract and receipts above are real mainnet.</p>
+    <ol class="flow">
+      <li><strong>Budget first.</strong> <code>requestPayment</code> on the vault. Blocked payments never reach HSP.</li>
+      <li><strong>Prepare.</strong> <code>create_order</code> → <code>prepare_payment</code> returns an EIP-712 payment mandate.</li>
+      <li><strong>Check before signing.</strong> Leash compares the EIP-712 data with the purchase: chain id, token, recipient = listed shop, value = the budget-checked amount. Any mismatch refuses.</li>
+      <li><strong>One human approval.</strong> The owner approves a card built from that checked message and signs in their own wallet; the vault records <code>approve</code>.</li>
+      <li><strong>Honest status.</strong> <code>finalize_payment</code>, then <code>query_payment</code>: <em>payment-safe</em> is shown as "confirming"; "finalized" only after <em>payment-finalized</em>.</li>
+      <li><strong>Receipt.</strong> <code>settle</code> stores hashes of flow_id, payment_request_id, the policy and the HSP tx on chain.</li>
+    </ol>
+  </section>
+
+  <!-- 6. ROADMAP -->
+  <section class="band">
+    <div class="wrap">
+      <h2>Roadmap</h2>
+      <ul class="road">
+        <li><span class="when">Now</span> Budget contract live and verified on HSK mainnet; owner/agent split; allowed, blocked and settled payments on chain.</li>
+        <li><span class="when">Next</span> Live HSP QA round trip once our access is allowlisted (no code change needed).</li>
+        <li><span class="when">Then</span> Several agents under one owner (buyer, data, ops), each with its own budget in the same contract.</li>
+        <li><span class="when">Later</span> Owner budget editor and spend alerts in a small web app.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. TEAM -->
+  <section id="team" class="wrap">
+    <h2>Team</h2>
+    <p><strong>Dr. Tharun Reddy Kandukuri</strong>, individual entrant.</p>
+    <p class="muted">Hackathon prototype. No financial returns are promised. Leash is non-custodial: it holds no one's keys or funds, and the mainnet contract only reserves budget and records receipts.</p>
+    <p>Code: <span class="placeholder" id="repo-link">GitHub repository link added at submission</span></p>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap small muted">Leash · MIT licence · HSK Chain mainnet (chain 177) · <a href="https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9" rel="noopener">PolicyVault on Blockscout</a></div>
+</footer>
+<script src="assets/site.js" defer></script>
+</body>
+</html>

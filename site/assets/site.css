@@ -1,0 +1,148 @@
+/* Leash judge page. Colours only from tokens.css (BRAND.lock). */
+@font-face { font-family: "Geist"; src: url("fonts/geist-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Geist"; src: url("fonts/geist-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("fonts/geist-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 17px/1.6 "Geist", system-ui, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--highlight); outline-offset: 2px;
+}
+code, .mono { font-family: "Geist Mono", ui-monospace, monospace; font-size: .92em; }
+code { background: var(--tint); padding: .05em .35em; border-radius: 4px; }
+.muted { color: var(--muted); }
+.small { font-size: .88rem; }
+.wrap { width: min(1100px, 100% - 40px); margin-inline: auto; }
+section { padding: 64px 0; }
+section.wrap { padding-inline: 0; }
+.band { background: var(--surface); border-block: 1px solid var(--line); }
+
+h1, h2 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; line-height: 1.1; margin: 0 0 18px; }
+h1 { font-size: clamp(2.3rem, 5.4vw, 4rem); max-width: 18ch; }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 0 0 8px; }
+
+.top { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; }
+.logo { font-family: "Instrument Serif", Georgia, serif; font-size: 1.6rem; color: var(--ink); text-decoration: none; }
+.top-nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.top-nav a { color: var(--muted); text-decoration: none; font-size: .95rem; }
+.top-nav a:hover { color: var(--accent); }
+
+.hero { padding-top: 56px; }
+.eyebrow { color: var(--accent); font-weight: 600; font-size: .9rem; letter-spacing: .02em; margin: 0 0 14px; }
+.lede { font-size: 1.15rem; max-width: 62ch; color: var(--ink); }
+.badges { list-style: none; padding: 0; margin: 22px 0 30px; display: flex; flex-wrap: wrap; gap: 10px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); text-decoration: none; font-size: .92rem;
+}
+.badge:hover { border-color: var(--accent); }
+.badge-chain { background: var(--tint); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--success); }
+
+.video-slot {
+  aspect-ratio: 16 / 9; max-width: 860px; border: 2px dashed var(--line); border-radius: 18px;
+  background: var(--surface); display: grid; place-items: center; text-align: center; padding: 20px;
+}
+.video-inner p { margin: 4px 0; }
+.play {
+  display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 50%;
+  background: var(--accent); color: var(--bg); font-size: 1.5rem; margin-bottom: 10px;
+}
+
+/* how it works */
+.how { width: 100%; height: auto; display: block; }
+.how .step rect { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+.how .n { font: 400 34px "Instrument Serif", Georgia, serif; fill: var(--accent); }
+.how .h { font: 600 19px "Geist", sans-serif; fill: var(--ink); }
+.how .b { font: 400 15px "Geist", sans-serif; fill: var(--muted); }
+.how .b.ok { fill: var(--success); }
+.how .b.no { fill: var(--error); }
+.svg-arrow { stroke: var(--accent); stroke-width: 2.5; }
+.svg-accent-fill { fill: var(--accent); }
+.how-list { display: none; padding-left: 1.2em; }
+.how-list li { margin-bottom: 10px; }
+
+/* cards */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+.card p { margin: 0 0 10px; }
+
+/* live */
+.live-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 22px; }
+.panel { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 22px; min-width: 0; }
+#receipt { grid-column: 1 / -1; }
+.panel-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.panel-head h3 { margin: 0; }
+.pill { display: inline-block; padding: 3px 11px; border-radius: 999px; font-size: .82rem; font-weight: 600; border: 1px solid var(--line); color: var(--muted); background: var(--surface); }
+.pill.ok { color: var(--success); border-color: var(--success); }
+.pill.bad { color: var(--error); border-color: var(--error); }
+.pill-mock { color: var(--warn); border-color: var(--warn); background: var(--surface); }
+.meter { height: 14px; border-radius: 999px; background: var(--tint); border: 1px solid var(--line); overflow: hidden; margin-bottom: 16px; }
+.meter-fill { height: 100%; width: 0; background: var(--accent); transition: width .6s ease; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; margin: 0; }
+.stats.one { grid-template-columns: 1fr; }
+.stats div { min-width: 0; }
+.stats dt { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.stats dd { margin: 2px 0 0; overflow-wrap: anywhere; }
+.big { font-size: 1.6rem; color: var(--accent); }
+
+.check-form { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin: 12px 0; }
+.check-form label { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; color: var(--muted); flex: 1 1 140px; }
+input, select {
+  font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; min-height: 44px; width: 100%;
+}
+button {
+  font: 600 1rem "Geist", sans-serif; color: var(--bg); background: var(--accent); border: 0;
+  border-radius: 8px; padding: 10px 18px; min-height: 44px; cursor: pointer;
+}
+button:hover { filter: brightness(1.1); }
+.verdict { padding: 12px 14px; border-radius: 10px; background: var(--tint); margin: 8px 0 12px; }
+.verdict.ok { background: var(--surface); border: 1px solid var(--success); color: var(--success); }
+.verdict.bad { background: var(--surface); border: 1px solid var(--error); color: var(--error); }
+.codes summary { cursor: pointer; color: var(--muted); }
+.codes ol { margin: 8px 0 0; }
+.checks { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 6px; }
+.checks li::before { content: "· "; color: var(--muted); }
+.checks li.ok::before { content: "✓ "; color: var(--success); }
+.checks li.bad::before { content: "✕ "; color: var(--error); }
+
+/* hsp */
+.mock-note { background: var(--surface); border: 1px solid var(--warn); border-radius: 12px; padding: 14px 16px; }
+.flow { padding-left: 1.3em; max-width: 72ch; }
+.flow li { margin-bottom: 10px; }
+
+/* roadmap */
+.road { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.road li { display: grid; grid-template-columns: 80px 1fr; gap: 14px; align-items: baseline; }
+.when { font-weight: 600; color: var(--accent); }
+
+.placeholder { color: var(--warn); font-style: italic; }
+.foot { border-top: 1px solid var(--line); padding: 26px 0 40px; }
+
+@media (max-width: 860px) {
+  .cards, .live-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  section { padding: 44px 0; }
+  .top-nav { display: none; }
+  .how { display: none; }
+  .how-list { display: block; }
+  .stats { grid-template-columns: 1fr; }
+  .road li { grid-template-columns: 1fr; gap: 2px; }
+  .panel, .card { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .meter-fill { transition: none; }
+}
