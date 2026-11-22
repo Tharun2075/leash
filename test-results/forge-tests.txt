@@ -14,6 +14,6 @@ Ran 13 tests for test/PolicyVault.t.sol:PolicyVaultTest
 [PASS] test_Reason_OverPerPayment() (gas: 64098)
 [PASS] test_Reason_ZeroAmount() (gas: 59308)
 [PASS] test_StrangerCannotCancel() (gas: 237596)
-Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 13.35ms (23.05ms CPU time)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 12.47ms (23.99ms CPU time)
 
-Ran 1 test suite in 16.14ms (13.35ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+Ran 1 test suite in 14.88ms (12.47ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)

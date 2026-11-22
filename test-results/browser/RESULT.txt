@@ -1,0 +1,7 @@
+Browser check 2026-11-22 (own-browser leash-check, Playwright CDP, server PORT=18787, local only)
+happy: final status DONE, header SETTLED, receipt RECORDED, 1 approval click. no horizontal scroll at 390px (scrollWidth 390 = clientWidth 390).
+stuck-safe: final status DONE, header PENDING, flow_id/payment_request_id printed, no second order. no horizontal scroll at 390px.
+page errors: 0. console: one "404 Not Found" resource load (likely favicon; not a page error).
+POST /run without token (with correct Origin): 403. POST with no Origin and no token: 403.
+Screenshots: happy-1280/390.png, stuck-safe-1280/390.png
+Note: scenario title says "two approvals" but the UI asks one approval (README: one approval before signing).
