@@ -21,7 +21,7 @@ export const UNKNOWN_SELLER: Address = '0x0dd5e11e00000000000000000000000000000b
 const USD = 1_000_000n;
 
 export const SCENARIOS = [
-  { name: 'happy', title: 'Allowed purchase, two approvals, receipt' },
+  { name: 'happy', title: 'Allowed purchase, one approval, receipt' },
   { name: 'blocked-merchant', title: 'Seller not on the allowed list' },
   { name: 'over-cap', title: 'Payment above today\'s cap' },
   { name: 'quote-expired', title: 'Quote expired, re-prepare once' },
