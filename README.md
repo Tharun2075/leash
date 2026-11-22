@@ -52,9 +52,31 @@ npm test                       # agent tests, incl. a local anvil end-to-end run
 npm run demo                   # console at http://127.0.0.1:8787
 ```
 
-Environment: `LEASH_HSP=live` uses the real HSP MCP server (needs `HSP_ALLOWLIST_CONFIRMED=1`; see below).
+Environment: `HSP_MODE=live|mock` (default `mock`; `LEASH_HSP` is an alias). `live` uses the real HSP MCP
+server (needs `HSP_ALLOWLIST_CONFIRMED=1`); `mock` is labelled **"HSP mock (QA access pending)"** in the
+console, the event log and every receipt.
 `LEASH_RPC`, `LEASH_VAULT`, `LEASH_AGENT_KEY`, `LEASH_OWNER_KEY` switch the vault from the in-memory
 mirror to the deployed contract.
+
+## HSP round trip and receipts
+
+One payment runs prepare_payment -> owner signs (EIP-712) -> finalize_payment -> query_payment through
+payment-safe ("confirming") to payment-finalized. `agent/mainnet-pay.ts --force expired|30043` also
+forces one failure first (an expired quote that is prepared again, or error 30043) and records it.
+
+Receipt design, no PolicyVault redeploy and no extra tx: `PolicyVault.settle()` already stores
+keccak(flow_id), keccak(payment_request_id), policyHash and the HSP tx hash in its on-chain Receipt
+(`getReceipt`, event `ReceiptMinted`). The plain ids sit in an off-chain JSON receipt
+(`receipts/latest-177.json`), signed by the agent key (EIP-191 over canonical JSON) and linked by the
+settle tx hash. `GET /receipt` checks the signature and re-checks all three hashes against the chain;
+the budget panel shows the result plus the HSP flow state, recorded or live during a run.
+
+Once HashKey allowlists our IP, nothing changes in code:
+
+```sh
+HSP_ALLOWLIST_CONFIRMED=1 npm run hsp:live        # one probe, then a live happy-path run; exit 3 while QA still says 403
+HSP_ALLOWLIST_CONFIRMED=1 npm run test:hsp-live   # skipped unless QA answers
+```
 
 ## Demo console security
 
