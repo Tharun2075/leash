@@ -1,0 +1,29 @@
+VERDICT: PASS
+judge: fable-judge (opus, judge seat), 2026-11-22, commits 68c74d1 (fixes) + 7d06040 (results); older verdict d39e569 ignored
+scope: local only, no outbound; judge changed nothing except writing this file
+
+CLAIMS (claim | observed by judge re-run)
+npm test 29 pass | re-ran: 29 pass, 0 fail; names and counts match test-results/T6-T7-T8-agent-tests.txt
+forge test 13 pass | re-ran with ~/.foundry/bin/forge (Homebrew `forge` is Laravel Forge, not Foundry): 13 passed, 0 failed; matches forge-tests.txt
+T2 fresh repo + licences | first commit d766ea6 2026-11-22T18:16:28+01:00 (after 2026-11-20); direct deps MIT, forge-std MIT/Apache-2.0, transitive MIT/ISC
+T6a-f, T7 | covered by passing tests whose names match the plan items (policy caps, refusal, expiry, 30043, restart, conflict)
+T8 "finalized" only on payment-finalized | ui/index.html shows "finalized" only when status === 'payment-finalized'; logs map payment-safe to "confirming"/"not yet final"; no other "finalized" wording in logs
+T9 no secrets | gitleaks git: 4 commits, no leaks; gitleaks dir: no leaks; grep of agent/ ui/ logs for private key/secret: only the README sentence
+FIX 1 console (server.ts) | binds 127.0.0.1; Host must be 127.0.0.1:PORT|localhost:PORT; POST needs allowed Origin + X-Leash-Token (timingSafeEqual); no query params; JSON only; body <= 4096; /events needs ?token=; X-Frame-Options DENY + CSP frame-ancestors 'none'; /decision accepts only sign|submit x approve|refuse. Tests: agent/server.test.ts 6 tests pass
+FIX 2 mandate check (mandate.ts) | checkMandate verifies eip3009 + TransferWithAuthorization, exact field list, verifyingContract=token, chainId, to=merchant=pay_to, from=wallet, value=token_total_raw=expectedRaw(amount), validBefore+nonce present; approval card built from the checked mandate; mismatch cancels vault intent before human or wallet. Tests: 6 tampering cases in flow.test.ts pass
+FIX 3 one approval before signing (signAndSubmit) | single human approval precedes signTypedData; 'signed' + authValidBefore journaled BEFORE signing; finalize+submit after it. Tests: changed 2-approval tests -> 1 approval, consistent with the new design (old flow signed+finalized before the 2nd approval); pass
+FIX 4 30043 waits out old signature (retireEarlier, resume) | on 30043: query_payment first (follows a known payment, no new signature); validBefore > 10 min away -> human handoff; else sleep to validBefore+1s and re-query; query failure -> handoff; MAX_PREPARES=2. resume: payment_request_id mismatch -> handoff; signed -> retireEarlier then signAndSubmit. Tests: 30043 ordering, 30043-already-accepted, restart-after-signing, errorCodeOf structured-only; pass. Transcript gateway-30043.jsonl shows the same order
+
+FRAUD HUNT
+weakened tests: none. Conflict test asserts finalize==0/submit==0 -> signed.length==0 (equal or stronger), still asserts handoff and create_order==1
+false completion: none; every claimed run reproduced
+scope creep: none beyond fixes + README section on them
+unauthorized action: none; no outbound, no push, no deploy
+debris: none found
+
+MINOR (not blocking)
+- retireEarlier treats a missing authValidBefore as 0 (no wait). Reachable only from journals written before this fix; new code always sets it at 'signed'. Smallest fix: missing authValidBefore -> human handoff.
+- server no longer echoes events to stdout (console-only visibility loss).
+- browser screenshots in test-results/browser were not opened by the judge; T8 was checked by code + logs instead.
+- test-results/judge-verdict.txt modified in the working tree holds caller PRE-TESTS lines, not builder work.
+- PRE-TESTS lib/test-home.sh and lib/test-pipes.sh INCONCLUSIVE are fleet tests, outside Leash.

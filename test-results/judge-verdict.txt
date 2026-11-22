@@ -1,0 +1,42 @@
+PRE-TESTS: lib/test-advisor.sh 34/0
+PRE-TESTS: lib/test-brief-lint-run.sh 9/0
+PRE-TESTS: lib/test-bypass.sh 31/0
+PRE-TESTS: lib/test-cfroute.sh 48/0
+PRE-TESTS: lib/test-cfusage.sh 34/0
+PRE-TESTS: lib/test-escalation.sh 24/0
+PRE-TESTS: lib/test-fable-linear.sh 11/0
+PRE-TESTS: lib/test-first-try-seat.sh 5/0
+PRE-TESTS: lib/test-handoff.sh 54/0
+PRE-TESTS: lib/test-home.sh INCONCLUSIVE rc=0 try=2
+PRE-TESTS: lib/test-install.sh 7/0
+PRE-TESTS: lib/test-jobburn.sh 32/0
+PRE-TESTS: lib/test-judge-exclude.sh 16/0
+PRE-TESTS: lib/test-judge-pretests.sh 36/0
+PRE-TESTS: lib/test-judge-verdict.sh 26/0
+PRE-TESTS: lib/test-limit-handoff.sh 33/0
+PRE-TESTS: lib/test-limits.sh 22/0
+PRE-TESTS: lib/test-load-signal.sh 14/0
+PRE-TESTS: lib/test-load-wait.sh 46/0
+PRE-TESTS: lib/test-login-split.sh 18/0
+PRE-TESTS: lib/test-pace.sh 43/0
+PRE-TESTS: lib/test-pipes.sh INCONCLUSIVE rc=0 try=2
+PRE-TESTS: lib/test-recall-auto.sh 7/0
+PRE-TESTS: lib/test-redirect.sh 55/0
+PRE-TESTS: lib/test-routeledger.sh 20/0
+PRE-TESTS: lib/test-run-limit.sh 69/0
+PRE-TESTS: lib/test-run-refuse.sh 29/0
+PRE-TESTS: lib/test-run-wait.sh 9/0
+PRE-TESTS: lib/test-seat-guard.sh 47/0
+PRE-TESTS: lib/test-stall.sh 26/0
+PRE-TESTS: lib/test-usage-live.sh 34/0
+PRE-TESTS: lib/test-weeks.sh 16/0
+PRE-TESTS: lib/test-xrun.sh 51/0
+cf: judge seat auto -> 5x-2 (opus)
+cf: brief-lint: REFUSED: BUILD must be INTERNAL or SELL: Fix: add 'BUILD: INTERNAL' or 'BUILD: SELL'
+cf: brief-lint: REFUSED: BUDGET missing (tool-call count): Fix: add 'BUDGET: <calls>'
+cf: brief-lint: REFUSED: SEARCHED required (over 25 lines): Fix: add 'SEARCHED: ...' (SEARCHED/PICKED/WHY)
+cf: brief-lint: REFUSED: PICKED required (over 25 lines): Fix: add 'PICKED: ...' (SEARCHED/PICKED/WHY)
+cf: brief-lint: REFUSED: WHY required (over 25 lines): Fix: add 'WHY: ...' (SEARCHED/PICKED/WHY)
+cf: brief-lint: REFUSED: READ missing: Fix: add READ: with the files/urls/mail queries you opened (>=2, or 'READ: nothing - <reason>')
+cf: brief refused by brief-lint (reasons above), or CF_BRIEF_LINT=off (logged)
+cf: judge verdict: CANT-CHECK:NO-VERDICT (/Users/thar/claude-accounts/state/judge-last.json.verdict)
