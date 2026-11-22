@@ -29,6 +29,7 @@ export const VAULT_ABI = parseAbi([
   'function approve(uint256 intentId)',
   'function cancel(uint256 intentId)',
   'function settle(uint256 intentId, bytes32 flowIdHash, bytes32 paymentRequestIdHash, bytes32 hspTxHash)',
+  'function getReceipt(uint256 intentId) view returns ((bytes32 flowIdHash, bytes32 paymentRequestIdHash, bytes32 policyHash, bytes32 hspTxHash, uint64 settledAt))',
   'error PolicyBlocked(uint8 reason)',
   'error NotAgent()',
   'error BadStatus(uint8 current)',
@@ -45,7 +46,7 @@ export class ChainVault implements VaultPort {
   lastTx: Hex | undefined;
 
   constructor(o: ChainVaultOpts) {
-    this.chain = o.chainId === 133 ? hskTestnet : defineChain({ id: o.chainId, name: 'local', nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 }, rpcUrls: { default: { http: [o.rpcUrl] } } });
+    this.chain = o.chainId === 133 ? hskTestnet : defineChain({ id: o.chainId, name: o.chainId === 177 ? 'HashKey Chain' : 'local', nativeCurrency: o.chainId === 177 ? { name: 'HSK', symbol: 'HSK', decimals: 18 } : { name: 'ETH', symbol: 'ETH', decimals: 18 }, rpcUrls: { default: { http: [o.rpcUrl] } } });
     const transport = http(o.rpcUrl);
     this.pub = createPublicClient({ chain: this.chain, transport });
     const agentAcct = privateKeyToAccount(o.agentKey);
@@ -59,7 +60,10 @@ export class ChainVault implements VaultPort {
     const wallet = who === 'agent' ? this.agentWallet : this.ownerWallet;
     try {
       const { request, result } = await this.pub.simulateContract({ address: this.vault, abi: VAULT_ABI, functionName: functionName as never, args: args as never, account: wallet.account });
-      const hash = await wallet.writeContract(request as never);
+      // HSK mainnet base fee sits on a fixed 500 gwei floor; viem's default max fee (2x base) would demand
+      // twice the gas money up front, so on chain 177 cap it at base + 1 gwei (same as split.ts).
+      const fees = this.chain.id === 177 ? { maxFeePerGas: ((await this.pub.getBlock()).baseFeePerGas ?? 0n) + 1_000_000_000n, maxPriorityFeePerGas: 1_000_000_000n } : {};
+      const hash = await wallet.writeContract({ ...(request as object), ...fees } as never);
       const rc = await this.pub.waitForTransactionReceipt({ hash });
       if (rc.status !== 'success') throw new Error(`${functionName} reverted in tx ${hash}`);
       this.lastTx = hash;

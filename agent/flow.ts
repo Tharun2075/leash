@@ -28,6 +28,7 @@ export type FlowEvent =
   | { type: 'policy'; allowed: boolean; reason: string; explain: string; remainingToday: string; dailyCap: string; maxPerPayment: string; merchant: string }
   | { type: 'approval_needed'; step: 'sign' | 'submit'; payTo: string; payer: string; tokenTotalRaw: string; quoteExpiresAt: string }
   | { type: 'status'; status: string; label: string }
+  | { type: 'hsp_mode'; mode: 'live' | 'mock'; label: string }
   | { type: 'receipt'; intentId: string; flowId: string; paymentRequestId: string; policyHash: string; txHash: string; explorerUrl: string }
   | { type: 'log'; level: 'info' | 'warn' | 'error'; text: string }
   | { type: 'done'; outcome: Outcome };

@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "hsp_label": "HSP mock (QA access pending)",
+  "hsp_mode": "mock",
+  "chain_id": 177,
+  "vault": "0x736076b308c720d38bb31bdf97e5726ab90f13a9",
+  "intent_id": "2",
+  "settle_tx": "0x82b597ec2ead6427af134c75fc10c4d9123c82139b4aa9e4c78736b49921678b",
+  "flow_id": "mock-flow-1",
+  "payment_request_id": "mock-pr-1",
+  "policy_hash": "0x1481786fd7c53483157ce32b2286199405f6aecf50044292e7b472b5204335fa",
+  "hsp_tx_hash": "0xb3ab46e26720c8dd6ece2b65daafffc3c0ae4c8fc5ccc2682f1ac00fc745e823",
+  "hsp_status_history": [
+    {
+      "status": "payment-submitted",
+      "label": "payment-submitted"
+    },
+    {
+      "status": "payment-submitted",
+      "label": "payment-submitted"
+    },
+    {
+      "status": "payment-verified",
+      "label": "payment-verified"
+    },
+    {
+      "status": "payment-processing",
+      "label": "payment-processing"
+    },
+    {
+      "status": "payment-included",
+      "label": "payment-included"
+    },
+    {
+      "status": "payment-safe",
+      "label": "confirming"
+    },
+    {
+      "status": "payment-finalized",
+      "label": "finalized"
+    }
+  ],
+  "agent": "0x186d6E32EB784e3483acb56acc1c560Eeb49e368",
+  "issued_at": "2026-11-22T20:06:37.901Z",
+  "flow_id_hash": "0xb1c4bd65d5ea04745357fbc3ced81053252c52f261c4b06502e093bc4ebad827",
+  "payment_request_id_hash": "0x502595865e44ffd8e6f25ca3fed05bfec2c225b590b6651a3f4e55f5042805a1",
+  "signature": "0xd8f8d6789c0d893e7f1e438e5179596e9b1d0af113d2b30ea43c17ecc830d8d5502addcda4ec34d87e3659d49258c5f3d8e6c3ecb00069f7f9d89f3b4f0474171b"
+}

@@ -1,5 +1,5 @@
 // Demo scenarios shared by the web console (server.ts) and the headless runner (run-scenarios.ts).
-// HSP is the offline mock unless LEASH_HSP=live (pending allowlist). The vault is LocalVault unless
+// HSP is the offline mock unless HSP_MODE=live (old name LEASH_HSP; pending allowlist). The vault is LocalVault unless
 // LEASH_RPC + LEASH_VAULT + LEASH_AGENT_KEY + LEASH_OWNER_KEY are set (ChainVault on HSK testnet).
 import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts';
 import type { Address, Hex } from 'viem';
@@ -7,6 +7,7 @@ import { MockHspAdapter } from './hsp/mock.ts';
 import type { MockScenario } from './hsp/mock.ts';
 import { McpHspAdapter } from './hsp/mcp.ts';
 import type { HspTools } from './hsp/types.ts';
+import { hspMode, modeLabel } from './hsp/mode.ts';
 import { LocalVault } from './vault.ts';
 import type { VaultPort } from './vault.ts';
 import { ChainVault } from './chain.ts';
@@ -51,7 +52,7 @@ function vaultFor(clock: Clock): VaultPort {
 }
 
 async function hspFor(sc: MockScenario, clock: Clock): Promise<HspTools> {
-  if (process.env.LEASH_HSP === 'live') {
+  if (hspMode() === 'live') {
     const live = new McpHspAdapter();
     await live.connect(); // throws AllowlistPendingError until HSP confirms our egress IP
     return live;
@@ -67,6 +68,7 @@ export async function runScenario(name: ScenarioName, emit: (e: FlowEvent) => vo
   }[name as string] ?? {};
   const vault = vaultFor(clock);
   const hsp = await hspFor(mock, clock);
+  emit({ type: 'hsp_mode', mode: hspMode(), label: modeLabel(hspMode()) });
   const payer = privateKeyToAccount(generatePrivateKey()); // demo payer; real runs sign in the OKX Agentic Wallet
   const journal = new MemoryJournal();
   const deps: FlowDeps = {
