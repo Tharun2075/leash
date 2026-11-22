@@ -14,6 +14,10 @@ import type { AddressInfo } from 'node:net';
 import { SCENARIOS, runScenario } from './scenarios.ts';
 import type { ScenarioName } from './scenarios.ts';
 import type { FlowEvent, HumanGate } from './flow.ts';
+import { readBudgets, parseAgents, MAINNET_RPC, MAINNET_VAULT } from './budget.ts';
+import type { BudgetReport } from './budget.ts';
+import { whyBlocked } from './why.ts';
+import type { Address } from 'viem';
 
 export const MAX_BODY = 4096;
 const UI = fileURLToPath(new URL('../ui/index.html', import.meta.url));
@@ -53,8 +57,11 @@ function readJson(req: IncomingMessage): Promise<Record<string, unknown>> {
   });
 }
 
-export function startServer(port = 0, opts: { token?: string } = {}): Promise<LeashServer> {
+export function startServer(port = 0, opts: { token?: string; budget?: () => Promise<BudgetReport> } = {}): Promise<LeashServer> {
   const token = opts.token ?? randomBytes(32).toString('hex');
+  // Budget panel: live read-only calls to the vault (HSK mainnet by default), cached 5 s so a page refresh loop cannot hammer the RPC.
+  const budget = opts.budget ?? (() => readBudgets(process.env.LEASH_RPC ?? MAINNET_RPC, (process.env.LEASH_VAULT ?? MAINNET_VAULT) as Address, parseAgents(process.env.LEASH_AGENTS)));
+  let budgetCache: { at: number; p: Promise<BudgetReport> } | undefined;
   const clients = new Set<ServerResponse>();
   const waiting = new Map<string, (ok: boolean) => void>();
   let running = false;
@@ -83,6 +90,22 @@ export function startServer(port = 0, opts: { token?: string } = {}): Promise<Le
       if (url.pathname === '/scenarios') {
         res.writeHead(200, { 'content-type': 'application/json' });
         return res.end(JSON.stringify(SCENARIOS));
+      }
+      if (url.pathname === '/budget') {
+        if (!budgetCache || Date.now() - budgetCache.at > 5000) {
+          budgetCache = { at: Date.now(), p: budget() };
+          budgetCache.p.catch(() => { budgetCache = undefined; });
+        }
+        let report: BudgetReport;
+        try { report = await budgetCache.p; } catch { throw new HttpError(502, 'chain read failed'); }
+        res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' });
+        return res.end(JSON.stringify(report));
+      }
+      if (url.pathname === '/why') {
+        const q = url.searchParams.get('q') ?? '';
+        if (q.length > 200) throw new HttpError(400, 'input too long');
+        res.writeHead(200, { 'content-type': 'application/json' });
+        return res.end(JSON.stringify(whyBlocked(q)));
       }
       if (url.pathname === '/events') {
         if (!tokenOk(url.searchParams.get('token'), token)) throw new HttpError(403, 'bad token');

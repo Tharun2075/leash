@@ -898,7 +898,18 @@ summary:focus-visible {
   white-space: nowrap;
   border: 0;
 }
-  </style>
+  .budget-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.budget-item{border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.budget-item--off{border-style:dashed;color:var(--muted)}
+.budget-head{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.budget-name{font-weight:600}
+.budget-addr{font-size:12px;color:var(--muted)}
+.budget-foot{font-size:12px;color:var(--muted);margin:10px 0 0}
+.budget-foot a,.why-form a{color:var(--accent)}
+.why-form{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.why-row{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.why-input{flex:1 1 200px;min-width:0;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -942,6 +953,25 @@ summary:focus-visible {
 
     <!-- Middle Column: On-Chain Policy + Human Approval Gate -->
     <div class="column">
+      <section id="budget-card" class="card" aria-labelledby="budget-heading">
+        <div class="card-header">
+          <h2 id="budget-heading" class="card-title">Agent Budgets, live on HSK mainnet</h2>
+          <span id="budget-pill" class="pill">READING</span>
+        </div>
+        <ul id="budget-list" class="budget-list" aria-live="polite"></ul>
+        <p class="budget-foot mono"><a id="budget-vault" href="https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9" target="_blank" rel="noopener">PolicyVault on Blockscout</a> · <span id="budget-at">not read yet</span></p>
+        <form id="why-form" class="why-form" autocomplete="off">
+          <label for="why-input" class="cap-label-title">Why was a payment blocked?</label>
+          <div class="why-row">
+            <input id="why-input" class="why-input mono" maxlength="200" placeholder="reason code (4) or revert data (0x...)">
+            <button class="btn" type="submit">Explain</button>
+            <button id="why-example" class="copy-btn" type="button">Real blocked tx</button>
+          </div>
+          <p id="why-out" class="policy-explain" aria-live="polite" hidden></p>
+          <p class="budget-foot"><a id="why-tx" href="https://hsk.blockscout.com/tx/0xd89d291a4b6f396993f6d42b00a23a03f424ce82f6c75fe29016f838873259f5" target="_blank" rel="noopener" hidden>See this blocked payment on Blockscout</a></p>
+        </form>
+      </section>
+
       <section id="policy-card" class="card" aria-labelledby="policy-heading" aria-live="polite" aria-atomic="true">
         <div class="card-header">
           <h2 id="policy-heading" class="card-title">On-Chain Policy Vault</h2>
@@ -1842,6 +1872,69 @@ summary:focus-visible {
       /* Bootstrap */
       loadScenarios();
       connectEvents();
+    })();
+  </script>
+  <script>
+    // Budget panel: live remainingToday() per agent from the mainnet vault (via /budget), refreshed every 15 s,
+    // plus the "why blocked" decoder (via /why). Read-only; text is set with textContent only.
+    (function () {
+      'use strict';
+      var list = document.getElementById('budget-list');
+      var pill = document.getElementById('budget-pill');
+      var at = document.getElementById('budget-at');
+      var BLOCKED_DATA = '0xfd93c2840000000000000000000000000000000000000000000000000000000000000004';
+      function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+      function short(a) { return a.slice(0, 6) + '…' + a.slice(-4); }
+      async function load() {
+        try {
+          var res = await fetch('/budget', { headers: { Accept: 'application/json' } });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          var r = await res.json();
+          list.textContent = '';
+          r.agents.forEach(function (a) {
+            var li = el('li', 'budget-item' + (a.active ? '' : ' budget-item--off'));
+            var head = el('div', 'budget-head');
+            head.appendChild(el('span', 'budget-name', a.label));
+            var link = el('a', 'budget-addr mono', short(a.address)); link.href = a.url; link.target = '_blank'; link.rel = 'noopener';
+            head.appendChild(link);
+            li.appendChild(head);
+            if (!a.active) {
+              li.appendChild(el('p', 'cap-footnote', 'No budget set: the vault blocks every payment from this agent.'));
+            } else {
+              var nums = el('div', 'cap-labels');
+              nums.appendChild(el('span', 'cap-label-title', 'Left today'));
+              nums.appendChild(el('span', 'cap-numbers mono', a.remainingToday + ' / ' + a.dailyCap));
+              li.appendChild(nums);
+              var track = el('div', 'bar-track'); track.setAttribute('role', 'meter');
+              track.setAttribute('aria-valuemin', '0'); track.setAttribute('aria-valuemax', '100'); track.setAttribute('aria-valuenow', String(a.remainingPct));
+              track.setAttribute('aria-label', a.label + ' budget left today');
+              var fill = el('div', 'bar-fill' + (a.remainingPct < 25 ? ' bar-fill--low' : '')); fill.style.width = a.remainingPct + '%';
+              track.appendChild(fill); li.appendChild(track);
+              li.appendChild(el('p', 'cap-footnote mono', 'max ' + a.maxPerPayment + ' per payment' + (a.cooldownSec ? ' · ' + a.cooldownSec + ' s between payments' : '')));
+            }
+            list.appendChild(li);
+          });
+          pill.textContent = r.chainId === 177 ? 'MAINNET · LIVE' : 'CHAIN ' + r.chainId;
+          pill.className = 'pill pill--live';
+          at.textContent = 'read ' + new Date(r.readAt).toLocaleTimeString();
+        } catch (e) {
+          pill.textContent = 'CHAIN UNREACHABLE'; pill.className = 'pill pill--error';
+          at.textContent = 'last read failed, retrying';
+        }
+      }
+      var out = document.getElementById('why-out');
+      var input = document.getElementById('why-input');
+      var txLink = document.getElementById('why-tx');
+      async function explain(q) {
+        var res = await fetch('/why?q=' + encodeURIComponent(q), { headers: { Accept: 'application/json' } });
+        var w = res.ok ? await res.json() : { sentence: 'Could not decode that input.' };
+        out.textContent = w.sentence; out.hidden = false;
+        txLink.hidden = q !== BLOCKED_DATA;
+      }
+      document.getElementById('why-form').addEventListener('submit', function (e) { e.preventDefault(); explain(input.value); });
+      document.getElementById('why-example').addEventListener('click', function () { input.value = BLOCKED_DATA; explain(BLOCKED_DATA); });
+      load();
+      setInterval(load, 15000);
     })();
   </script>
 </body>
