@@ -1,10 +1,20 @@
-# Leash
+# Leash: a budget your AI agent cannot overspend
 
-A spending leash for AI agents that pay through HSP (HashKey Settlement Protocol) on HSK Chain.
-HSK Chain Horizon Hackathon Seoul, Track 2: Agent Payments & A2A Settlement.
+**Give each AI agent a budget it cannot overspend, enforced on HSK mainnet.**
+
+Leash gives every AI agent its own spending budget, set by its human owner and enforced by a contract
+on HSK Chain mainnet: a daily allowance, a per-payment limit, a list of shops it may pay, and a
+cooldown. The agent asks the contract before every payment; if the budget says no, the payment is
+blocked on chain with a plain reason ("over today's budget", "shop not on the list"), and only the
+owner can change the budget. HSK Chain Horizon Hackathon Seoul, Track 2: Agent Payments & A2A Settlement.
+
+**Live on HSK Chain mainnet (chain 177):** budget contract
+[`0x736076b308c720d38bb31bdf97e5726ab90f13a9`](https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9)
+(source verified on Blockscout). Owner and agent are two different addresses; transactions in `DEPLOYMENTS.md`.
 
 **Hackathon prototype.** Leash is not an electronic financial service, holds no one's keys or funds
-(non-custodial), and promises no returns. Testnet only.
+(non-custodial), and promises no returns. The mainnet contract only reserves budget and records
+receipts; it moves no customer funds.
 
 ## What it does
 
@@ -14,7 +24,7 @@ A buyer agent negotiates with a seller agent in a conversational interface. Befo
    per-payment limit, allowed merchants, cooldown. The agent must reserve each payment with
    `requestPayment`; the contract reverts with a reason when the rule says no. The card in the UI
    explains the reason in plain words. Blocked payments never reach HSP.
-2. **One human approval, before anything is signed.** The HSP Gateway flow is `create_order` ->
+2. **HSP payment flow: one human approval, before anything is signed.** The HSP Gateway flow is `create_order` ->
    `prepare_payment` -> Leash checks the EIP-712 data against the purchase (primaryType, token contract,
    chain id, recipient = approved merchant = pay_to, sender = our wallet, value = quoted total = the
    policy-checked amount; any mismatch refuses, `agent/mandate.ts`) -> the human approves a card built from
@@ -59,8 +69,8 @@ POSTs also need a matching Origin, the random per-session token embedded in the 
   submit_payment, query_payment) against https://mcp-qa.hashkeymerchant.com/ and refuses to connect
   until the QA allowlist is confirmed. All flows run today against `agent/hsp/mock.ts`, which follows
   the documented shapes and verifies real EIP-712 signatures.
-- Contract: tested (forge) and deployed end-to-end on a local chain. Testnet deploy: see `DEPLOYMENTS.md`.
-- HSK Chain mainnet deployment is required by the rules to claim a prize; it is not done and needs an owner decision.
+- Contract: tested (forge), deployed and source-verified on HSK Chain mainnet (chain 177) at
+  [0x7360…13a9](https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9); separate owner and agent keys; see `DEPLOYMENTS.md`.
 
 ## Guardrails we acknowledge
 
@@ -68,8 +78,8 @@ POSTs also need a matching Origin, the random per-session token embedded in the 
 - Non-custodial: no user keys are held; the agent cannot move funds without the human's signature.
 - Korean law applies to the host event: Electronic Financial Transactions Act (EFTA), Act on the Protection
   of Virtual Asset Users (VAUPA), and the Supervisory Regulation on Electronic Financial Services
-  (IT asset management, vulnerability testing). A prototype cannot disclaim those duties; it stays on
-  testnet and moves no customer funds.
+  (IT asset management, vulnerability testing). A prototype cannot disclaim those duties; its mainnet contract
+  only reserves budget and records receipts, and it moves no customer funds.
 - Agent risk is managed in the spirit of the NIST AI Risk Management Framework (AI RMF): hard limits
   outside the model, human approval at each money step, no fabricated confirmations.
 - No private keys or secrets in the repository or logs (checked with gitleaks).
