@@ -5,7 +5,7 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 import type { HspTools, ToolName } from './types.ts';
-import { HspError, REQUIRED_TOOLS } from './types.ts';
+import { HspError, REQUIRED_TOOLS, errorCodeOf } from './types.ts';
 
 export const HSP_QA_URL = 'https://mcp-qa.hashkeymerchant.com/';
 
@@ -73,8 +73,7 @@ export class McpHspAdapter implements HspTools {
       // keep raw text; surfaced unchanged below
     }
     if (res.isError) {
-      const code = /\b(\d{5})\b/.exec(text)?.[1] ?? 'unknown';
-      throw new HspError(code, text);
+      throw new HspError(errorCodeOf(res.structuredContent, body), text);
     }
     if (res.structuredContent) return res.structuredContent as T;
     return body as T;

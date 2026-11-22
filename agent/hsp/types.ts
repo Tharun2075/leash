@@ -111,6 +111,19 @@ export class HspError extends Error {
   }
 }
 
+/** Read a Gateway error code from a structured field only (code / error_code / error.code). Never parsed out of prose. */
+export function errorCodeOf(...sources: unknown[]): string {
+  for (const src of sources) {
+    if (!src || typeof src !== 'object') continue;
+    const o = src as Record<string, unknown>;
+    const inner = o.error && typeof o.error === 'object' ? (o.error as Record<string, unknown>) : undefined;
+    for (const c of [o.code, o.error_code, inner?.code, inner?.error_code]) {
+      if (typeof c === 'number' || (typeof c === 'string' && c !== '')) return String(c);
+    }
+  }
+  return 'unknown';
+}
+
 /** Statuses during which the guide says: keep querying the same payment. */
 export const POLLING_STATUSES = new Set([
   'payment-submitted',

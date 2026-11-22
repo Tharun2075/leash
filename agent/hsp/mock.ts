@@ -50,6 +50,15 @@ interface MockPayment {
   submitCount: number;
   queries: number;
   usedSignatures: Set<string>;
+  totalRaw: string;
+}
+
+/** The quote total comes from the order's cart mandate (USD string, USDC 6 decimals), like the real Gateway. */
+function totalRawOf(cart: unknown): string {
+  const v = (cart as { contents?: { payment_request?: { details?: { total?: { amount?: { value?: string } } } } } })
+    ?.contents?.payment_request?.details?.total?.amount?.value ?? '1.00';
+  const [w, f = ''] = String(v).split('.');
+  return (BigInt(w) * 1_000_000n + BigInt((f + '000000').slice(0, 6))).toString();
 }
 
 export class MockHspAdapter implements HspTools {
@@ -101,6 +110,7 @@ export class MockHspAdapter implements HspTools {
       submitCount: 0,
       queries: 0,
       usedSignatures: new Set(),
+      totalRaw: totalRawOf(args.cart_mandate),
     });
     return { flow_id, payment_request_id, payment_url: `https://mock.invalid/pay/${flow_id}` };
   }
@@ -121,7 +131,7 @@ export class MockHspAdapter implements HspTools {
     p.prepares += 1;
     const expired = this.scenario.expireFirstQuote && p.prepares === 1;
     const expiresMs = expired ? this.now() - 1000 : this.now() + 5 * 60 * 1000;
-    const token_total_raw = '1000000';
+    const token_total_raw = p.totalRaw;
     const nonce = keccak256(toHex(`${p.flow_id}:${p.prepares}`));
     const eip712 = {
       domain: { name: 'USDC', version: '2', chainId: 11155111, verifyingContract: SEPOLIA_TEST_USDC },

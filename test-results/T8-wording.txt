@@ -1,14 +1,13 @@
-# T8 wording check: 'finalized' only after payment-finalized; payment-safe shows as confirming
+# T8 wording check (rerun after security fixes): 'finalized' only after payment-finalized; payment-safe shows as confirming
 ok   test-results/logs/blocked-merchant.jsonl final_seen=False
 ok   test-results/logs/gateway-30043.jsonl final_seen=True
 ok   test-results/logs/happy.jsonl final_seen=True
 ok   test-results/logs/over-cap.jsonl final_seen=False
 ok   test-results/logs/quote-expired.jsonl final_seen=True
 ok   test-results/logs/refuse-sign.jsonl final_seen=False
-ok   test-results/logs/restart.jsonl final_seen=False
+ok   test-results/logs/restart.jsonl final_seen=True
 ok   test-results/logs/stuck-safe.jsonl final_seen=False
-## ui/index.html lines containing 'finalized' (each must be gated on payment-finalized):
-  1548: const isFinalConfirmation = status === 'payment-finalized';
-  1559: displayLabel = 'finalized';
-## browser run (test-results/ui/): happy shows finalized after settle; stuck-safe shows 'confirming' + 'pending confirmation', never 'finalized'
+## ui/index.html lines with 'finalized' (gated on payment-finalized):
+  1555: const isFinalConfirmation = status === 'payment-finalized';
+  1566: displayLabel = 'finalized';
 RESULT: PASS

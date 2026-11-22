@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="leash-token" content="__LEASH_TOKEN__">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leash — Policy-Bound Agent Payments</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1039,6 +1040,7 @@ summary:focus-visible {
   </footer>
 
   <script>
+      var LEASH_TOKEN = (document.querySelector('meta[name="leash-token"]') || {}).content || '';
     (function () {
       'use strict';
 
@@ -1318,8 +1320,10 @@ summary:focus-visible {
         dom.scenarioStatus.className = 'pill pill--accent';
 
         try {
-          const res = await fetch('/run?scenario=' + encodeURIComponent(name), {
-            method: 'POST'
+          const res = await fetch('/run', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Leash-Token': LEASH_TOKEN },
+            body: JSON.stringify({ scenario: name })
           });
           if (!res.ok) {
             throw new Error('Server returned HTTP ' + res.status);
@@ -1470,9 +1474,9 @@ summary:focus-visible {
           quoteExpiresAt: ev.quoteExpiresAt
         };
 
-        dom.approvalStepPill.textContent = step === 'sign' ? 'STEP 1 · SIGN' : 'STEP 2 · SUBMIT';
+        dom.approvalStepPill.textContent = step === 'sign' ? 'SIGN + SUBMIT' : 'SUBMIT';
         dom.approvalStepTitle.textContent = step === 'sign'
-          ? 'Authorize EIP-712 payment signature'
+          ? 'Approve: sign this EIP-712 authorization and submit it to HSP'
           : 'Confirm payment submission to HSP Gateway';
 
         dom.apprPayTo.textContent = shortenHash(state.currentApproval.payTo);
@@ -1525,8 +1529,11 @@ summary:focus-visible {
         dom.approvalFeedback.hidden = false;
 
         try {
-          const url = '/decision?step=' + encodeURIComponent(step) + '&answer=' + encodeURIComponent(answer);
-          const res = await fetch(url, { method: 'POST' });
+          const res = await fetch('/decision', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Leash-Token': LEASH_TOKEN },
+            body: JSON.stringify({ step: step, answer: answer })
+          });
           if (!res.ok) throw new Error('HTTP ' + res.status);
           clearCountdown();
           dom.approvalFeedback.textContent = answer === 'approve'
@@ -1803,7 +1810,7 @@ summary:focus-visible {
         }
 
         setSseBadge('CONNECTING', 'pill--warn');
-        const es = new EventSource('/events');
+        const es = new EventSource('/events?token=' + encodeURIComponent(LEASH_TOKEN));
         state.eventSource = es;
 
         es.onopen = function () {

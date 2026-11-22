@@ -4,5 +4,5 @@ over-cap           -> blocked
 quote-expired      -> settled
 gateway-30043      -> settled
 stuck-safe         -> pending
-restart            -> handoff
+restart            -> settled
 refuse-sign        -> refused

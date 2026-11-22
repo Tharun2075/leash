@@ -4,19 +4,15 @@
 {"type":"policy","allowed":true,"reason":"OK","explain":"Allowed: 49.00 USD of 50.00 USD left today after this payment.","remainingToday":"50.00 USD","dailyCap":"50.00 USD","maxPerPayment":"5.00 USD","merchant":"0x5e11e700000000000000000000000000000000a1"}
 {"type":"log","level":"info","text":"intent 1 reserved on PolicyVault"}
 {"type":"log","level":"info","text":"order created flow_id=mock-flow-1 payment_request_id=mock-pr-1"}
-{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x6c4E5181061EFa09614c7365016ADf524A38BD59","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:21:57.677Z"}
-{"type":"log","level":"info","text":"awaiting human signature"}
-{"type":"chat","from":"human","text":"Approved signing."}
-{"type":"approval_needed","step":"submit","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x6c4E5181061EFa09614c7365016ADf524A38BD59","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:21:57.677Z"}
-{"type":"log","level":"info","text":"awaiting human approval to submit"}
-{"type":"chat","from":"human","text":"Approved submission."}
-{"type":"log","level":"warn","text":"Gateway returned 30043; preparing again for a fresh quote and signature (old signature discarded)"}
-{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x6c4E5181061EFa09614c7365016ADf524A38BD59","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:21:57.679Z"}
-{"type":"log","level":"info","text":"awaiting human signature"}
-{"type":"chat","from":"human","text":"Approved signing."}
-{"type":"approval_needed","step":"submit","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x6c4E5181061EFa09614c7365016ADf524A38BD59","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:21:57.679Z"}
-{"type":"log","level":"info","text":"awaiting human approval to submit"}
-{"type":"chat","from":"human","text":"Approved submission."}
+{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x585FaC70f3FA9D0250c74Cd1C6C87C3B380d6f73","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:27:15.391Z"}
+{"type":"log","level":"info","text":"awaiting human signature (one approval covers signing, finalize_payment and submit_payment)"}
+{"type":"chat","from":"human","text":"Approved: sign and submit this payment."}
+{"type":"log","level":"warn","text":"Gateway returned 30043 on submit_payment; checking the earlier mandate before any new signature (old signature is never resubmitted)"}
+{"type":"log","level":"info","text":"gateway shows \"order-created\" (earlier mandate not accepted); waiting until its authorization expires at 2026-11-22T17:27:15.000Z before signing a new one"}
+{"type":"log","level":"info","text":"earlier authorization expired unused; preparing a fresh quote"}
+{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x585FaC70f3FA9D0250c74Cd1C6C87C3B380d6f73","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:32:16.001Z"}
+{"type":"log","level":"info","text":"awaiting human signature (one approval covers signing, finalize_payment and submit_payment)"}
+{"type":"chat","from":"human","text":"Approved: sign and submit this payment."}
 {"type":"status","status":"payment-submitted","label":"payment-submitted"}
 {"type":"status","status":"payment-submitted","label":"payment-submitted"}
 {"type":"status","status":"payment-verified","label":"payment-verified"}

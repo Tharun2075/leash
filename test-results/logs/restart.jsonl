@@ -4,10 +4,23 @@
 {"type":"policy","allowed":true,"reason":"OK","explain":"Allowed: 49.00 USD of 50.00 USD left today after this payment.","remainingToday":"50.00 USD","dailyCap":"50.00 USD","maxPerPayment":"5.00 USD","merchant":"0x5e11e700000000000000000000000000000000a1"}
 {"type":"log","level":"info","text":"intent 1 reserved on PolicyVault"}
 {"type":"log","level":"info","text":"order created flow_id=mock-flow-1 payment_request_id=mock-pr-1"}
-{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0xBea77220D093bf02B47AECD3ca553DcCdEd971DA","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:22:08.982Z"}
-{"type":"log","level":"info","text":"awaiting human signature"}
+{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x851C5f5948007Cc0b37a3D5cfa8552bD88aDC6F6","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:27:27.231Z"}
+{"type":"log","level":"info","text":"awaiting human signature (one approval covers signing, finalize_payment and submit_payment)"}
 {"type":"log","level":"error","text":"agent process killed (simulated)"}
 {"type":"log","level":"info","text":"agent restarted; reading its journal"}
-{"type":"log","level":"info","text":"resuming demo-restart-1795367828982 from stage \"prepared\""}
-{"type":"log","level":"warn","text":"conflict: journal stage \"prepared\" but gateway shows \"order-created\" (no payment). A signature may exist for an old quote; it is never resubmitted. Human decides. flow_id=mock-flow-1 payment_request_id=mock-pr-1"}
-{"type":"done","outcome":"handoff"}
+{"type":"log","level":"info","text":"resuming demo-restart-1795368147231 from stage \"prepared\""}
+{"type":"log","level":"info","text":"gateway shows \"order-created\" and nothing was signed; preparing on the same flow_id (no new order), human approves again"}
+{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x851C5f5948007Cc0b37a3D5cfa8552bD88aDC6F6","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:27:27.231Z"}
+{"type":"log","level":"info","text":"awaiting human signature (one approval covers signing, finalize_payment and submit_payment)"}
+{"type":"chat","from":"human","text":"Approved: sign and submit this payment."}
+{"type":"status","status":"payment-submitted","label":"payment-submitted"}
+{"type":"status","status":"payment-submitted","label":"payment-submitted"}
+{"type":"status","status":"payment-verified","label":"payment-verified"}
+{"type":"status","status":"payment-processing","label":"payment-processing"}
+{"type":"status","status":"payment-included","label":"payment-included"}
+{"type":"status","status":"payment-safe","label":"confirming"}
+{"type":"log","level":"info","text":"The transaction is on-chain and has received half of the required block confirmations. It is not yet final."}
+{"type":"status","status":"payment-finalized","label":"finalized"}
+{"type":"log","level":"info","text":"The payment has reached final confirmation."}
+{"type":"receipt","intentId":"1","flowId":"mock-flow-1","paymentRequestId":"mock-pr-1","policyHash":"0x1481786fd7c53483157ce32b2286199405f6aecf50044292e7b472b5204335fa","txHash":"0xb3ab46e26720c8dd6ece2b65daafffc3c0ae4c8fc5ccc2682f1ac00fc745e823","explorerUrl":""}
+{"type":"done","outcome":"settled"}

@@ -5,7 +5,7 @@
 {"type":"policy","allowed":true,"reason":"OK","explain":"Allowed: 49.00 USD of 50.00 USD left today after this payment.","remainingToday":"50.00 USD","dailyCap":"50.00 USD","maxPerPayment":"5.00 USD","merchant":"0x5e11e700000000000000000000000000000000a1"}
 {"type":"log","level":"info","text":"intent 1 reserved on PolicyVault"}
 {"type":"log","level":"info","text":"order created flow_id=mock-flow-1 payment_request_id=mock-pr-1"}
-{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0xc93F7C3F07e07BF99511017eBaa51f2068bD0301","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:22:08.983Z"}
-{"type":"log","level":"info","text":"awaiting human signature"}
-{"type":"log","level":"info","text":"human refused to sign: no finalize_payment, no payment, no receipt"}
+{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x57bAc9636acc63E9e173279Fa64938508FFAC7d0","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:27:28.492Z"}
+{"type":"log","level":"info","text":"awaiting human signature (one approval covers signing, finalize_payment and submit_payment)"}
+{"type":"log","level":"info","text":"human refused: nothing signed, no finalize_payment, no payment, no receipt"}
 {"type":"done","outcome":"refused"}

@@ -1,10 +1,12 @@
-// Leash payment flow: policy first, human approval twice, HSP state machine exactly as the HSP guide (rev 2026-10-30).
+// Leash payment flow: policy first, one human approval before signing, HSP state machine exactly as the HSP guide (rev 2026-10-30).
 // Rules encoded here (each has a test in flow.test.ts):
 //  - policy blocks happen BEFORE any HSP call (T6 a, b)
 //  - expired quote or Gateway 30043 -> prepare again once, new signature, never resubmit the old one (T6 c, d)
 //  - 10 minutes without payment-finalized -> "Pending confirmation", print ids, never re-order (T6 e)
 //  - restart compares the journal with query_payment before doing anything; conflicts go to the human (T6 f)
-//  - refused signature -> no finalize_payment, log "awaiting human signature", no receipt (T7)
+//  - ONE human approval before signing covers sign+finalize+submit; refused -> no signature, no finalize_payment (T7)
+//  - the card is built from the checked EIP-712 message (agent/mandate.ts); any mismatch -> refuse to sign
+//  - 30043 -> query_payment + wait out the earlier authorization's validBefore before any new signature (T6 d)
 //  - "finalized" only for payment-finalized; payment-safe is "confirming" (T8)
 import type { Eip712Data, HspTools, PrepareResult, TokenConfig } from './hsp/types.ts';
 import { HspError, POLLING_STATUSES, statusLabel } from './hsp/types.ts';
@@ -12,6 +14,8 @@ import type { Journal, JournalEntry, Stage } from './journal.ts';
 import type { Receipt, VaultPort } from './vault.ts';
 import { PolicyBlockedError, idHash } from './vault.ts';
 import { formatUsd } from './policy.ts';
+import { checkMandate } from './mandate.ts';
+import type { CheckedMandate } from './mandate.ts';
 
 export const POLL_MS = 15_000;
 export const PENDING_AFTER_MS = 10 * 60 * 1000;
@@ -136,69 +140,109 @@ export async function pay(d: FlowDeps, p: Purchase): Promise<FlowResult> {
   });
   save(d, e, 'ordered', { flowId: order.flow_id, paymentRequestId: order.payment_request_id });
   info(d, `order created ${idsLine(e)}`);
-  return signAndSubmit(d, e, pick.token);
+  return signAndSubmit(d, e, pick);
 }
 
-async function signAndSubmit(d: FlowDeps, e: JournalEntry, token: TokenConfig): Promise<FlowResult> {
-  const usedSignatures = new Set<string>();
+type Pick = { net: { network: string; chain_id: number }; token: TokenConfig };
+
+/** Longest we wait for an earlier authorization to expire before handing to the human. */
+export const MAX_RETIRE_WAIT_MS = 10 * 60 * 1000;
+
+function hspCode(err: unknown): string | undefined { return err instanceof HspError ? err.code : undefined; }
+
+/**
+ * Before any NEW authorization: the earlier one must be provably dead. Ask query_payment first; if the
+ * gateway has the payment, follow it (no new signature). Otherwise wait until the earlier validBefore
+ * has passed, then check again. Returns a result when the flow ends here, undefined when re-preparing is safe.
+ */
+async function retireEarlier(d: FlowDeps, e: JournalEntry): Promise<FlowResult | undefined> {
+  const ask = async () => d.hsp.query_payment({ flow_id: e.flowId, payment_request_id: e.paymentRequestId, expected_merchant_name: d.merchantName });
+  let q;
+  try { q = await ask(); } catch (err) {
+    warn(d, `query_payment failed (${(err as Error).message}); cannot prove the earlier authorization is unused. Human needed; budget stays reserved. ${idsLine(e)}`);
+    return finish(d, 'handoff', { flowId: e.flowId, paymentRequestId: e.paymentRequestId });
+  }
+  if (KNOWN.has(q.status)) {
+    info(d, `gateway accepted the earlier mandate (${q.status}); following it, no new signature`);
+    save(d, e, 'submitted');
+    return poll(d, e);
+  }
+  const vb = Number(e.authValidBefore ?? 0) * 1000;
+  const waitMs = vb - d.clock.now() + 1000;
+  if (waitMs > MAX_RETIRE_WAIT_MS) {
+    warn(d, `earlier authorization stays valid until ${new Date(vb).toISOString()}; not signing another before then. Human needed; budget stays reserved. ${idsLine(e)}`);
+    return finish(d, 'handoff', { flowId: e.flowId, paymentRequestId: e.paymentRequestId });
+  }
+  if (waitMs > 0) {
+    info(d, `gateway shows "${q.status}" (earlier mandate not accepted); waiting until its authorization expires at ${new Date(vb).toISOString()} before signing a new one`);
+    await d.clock.sleep(waitMs);
+    try { q = await ask(); } catch { return finish(d, 'handoff', { flowId: e.flowId, paymentRequestId: e.paymentRequestId }); }
+    if (KNOWN.has(q.status)) { info(d, `earlier mandate landed after all (${q.status}); following it`); save(d, e, 'submitted'); return poll(d, e); }
+  }
+  info(d, 'earlier authorization expired unused; preparing a fresh quote');
+  save(d, e, 'ordered', { authValidBefore: undefined });
+  return undefined;
+}
+
+async function signAndSubmit(d: FlowDeps, e: JournalEntry, pick: Pick): Promise<FlowResult> {
+  const amount = BigInt(e.amount);
   for (let attempt = 1; attempt <= MAX_PREPARES; attempt++) {
-    const prep = await d.hsp.prepare_payment({ flow_id: e.flowId as string, payer: d.wallet.address, protocol: token.payment_protocol });
+    const prep = await d.hsp.prepare_payment({ flow_id: e.flowId as string, payer: d.wallet.address, protocol: pick.token.payment_protocol });
     save(d, e, 'prepared', { cartHash: prep.cart_hash });
     if (quoteExpired(d, prep)) {
       warn(d, `quote expired at ${prep.quote_expires_at}; preparing again (old quote is never signed)`);
       continue;
     }
-    const ask: ApprovalInfo = { payTo: prep.pay_to, payer: prep.payer, tokenTotalRaw: prep.token_total_raw, quoteExpiresAt: prep.quote_expires_at };
+    let m: CheckedMandate;
+    try {
+      m = checkMandate(prep, { token: pick.token, chainId: pick.net.chain_id, merchant: e.merchant, payer: d.wallet.address, amount });
+    } catch (err) {
+      warn(d, `refusing to sign: ${(err as Error).message}. Nothing signed. ${idsLine(e)}`);
+      await d.vault.cancel(e.intentId);
+      save(d, e, 'closed');
+      return finish(d, 'failed', { flowId: e.flowId, paymentRequestId: e.paymentRequestId });
+    }
+    // The card shows the checked EIP-712 message: what the human approves is what the wallet signs.
+    const ask: ApprovalInfo = { payTo: m.to, payer: m.from, tokenTotalRaw: m.valueRaw, quoteExpiresAt: prep.quote_expires_at };
     d.emit({ type: 'approval_needed', step: 'sign', ...ask });
-    info(d, 'awaiting human signature');
+    info(d, 'awaiting human signature (one approval covers signing, finalize_payment and submit_payment)');
     if (!(await d.human.decide('sign', ask))) {
-      info(d, 'human refused to sign: no finalize_payment, no payment, no receipt');
+      info(d, 'human refused: nothing signed, no finalize_payment, no payment, no receipt');
       await d.vault.cancel(e.intentId);
       save(d, e, 'closed');
       return finish(d, 'refused');
     }
-    d.emit({ type: 'chat', from: 'human', text: 'Approved signing.' });
+    d.emit({ type: 'chat', from: 'human', text: 'Approved: sign and submit this payment.' });
     if ((await d.vault.intentStatus(e.intentId)) === 'Pending') await d.vault.approve(e.intentId);
     if (quoteExpired(d, prep)) {
-      warn(d, 'quote expired while waiting for the human; preparing again');
+      warn(d, 'quote expired while waiting for the human; nothing was signed; preparing again');
       continue;
     }
+    // Journal BEFORE signing: from here on a live authorization may exist until validBefore.
+    save(d, e, 'signed', { authValidBefore: String(m.validBefore) });
     const signature = await d.wallet.signTypedData(prep.eip712);
-    if (usedSignatures.has(signature)) throw new Error('refusing to reuse a signature');
-    usedSignatures.add(signature);
-    const fin = await d.hsp.finalize_payment({
-      signature, payment_payload: prep.payment_payload, payment_mandate_contents: prep.payment_mandate_contents, cart_hash: prep.cart_hash,
-    });
-    save(d, e, 'signed');
-    d.emit({ type: 'approval_needed', step: 'submit', ...ask });
-    info(d, 'awaiting human approval to submit');
-    if (!(await d.human.decide('submit', ask))) {
-      info(d, 'human refused submission: mandate discarded, nothing submitted');
-      await d.vault.cancel(e.intentId);
-      save(d, e, 'closed');
-      return finish(d, 'refused');
-    }
-    d.emit({ type: 'chat', from: 'human', text: 'Approved submission.' });
-    if (quoteExpired(d, prep)) {
-      warn(d, 'quote expired before submission; preparing again, old signature discarded');
-      continue;
-    }
+    let stage = 'finalize_payment';
     try {
+      const fin = await d.hsp.finalize_payment({
+        signature, payment_payload: prep.payment_payload, payment_mandate_contents: prep.payment_mandate_contents, cart_hash: prep.cart_hash,
+      });
+      stage = 'submit_payment';
       const sub = await d.hsp.submit_payment({ payment_mandate_json: fin.payment_mandate_json });
       save(d, e, 'submitted');
       d.emit({ type: 'status', status: sub.status, label: statusLabel(sub.status) });
       return poll(d, e);
     } catch (err) {
-      if (err instanceof HspError && err.code === '30043') {
-        warn(d, 'Gateway returned 30043; preparing again for a fresh quote and signature (old signature discarded)');
+      if (hspCode(err) === '30043') {
+        warn(d, `Gateway returned 30043 on ${stage}; checking the earlier mandate before any new signature (old signature is never resubmitted)`);
+        const r = await retireEarlier(d, e);
+        if (r) return r;
         continue;
       }
-      warn(d, `submit_payment uncertain (${(err as Error).message}); querying the existing payment before any action`);
+      warn(d, `${stage} uncertain (${(err as Error).message}); querying the existing payment before any action`);
       return resume(d, e);
     }
   }
   warn(d, `quote failed ${MAX_PREPARES} times; handing to the human. ${idsLine(e)}`);
-  save(d, e, 'prepared');
   return finish(d, 'handoff', { flowId: e.flowId, paymentRequestId: e.paymentRequestId });
 }
 
@@ -283,12 +327,21 @@ export async function resume(d: FlowDeps, e: JournalEntry): Promise<FlowResult> 
     save(d, e, 'submitted');
     return poll(d, e);
   }
-  if (e.stage === 'ordered' || e.stage === 'intent') {
-    info(d, `gateway shows "${q.status}" and nothing was signed; preparing on the same flow_id (no new order)`);
+  if (e.stage === 'ordered' || e.stage === 'intent' || e.stage === 'prepared') {
+    // 'prepared' is journaled before the approval card; 'signed' is journaled BEFORE signing, so nothing was signed here.
+    info(d, `gateway shows "${q.status}" and nothing was signed; preparing on the same flow_id (no new order), human approves again`);
     const pick = await pickToken(d);
     if (!pick) return finish(d, 'handoff');
-    return signAndSubmit(d, e, pick.token);
+    return signAndSubmit(d, e, pick);
   }
-  warn(d, `conflict: journal stage "${e.stage}" but gateway shows "${q.status}" (no payment). A signature may exist for an old quote; it is never resubmitted. Human decides. ${idsLine(e)}`);
+  if (e.stage === 'signed') {
+    info(d, `an authorization may exist (journal stage "signed"); proving it unused before any new signature`);
+    const r = await retireEarlier(d, e);
+    if (r) return r;
+    const pick = await pickToken(d);
+    if (!pick) return finish(d, 'handoff');
+    return signAndSubmit(d, e, pick);
+  }
+  warn(d, `conflict: journal stage "${e.stage}" but gateway shows "${q.status}" (no payment). Human decides. ${idsLine(e)}`);
   return finish(d, 'handoff', { flowId: e.flowId, paymentRequestId: e.paymentRequestId });
 }

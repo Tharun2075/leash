@@ -1,26 +1,37 @@
-✔ e2e on anvil: on-chain policy, human approval tx, receipt minted; blocked + refused paths (263.507542ms)
-✔ happy path: policy ok, two human approvals, finalized, receipt (26.8775ms)
-✔ T6a payment above daily cap is blocked before any HSP call (0.54375ms)
-✔ T6b merchant not on the allow list is blocked before any HSP call (1.238417ms)
-✔ T6c expired quote: re-prepare once, old quote never signed or submitted (3.242ms)
-✔ T6c quote expires while the human waits: prepare again, no submit of the old signature (5.03575ms)
-✔ T6d Gateway 30043: re-prepare once with a new signature, never resubmit the old one (5.622459ms)
-✔ T6e stuck at payment-safe 11 minutes: pending, ids printed, no re-order (3.101083ms)
-✔ T6f restart between prepare and finalize: compare with query_payment, hand conflict to human, no duplicate mandate (0.615417ms)
-✔ T6f restart after submit: resumes polling the same ids, no second submit (2.599917ms)
-✔ T6f restart with only an order: prepares on the same flow_id, never a new order (2.925041ms)
-✔ T7 refused signature: no finalize_payment, "awaiting human signature" logged, no receipt (0.589541ms)
-✔ T8 "finalized" appears only for payment-finalized; payment-safe renders as confirming (11.861334ms)
-✔ REASONS order matches PolicyVault.Reason enum (0.646ms)
-✔ each reason (0.235333ms)
-✔ check order: unknown merchant AND over cap -> NOT_ALLOWED_MERCHANT (0.058834ms)
-✔ boundaries (0.080542ms)
-✔ formatUsd truncates (0.063667ms)
-ℹ tests 18
+✔ e2e on anvil: on-chain policy, human approval tx, receipt minted; blocked + refused paths (240.354667ms)
+✔ happy path: policy ok, one human approval before signing, finalized, receipt (28.507666ms)
+✔ T6a payment above daily cap is blocked before any HSP call (1.232917ms)
+✔ T6b merchant not on the allow list is blocked before any HSP call (0.44825ms)
+✔ T6c expired quote: re-prepare once, old quote never signed or submitted (3.573625ms)
+✔ T6c quote expires while the human waits: nothing signed, prepare again, human asked again (2.930083ms)
+✔ T6d Gateway 30043: query_payment first, wait out the old authorization, then a new signature; old one never resubmitted (5.408458ms)
+✔ T6d 30043 but the gateway did accept the first mandate: follow it, never sign again (3.3945ms)
+✔ T6d error code comes from a structured field, never from prose (0.119625ms)
+✔ T6e stuck at payment-safe 11 minutes: pending, ids printed, no re-order (3.943542ms)
+✔ T6f restart while the approval card is open: nothing signed, same flow_id prepared again, human asked again, no duplicate order (3.121458ms)
+✔ T6f restart after signing, before finalize: query_payment, wait out validBefore, then re-sign; no duplicate order (3.408041ms)
+✔ T6f conflict: gateway payment_request_id differs from the journal -> human decides, nothing signed (0.729ms)
+✔ T6f restart after submit: resumes polling the same ids, no second submit (2.727292ms)
+✔ T6f restart with only an order: prepares on the same flow_id, never a new order (2.940625ms)
+✔ T7 refused signature: no signature, no finalize_payment, "awaiting human signature" logged, no receipt (0.46ms)
+✔ T8 "finalized" appears only for payment-finalized; payment-safe renders as confirming (12.596917ms)
+✔ mandate check: the card is built from the checked EIP-712 message; any mismatch refuses before the human or the wallet (4.708209ms)
+✔ REASONS order matches PolicyVault.Reason enum (0.651292ms)
+✔ each reason (0.234625ms)
+✔ check order: unknown merchant AND over cap -> NOT_ALLOWED_MERCHANT (0.059125ms)
+✔ boundaries (0.076084ms)
+✔ formatUsd truncates (0.0715ms)
+✔ server binds to loopback only (1.522375ms)
+✔ page embeds the session token; token is random and long (5.981541ms)
+✔ /decision without token, with a wrong token, from a foreign Origin or Host is refused (2.98ms)
+✔ /decision rejects query params, non-JSON and bodies over 4 KB (2.417584ms)
+✔ a valid request reaches the handler (409: nothing is waiting) (0.713333ms)
+✔ /events needs the token (0.501792ms)
+ℹ tests 29
 ℹ suites 0
-ℹ pass 18
+ℹ pass 29
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 682.560084
+ℹ duration_ms 569.845625

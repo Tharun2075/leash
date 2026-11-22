@@ -13,6 +13,7 @@ export interface JournalEntry {
   flowId?: string;
   paymentRequestId?: string;
   cartHash?: string;
+  authValidBefore?: string; // set BEFORE signing: unix seconds until which a signed authorization could execute
   updatedAt: string;
 }
 

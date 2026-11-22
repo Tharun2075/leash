@@ -4,12 +4,9 @@
 {"type":"policy","allowed":true,"reason":"OK","explain":"Allowed: 49.00 USD of 50.00 USD left today after this payment.","remainingToday":"50.00 USD","dailyCap":"50.00 USD","maxPerPayment":"5.00 USD","merchant":"0x5e11e700000000000000000000000000000000a1"}
 {"type":"log","level":"info","text":"intent 1 reserved on PolicyVault"}
 {"type":"log","level":"info","text":"order created flow_id=mock-flow-1 payment_request_id=mock-pr-1"}
-{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x611eA7eFcb3B127b875Bfa7AB70dC2B65Ac8Aaf6","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:21:58.937Z"}
-{"type":"log","level":"info","text":"awaiting human signature"}
-{"type":"chat","from":"human","text":"Approved signing."}
-{"type":"approval_needed","step":"submit","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x611eA7eFcb3B127b875Bfa7AB70dC2B65Ac8Aaf6","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:21:58.937Z"}
-{"type":"log","level":"info","text":"awaiting human approval to submit"}
-{"type":"chat","from":"human","text":"Approved submission."}
+{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x709a1b78112fea0e9E6F22939686D21e4B81Ec18","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:27:17.158Z"}
+{"type":"log","level":"info","text":"awaiting human signature (one approval covers signing, finalize_payment and submit_payment)"}
+{"type":"chat","from":"human","text":"Approved: sign and submit this payment."}
 {"type":"status","status":"payment-submitted","label":"payment-submitted"}
 {"type":"status","status":"payment-submitted","label":"payment-submitted"}
 {"type":"status","status":"payment-verified","label":"payment-verified"}

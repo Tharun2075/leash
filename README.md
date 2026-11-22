@@ -14,9 +14,12 @@ A buyer agent negotiates with a seller agent in a conversational interface. Befo
    per-payment limit, allowed merchants, cooldown. The agent must reserve each payment with
    `requestPayment`; the contract reverts with a reason when the rule says no. The card in the UI
    explains the reason in plain words. Blocked payments never reach HSP.
-2. **Human approves twice.** The HSP Gateway flow is `create_order` -> `prepare_payment` ->
-   the human approves -> EIP-712 signature in the payer's wallet -> `finalize_payment` -> the human
-   approves again -> `submit_payment`. The owner's approval is also an on-chain `approve` call on the vault.
+2. **One human approval, before anything is signed.** The HSP Gateway flow is `create_order` ->
+   `prepare_payment` -> Leash checks the EIP-712 data against the purchase (primaryType, token contract,
+   chain id, recipient = approved merchant = pay_to, sender = our wallet, value = quoted total = the
+   policy-checked amount; any mismatch refuses, `agent/mandate.ts`) -> the human approves a card built from
+   that checked message -> signature in the payer's wallet -> `finalize_payment` -> `submit_payment`.
+   Refusing means no signature and no `finalize_payment`. The approval is also an on-chain `approve` call on the vault.
 3. **Honest status.** The agent polls `query_payment` every 15 s. `payment-safe` is shown as
    "confirming"; the word "finalized" appears only after `payment-finalized`. After 10 minutes it
    prints `flow_id` and `payment_request_id`, marks the payment pending, and never places a second order.
@@ -24,8 +27,9 @@ A buyer agent negotiates with a seller agent in a conversational interface. Befo
    binding the intent, the HSP flow, the payment request, the policy hash and the HSP tx hash.
 
 Hard faults handled (tests in `agent/flow.test.ts`):
-over daily cap, merchant not allowed, quote older than 5 min, Gateway error 30043 (re-prepare once,
-never resubmit an old signature), stuck at payment-safe, restart between prepare and finalize
+over daily cap, merchant not allowed, quote older than 5 min, Gateway error 30043 (read from a structured
+field; `query_payment` first, then wait until the earlier authorization's `validBefore` has passed before a
+new signature; the old one is never resubmitted), stuck at payment-safe, restart between prepare and finalize
 (compare-and-set against `query_payment`, conflicts go to the human), refused signature.
 
 ## Run
@@ -41,6 +45,12 @@ npm run demo                   # console at http://127.0.0.1:8787
 Environment: `LEASH_HSP=live` uses the real HSP MCP server (needs `HSP_ALLOWLIST_CONFIRMED=1`; see below).
 `LEASH_RPC`, `LEASH_VAULT`, `LEASH_AGENT_KEY`, `LEASH_OWNER_KEY` switch the vault from the in-memory
 mirror to the deployed contract.
+
+## Demo console security
+
+The console binds to 127.0.0.1 only. Every request must carry Host 127.0.0.1:PORT or localhost:PORT;
+POSTs also need a matching Origin, the random per-session token embedded in the page (header
+`X-Leash-Token`), and a JSON body of at most 4 KB. Tests: `agent/server.test.ts`.
 
 ## Status
 

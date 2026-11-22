@@ -4,13 +4,10 @@
 {"type":"policy","allowed":true,"reason":"OK","explain":"Allowed: 49.00 USD of 50.00 USD left today after this payment.","remainingToday":"50.00 USD","dailyCap":"50.00 USD","maxPerPayment":"5.00 USD","merchant":"0x5e11e700000000000000000000000000000000a1"}
 {"type":"log","level":"info","text":"intent 1 reserved on PolicyVault"}
 {"type":"log","level":"info","text":"order created flow_id=mock-flow-1 payment_request_id=mock-pr-1"}
-{"type":"log","level":"warn","text":"quote expired at 2026-11-22T17:16:55.417Z; preparing again (old quote is never signed)"}
-{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x875166df22Ec5A6753E4c52cA2bc98537eE745B7","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:21:56.417Z"}
-{"type":"log","level":"info","text":"awaiting human signature"}
-{"type":"chat","from":"human","text":"Approved signing."}
-{"type":"approval_needed","step":"submit","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x875166df22Ec5A6753E4c52cA2bc98537eE745B7","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:21:56.417Z"}
-{"type":"log","level":"info","text":"awaiting human approval to submit"}
-{"type":"chat","from":"human","text":"Approved submission."}
+{"type":"log","level":"warn","text":"quote expired at 2026-11-22T17:22:13.126Z; preparing again (old quote is never signed)"}
+{"type":"approval_needed","step":"sign","payTo":"0x5e11e700000000000000000000000000000000a1","payer":"0x6038F91E5C91292E8DC5cF4CB76996F16977Ba19","tokenTotalRaw":"1000000","quoteExpiresAt":"2026-11-22T17:27:14.126Z"}
+{"type":"log","level":"info","text":"awaiting human signature (one approval covers signing, finalize_payment and submit_payment)"}
+{"type":"chat","from":"human","text":"Approved: sign and submit this payment."}
 {"type":"status","status":"payment-submitted","label":"payment-submitted"}
 {"type":"status","status":"payment-submitted","label":"payment-submitted"}
 {"type":"status","status":"payment-verified","label":"payment-verified"}
