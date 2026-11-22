@@ -29,7 +29,10 @@ export interface ReceiptBody {
 export interface SignedReceipt extends ReceiptBody { signature: Hex }
 
 /** Stable text that is signed: keys in a fixed order, no whitespace. */
-export const canonical = (b: ReceiptBody) => JSON.stringify(b, Object.keys(b).sort());
+// Keys sorted at every depth, so nested status history is signed too (an array replacer would drop it).
+const sortDeep = (v: unknown): unknown => Array.isArray(v) ? v.map(sortDeep)
+  : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, sortDeep((v as Record<string, unknown>)[k])])) : v;
+export const canonical = (b: ReceiptBody) => JSON.stringify(sortDeep(b));
 
 export function buildBody(x: Omit<ReceiptBody, 'version' | 'hsp_label' | 'flow_id_hash' | 'payment_request_id_hash'>): ReceiptBody {
   return {

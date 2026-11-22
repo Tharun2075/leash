@@ -23,6 +23,8 @@ test('receipt: a changed id or a foreign key fails', async () => {
   const r = await signReceipt(agent, body());
   await assert.rejects(verifyReceipt({ ...r, flow_id: 'mock-flow-2' }), /flow_id/);
   await assert.rejects(verifyReceipt({ ...r, hsp_mode: 'live' }), /signed by/);
+  const history = [{ status: 'payment-failed', label: 'failed' }, r.hsp_status_history[1]];
+  await assert.rejects(verifyReceipt({ ...r, hsp_status_history: history }), /signed by/);
   await assert.rejects(signReceipt(privateKeyToAccount(generatePrivateKey()), body()), /does not match/);
 });
 
