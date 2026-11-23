@@ -6,3 +6,16 @@ contracts/broadcast/
 state/
 *.env
 .env*
+
+# publish hygiene (2026-11-23)
+node_modules/
+cache/
+artifacts/
+build/
+dist/
+out/
+.env*
+*.key
+deployments/*fork*
+video/v3-src/
+video/v3-frames/
