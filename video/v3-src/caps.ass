@@ -7,204 +7,204 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Cap,Poppins,132,&HF4EFF3&,&HF4EFF3&,&H00000000&,&H00000000&,1,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
+Style: Cap,Poppins,205,&HF4EFF3&,&HF4EFF3&,&H00000000&,&H00000000&,-1,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 0,0:00:00.00,0:00:00.30,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}AI{\c&HF4EFF3&} agents can now
-Dialogue: 0,0:00:00.30,0:00:00.76,Cap,,0,0,0,,{\an5\pos(1920,1944)}AI {\c&HDAE87D&}agents{\c&HF4EFF3&} can now
-Dialogue: 0,0:00:00.76,0:00:00.98,Cap,,0,0,0,,{\an5\pos(1920,1944)}AI agents {\c&HDAE87D&}can{\c&HF4EFF3&} now
-Dialogue: 0,0:00:00.98,0:00:01.16,Cap,,0,0,0,,{\an5\pos(1920,1944)}AI agents can {\c&HDAE87D&}now{\c&HF4EFF3&}
-Dialogue: 0,0:00:01.18,0:00:01.40,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}pay{\c&HF4EFF3&} for things.
-Dialogue: 0,0:00:01.40,0:00:01.58,Cap,,0,0,0,,{\an5\pos(1920,1944)}pay {\c&HDAE87D&}for{\c&HF4EFF3&} things.
-Dialogue: 0,0:00:01.58,0:00:02.16,Cap,,0,0,0,,{\an5\pos(1920,1944)}pay for {\c&HDAE87D&}things.{\c&HF4EFF3&}
-Dialogue: 0,0:00:02.18,0:00:02.92,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}But{\c&HF4EFF3&} one bad loop
-Dialogue: 0,0:00:02.92,0:00:03.26,Cap,,0,0,0,,{\an5\pos(1920,1944)}But {\c&HDAE87D&}one{\c&HF4EFF3&} bad loop
-Dialogue: 0,0:00:03.26,0:00:03.66,Cap,,0,0,0,,{\an5\pos(1920,1944)}But one {\c&HDAE87D&}bad{\c&HF4EFF3&} loop
-Dialogue: 0,0:00:03.66,0:00:03.96,Cap,,0,0,0,,{\an5\pos(1920,1944)}But one bad {\c&HDAE87D&}loop{\c&HF4EFF3&}
-Dialogue: 0,0:00:03.98,0:00:04.36,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}can{\c&HF4EFF3&} drain a wallet.
-Dialogue: 0,0:00:04.36,0:00:04.62,Cap,,0,0,0,,{\an5\pos(1920,1944)}can {\c&HDAE87D&}drain{\c&HF4EFF3&} a wallet.
-Dialogue: 0,0:00:04.62,0:00:04.82,Cap,,0,0,0,,{\an5\pos(1920,1944)}can drain {\c&HDAE87D&}a{\c&HF4EFF3&} wallet.
-Dialogue: 0,0:00:04.82,0:00:05.39,Cap,,0,0,0,,{\an5\pos(1920,1944)}can drain a {\c&HDAE87D&}wallet.{\c&HF4EFF3&}
-Dialogue: 0,0:00:05.64,0:00:06.26,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Leash{\c&HF4EFF3&} gives each agent a
-Dialogue: 0,0:00:06.26,0:00:06.54,Cap,,0,0,0,,{\an5\pos(1920,1944)}Leash {\c&HDAE87D&}gives{\c&HF4EFF3&} each agent a
-Dialogue: 0,0:00:06.54,0:00:06.86,Cap,,0,0,0,,{\an5\pos(1920,1944)}Leash gives {\c&HDAE87D&}each{\c&HF4EFF3&} agent a
-Dialogue: 0,0:00:06.86,0:00:07.22,Cap,,0,0,0,,{\an5\pos(1920,1944)}Leash gives each {\c&HDAE87D&}agent{\c&HF4EFF3&} a
-Dialogue: 0,0:00:07.22,0:00:07.38,Cap,,0,0,0,,{\an5\pos(1920,1944)}Leash gives each agent {\c&HDAE87D&}a{\c&HF4EFF3&}
-Dialogue: 0,0:00:07.40,0:00:07.70,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}budget{\c&HF4EFF3&} it cannot overspend.
-Dialogue: 0,0:00:07.70,0:00:08.06,Cap,,0,0,0,,{\an5\pos(1920,1944)}budget {\c&HDAE87D&}it{\c&HF4EFF3&} cannot overspend.
-Dialogue: 0,0:00:08.06,0:00:08.32,Cap,,0,0,0,,{\an5\pos(1920,1944)}budget it {\c&HDAE87D&}cannot{\c&HF4EFF3&} overspend.
-Dialogue: 0,0:00:08.32,0:00:09.47,Cap,,0,0,0,,{\an5\pos(1920,1944)}budget it cannot {\c&HDAE87D&}overspend.{\c&HF4EFF3&}
-Dialogue: 0,0:00:09.88,0:00:10.52,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Enforced{\c&HF4EFF3&} by a contract
-Dialogue: 0,0:00:10.52,0:00:10.68,Cap,,0,0,0,,{\an5\pos(1920,1944)}Enforced {\c&HDAE87D&}by{\c&HF4EFF3&} a contract
-Dialogue: 0,0:00:10.68,0:00:10.80,Cap,,0,0,0,,{\an5\pos(1920,1944)}Enforced by {\c&HDAE87D&}a{\c&HF4EFF3&} contract
-Dialogue: 0,0:00:10.80,0:00:11.18,Cap,,0,0,0,,{\an5\pos(1920,1944)}Enforced by a {\c&HDAE87D&}contract{\c&HF4EFF3&}
-Dialogue: 0,0:00:11.20,0:00:11.44,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}on{\c&HF4EFF3&} HSK mainnet.
-Dialogue: 0,0:00:11.44,0:00:11.98,Cap,,0,0,0,,{\an5\pos(1920,1944)}on {\c&HDAE87D&}HSK{\c&HF4EFF3&} mainnet.
-Dialogue: 0,0:00:11.98,0:00:12.71,Cap,,0,0,0,,{\an5\pos(1920,1944)}on HSK {\c&HDAE87D&}mainnet.{\c&HF4EFF3&}
-Dialogue: 0,0:00:12.92,0:00:13.44,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}The{\c&HF4EFF3&} owner sets a daily
-Dialogue: 0,0:00:13.44,0:00:13.68,Cap,,0,0,0,,{\an5\pos(1920,1944)}The {\c&HDAE87D&}owner{\c&HF4EFF3&} sets a daily
-Dialogue: 0,0:00:13.68,0:00:14.02,Cap,,0,0,0,,{\an5\pos(1920,1944)}The owner {\c&HDAE87D&}sets{\c&HF4EFF3&} a daily
-Dialogue: 0,0:00:14.02,0:00:14.20,Cap,,0,0,0,,{\an5\pos(1920,1944)}The owner sets {\c&HDAE87D&}a{\c&HF4EFF3&} daily
-Dialogue: 0,0:00:14.20,0:00:14.46,Cap,,0,0,0,,{\an5\pos(1920,1944)}The owner sets a {\c&HDAE87D&}daily{\c&HF4EFF3&}
-Dialogue: 0,0:00:14.48,0:00:14.94,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}allowance{\c&HF4EFF3&} and a per-payment limit.
-Dialogue: 0,0:00:14.94,0:00:15.48,Cap,,0,0,0,,{\an5\pos(1920,1944)}allowance {\c&HDAE87D&}and{\c&HF4EFF3&} a per-payment limit.
-Dialogue: 0,0:00:15.48,0:00:15.60,Cap,,0,0,0,,{\an5\pos(1920,1944)}allowance and {\c&HDAE87D&}a{\c&HF4EFF3&} per-payment limit.
-Dialogue: 0,0:00:15.60,0:00:16.22,Cap,,0,0,0,,{\an5\pos(1920,1944)}allowance and a {\c&HDAE87D&}per-payment{\c&HF4EFF3&} limit.
-Dialogue: 0,0:00:16.22,0:00:16.79,Cap,,0,0,0,,{\an5\pos(1920,1944)}allowance and a per-payment {\c&HDAE87D&}limit.{\c&HF4EFF3&}
-Dialogue: 0,0:00:17.06,0:00:17.70,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Plus{\c&HF4EFF3&} the shops the agent
-Dialogue: 0,0:00:17.70,0:00:17.90,Cap,,0,0,0,,{\an5\pos(1920,1944)}Plus {\c&HDAE87D&}the{\c&HF4EFF3&} shops the agent
-Dialogue: 0,0:00:17.90,0:00:18.20,Cap,,0,0,0,,{\an5\pos(1920,1944)}Plus the {\c&HDAE87D&}shops{\c&HF4EFF3&} the agent
-Dialogue: 0,0:00:18.20,0:00:18.40,Cap,,0,0,0,,{\an5\pos(1920,1944)}Plus the shops {\c&HDAE87D&}the{\c&HF4EFF3&} agent
-Dialogue: 0,0:00:18.40,0:00:18.68,Cap,,0,0,0,,{\an5\pos(1920,1944)}Plus the shops the {\c&HDAE87D&}agent{\c&HF4EFF3&}
-Dialogue: 0,0:00:18.70,0:00:18.92,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}may{\c&HF4EFF3&} pay, and a cooldown.
-Dialogue: 0,0:00:18.92,0:00:19.30,Cap,,0,0,0,,{\an5\pos(1920,1944)}may {\c&HDAE87D&}pay,{\c&HF4EFF3&} and a cooldown.
-Dialogue: 0,0:00:19.30,0:00:19.82,Cap,,0,0,0,,{\an5\pos(1920,1944)}may pay, {\c&HDAE87D&}and{\c&HF4EFF3&} a cooldown.
-Dialogue: 0,0:00:19.82,0:00:19.96,Cap,,0,0,0,,{\an5\pos(1920,1944)}may pay, and {\c&HDAE87D&}a{\c&HF4EFF3&} cooldown.
-Dialogue: 0,0:00:19.96,0:00:20.75,Cap,,0,0,0,,{\an5\pos(1920,1944)}may pay, and a {\c&HDAE87D&}cooldown.{\c&HF4EFF3&}
-Dialogue: 0,0:00:21.20,0:00:21.52,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}The{\c&HF4EFF3&} agent must ask the
-Dialogue: 0,0:00:21.52,0:00:21.84,Cap,,0,0,0,,{\an5\pos(1920,1944)}The {\c&HDAE87D&}agent{\c&HF4EFF3&} must ask the
-Dialogue: 0,0:00:21.84,0:00:22.14,Cap,,0,0,0,,{\an5\pos(1920,1944)}The agent {\c&HDAE87D&}must{\c&HF4EFF3&} ask the
-Dialogue: 0,0:00:22.14,0:00:22.40,Cap,,0,0,0,,{\an5\pos(1920,1944)}The agent must {\c&HDAE87D&}ask{\c&HF4EFF3&} the
-Dialogue: 0,0:00:22.40,0:00:22.54,Cap,,0,0,0,,{\an5\pos(1920,1944)}The agent must ask {\c&HDAE87D&}the{\c&HF4EFF3&}
-Dialogue: 0,0:00:22.56,0:00:23.02,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}contract{\c&HF4EFF3&} before every payment.
-Dialogue: 0,0:00:23.02,0:00:23.40,Cap,,0,0,0,,{\an5\pos(1920,1944)}contract {\c&HDAE87D&}before{\c&HF4EFF3&} every payment.
-Dialogue: 0,0:00:23.40,0:00:23.80,Cap,,0,0,0,,{\an5\pos(1920,1944)}contract before {\c&HDAE87D&}every{\c&HF4EFF3&} payment.
-Dialogue: 0,0:00:23.80,0:00:24.51,Cap,,0,0,0,,{\an5\pos(1920,1944)}contract before every {\c&HDAE87D&}payment.{\c&HF4EFF3&}
-Dialogue: 0,0:00:24.78,0:00:25.34,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}This{\c&HF4EFF3&} panel reads the
-Dialogue: 0,0:00:25.34,0:00:25.66,Cap,,0,0,0,,{\an5\pos(1920,1944)}This {\c&HDAE87D&}panel{\c&HF4EFF3&} reads the
-Dialogue: 0,0:00:25.66,0:00:26.28,Cap,,0,0,0,,{\an5\pos(1920,1944)}This panel {\c&HDAE87D&}reads{\c&HF4EFF3&} the
-Dialogue: 0,0:00:26.28,0:00:26.48,Cap,,0,0,0,,{\an5\pos(1920,1944)}This panel reads {\c&HDAE87D&}the{\c&HF4EFF3&}
-Dialogue: 0,0:00:26.50,0:00:26.80,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}budget{\c&HF4EFF3&} live from mainnet.
-Dialogue: 0,0:00:26.80,0:00:27.18,Cap,,0,0,0,,{\an5\pos(1920,1944)}budget {\c&HDAE87D&}live{\c&HF4EFF3&} from mainnet.
-Dialogue: 0,0:00:27.18,0:00:27.58,Cap,,0,0,0,,{\an5\pos(1920,1944)}budget live {\c&HDAE87D&}from{\c&HF4EFF3&} mainnet.
-Dialogue: 0,0:00:27.58,0:00:28.37,Cap,,0,0,0,,{\an5\pos(1920,1944)}budget live from {\c&HDAE87D&}mainnet.{\c&HF4EFF3&}
-Dialogue: 0,0:00:28.87,0:00:29.03,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Fifty{\c&HF4EFF3&} dollars a day. Five
-Dialogue: 0,0:00:29.03,0:00:29.26,Cap,,0,0,0,,{\an5\pos(1920,1944)}Fifty {\c&HDAE87D&}dollars{\c&HF4EFF3&} a day. Five
-Dialogue: 0,0:00:29.26,0:00:29.68,Cap,,0,0,0,,{\an5\pos(1920,1944)}Fifty dollars {\c&HDAE87D&}a{\c&HF4EFF3&} day. Five
-Dialogue: 0,0:00:29.68,0:00:30.42,Cap,,0,0,0,,{\an5\pos(1920,1944)}Fifty dollars a {\c&HDAE87D&}day.{\c&HF4EFF3&} Five
-Dialogue: 0,0:00:30.42,0:00:30.50,Cap,,0,0,0,,{\an5\pos(1920,1944)}Fifty dollars a day. {\c&HDAE87D&}Five{\c&HF4EFF3&}
-Dialogue: 0,0:00:30.52,0:00:30.70,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}dollars{\c&HF4EFF3&} per payment, at most.
-Dialogue: 0,0:00:30.70,0:00:31.14,Cap,,0,0,0,,{\an5\pos(1920,1944)}dollars {\c&HDAE87D&}per{\c&HF4EFF3&} payment, at most.
-Dialogue: 0,0:00:31.14,0:00:31.50,Cap,,0,0,0,,{\an5\pos(1920,1944)}dollars per {\c&HDAE87D&}payment,{\c&HF4EFF3&} at most.
-Dialogue: 0,0:00:31.50,0:00:31.86,Cap,,0,0,0,,{\an5\pos(1920,1944)}dollars per payment, {\c&HDAE87D&}at{\c&HF4EFF3&} most.
-Dialogue: 0,0:00:31.86,0:00:32.41,Cap,,0,0,0,,{\an5\pos(1920,1944)}dollars per payment, at {\c&HDAE87D&}most.{\c&HF4EFF3&}
-Dialogue: 0,0:00:32.58,0:00:33.32,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Let's{\c&HF4EFF3&} ask the contract about
-Dialogue: 0,0:00:33.32,0:00:33.60,Cap,,0,0,0,,{\an5\pos(1920,1944)}Let's {\c&HDAE87D&}ask{\c&HF4EFF3&} the contract about
-Dialogue: 0,0:00:33.60,0:00:33.74,Cap,,0,0,0,,{\an5\pos(1920,1944)}Let's ask {\c&HDAE87D&}the{\c&HF4EFF3&} contract about
-Dialogue: 0,0:00:33.74,0:00:34.16,Cap,,0,0,0,,{\an5\pos(1920,1944)}Let's ask the {\c&HDAE87D&}contract{\c&HF4EFF3&} about
-Dialogue: 0,0:00:34.16,0:00:34.58,Cap,,0,0,0,,{\an5\pos(1920,1944)}Let's ask the contract {\c&HDAE87D&}about{\c&HF4EFF3&}
-Dialogue: 0,0:00:34.60,0:00:34.76,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}a{\c&HF4EFF3&} nine dollar payment.
-Dialogue: 0,0:00:34.76,0:00:34.92,Cap,,0,0,0,,{\an5\pos(1920,1944)}a {\c&HDAE87D&}nine{\c&HF4EFF3&} dollar payment.
-Dialogue: 0,0:00:34.92,0:00:35.16,Cap,,0,0,0,,{\an5\pos(1920,1944)}a nine {\c&HDAE87D&}dollar{\c&HF4EFF3&} payment.
-Dialogue: 0,0:00:35.16,0:00:36.03,Cap,,0,0,0,,{\an5\pos(1920,1944)}a nine dollar {\c&HDAE87D&}payment.{\c&HF4EFF3&}
-Dialogue: 0,0:00:36.52,0:00:37.32,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Blocked.{\c&HF4EFF3&} It is over the
-Dialogue: 0,0:00:37.32,0:00:37.86,Cap,,0,0,0,,{\an5\pos(1920,1944)}Blocked. {\c&HDAE87D&}It{\c&HF4EFF3&} is over the
-Dialogue: 0,0:00:37.86,0:00:38.00,Cap,,0,0,0,,{\an5\pos(1920,1944)}Blocked. It {\c&HDAE87D&}is{\c&HF4EFF3&} over the
-Dialogue: 0,0:00:38.00,0:00:38.28,Cap,,0,0,0,,{\an5\pos(1920,1944)}Blocked. It is {\c&HDAE87D&}over{\c&HF4EFF3&} the
-Dialogue: 0,0:00:38.28,0:00:38.40,Cap,,0,0,0,,{\an5\pos(1920,1944)}Blocked. It is over {\c&HDAE87D&}the{\c&HF4EFF3&}
-Dialogue: 0,0:00:38.42,0:00:39.00,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}per-payment{\c&HF4EFF3&} limit. Reason four.
-Dialogue: 0,0:00:39.00,0:00:39.78,Cap,,0,0,0,,{\an5\pos(1920,1944)}per-payment {\c&HDAE87D&}limit.{\c&HF4EFF3&} Reason four.
-Dialogue: 0,0:00:39.78,0:00:40.30,Cap,,0,0,0,,{\an5\pos(1920,1944)}per-payment limit. {\c&HDAE87D&}Reason{\c&HF4EFF3&} four.
-Dialogue: 0,0:00:40.30,0:00:40.95,Cap,,0,0,0,,{\an5\pos(1920,1944)}per-payment limit. Reason {\c&HDAE87D&}four.{\c&HF4EFF3&}
-Dialogue: 0,0:00:41.18,0:00:41.72,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}And{\c&HF4EFF3&} here is the real
-Dialogue: 0,0:00:41.72,0:00:42.06,Cap,,0,0,0,,{\an5\pos(1920,1944)}And {\c&HDAE87D&}here{\c&HF4EFF3&} is the real
-Dialogue: 0,0:00:42.06,0:00:42.68,Cap,,0,0,0,,{\an5\pos(1920,1944)}And here {\c&HDAE87D&}is{\c&HF4EFF3&} the real
-Dialogue: 0,0:00:42.68,0:00:42.82,Cap,,0,0,0,,{\an5\pos(1920,1944)}And here is {\c&HDAE87D&}the{\c&HF4EFF3&} real
-Dialogue: 0,0:00:42.82,0:00:43.12,Cap,,0,0,0,,{\an5\pos(1920,1944)}And here is the {\c&HDAE87D&}real{\c&HF4EFF3&}
-Dialogue: 0,0:00:43.14,0:00:43.56,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}blocked{\c&HF4EFF3&} payment, on chain.
-Dialogue: 0,0:00:43.56,0:00:44.42,Cap,,0,0,0,,{\an5\pos(1920,1944)}blocked {\c&HDAE87D&}payment,{\c&HF4EFF3&} on chain.
-Dialogue: 0,0:00:44.42,0:00:44.84,Cap,,0,0,0,,{\an5\pos(1920,1944)}blocked payment, {\c&HDAE87D&}on{\c&HF4EFF3&} chain.
-Dialogue: 0,0:00:44.84,0:00:45.39,Cap,,0,0,0,,{\an5\pos(1920,1944)}blocked payment, on {\c&HDAE87D&}chain.{\c&HF4EFF3&}
-Dialogue: 0,0:00:45.94,0:00:46.60,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Blockscout{\c&HF4EFF3&} shows the nine dollar request
-Dialogue: 0,0:00:46.60,0:00:47.02,Cap,,0,0,0,,{\an5\pos(1920,1944)}Blockscout {\c&HDAE87D&}shows{\c&HF4EFF3&} the nine dollar request
-Dialogue: 0,0:00:47.02,0:00:47.20,Cap,,0,0,0,,{\an5\pos(1920,1944)}Blockscout shows {\c&HDAE87D&}the{\c&HF4EFF3&} nine dollar request
-Dialogue: 0,0:00:47.20,0:00:47.31,Cap,,0,0,0,,{\an5\pos(1920,1944)}Blockscout shows the {\c&HDAE87D&}nine{\c&HF4EFF3&} dollar request
-Dialogue: 0,0:00:47.31,0:00:47.48,Cap,,0,0,0,,{\an5\pos(1920,1944)}Blockscout shows the nine {\c&HDAE87D&}dollar{\c&HF4EFF3&} request
-Dialogue: 0,0:00:47.48,0:00:48.08,Cap,,0,0,0,,{\an5\pos(1920,1944)}Blockscout shows the nine dollar {\c&HDAE87D&}request{\c&HF4EFF3&}
-Dialogue: 0,0:00:48.10,0:00:48.66,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}and{\c&HF4EFF3&} the reason it failed.
-Dialogue: 0,0:00:48.66,0:00:48.76,Cap,,0,0,0,,{\an5\pos(1920,1944)}and {\c&HDAE87D&}the{\c&HF4EFF3&} reason it failed.
-Dialogue: 0,0:00:48.76,0:00:49.06,Cap,,0,0,0,,{\an5\pos(1920,1944)}and the {\c&HDAE87D&}reason{\c&HF4EFF3&} it failed.
-Dialogue: 0,0:00:49.06,0:00:49.24,Cap,,0,0,0,,{\an5\pos(1920,1944)}and the reason {\c&HDAE87D&}it{\c&HF4EFF3&} failed.
-Dialogue: 0,0:00:49.24,0:00:49.91,Cap,,0,0,0,,{\an5\pos(1920,1944)}and the reason it {\c&HDAE87D&}failed.{\c&HF4EFF3&}
-Dialogue: 0,0:00:50.10,0:00:50.56,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}A{\c&HF4EFF3&} two dollar payment, inside
-Dialogue: 0,0:00:50.56,0:00:50.65,Cap,,0,0,0,,{\an5\pos(1920,1944)}A {\c&HDAE87D&}two{\c&HF4EFF3&} dollar payment, inside
-Dialogue: 0,0:00:50.65,0:00:50.82,Cap,,0,0,0,,{\an5\pos(1920,1944)}A two {\c&HDAE87D&}dollar{\c&HF4EFF3&} payment, inside
-Dialogue: 0,0:00:50.82,0:00:51.72,Cap,,0,0,0,,{\an5\pos(1920,1944)}A two dollar {\c&HDAE87D&}payment,{\c&HF4EFF3&} inside
-Dialogue: 0,0:00:51.72,0:00:52.30,Cap,,0,0,0,,{\an5\pos(1920,1944)}A two dollar payment, {\c&HDAE87D&}inside{\c&HF4EFF3&}
-Dialogue: 0,0:00:52.32,0:00:52.56,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}the{\c&HF4EFF3&} budget, goes through.
-Dialogue: 0,0:00:52.56,0:00:53.20,Cap,,0,0,0,,{\an5\pos(1920,1944)}the {\c&HDAE87D&}budget,{\c&HF4EFF3&} goes through.
-Dialogue: 0,0:00:53.20,0:00:53.68,Cap,,0,0,0,,{\an5\pos(1920,1944)}the budget, {\c&HDAE87D&}goes{\c&HF4EFF3&} through.
-Dialogue: 0,0:00:53.68,0:00:54.21,Cap,,0,0,0,,{\an5\pos(1920,1944)}the budget, goes {\c&HDAE87D&}through.{\c&HF4EFF3&}
-Dialogue: 0,0:00:54.50,0:00:55.04,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Only{\c&HF4EFF3&} the owner approves it,
-Dialogue: 0,0:00:55.04,0:00:55.20,Cap,,0,0,0,,{\an5\pos(1920,1944)}Only {\c&HDAE87D&}the{\c&HF4EFF3&} owner approves it,
-Dialogue: 0,0:00:55.20,0:00:55.46,Cap,,0,0,0,,{\an5\pos(1920,1944)}Only the {\c&HDAE87D&}owner{\c&HF4EFF3&} approves it,
-Dialogue: 0,0:00:55.46,0:00:55.96,Cap,,0,0,0,,{\an5\pos(1920,1944)}Only the owner {\c&HDAE87D&}approves{\c&HF4EFF3&} it,
-Dialogue: 0,0:00:55.96,0:00:56.10,Cap,,0,0,0,,{\an5\pos(1920,1944)}Only the owner approves {\c&HDAE87D&}it,{\c&HF4EFF3&}
-Dialogue: 0,0:00:56.12,0:00:56.58,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}from{\c&HF4EFF3&} a separate key.
-Dialogue: 0,0:00:56.58,0:00:56.72,Cap,,0,0,0,,{\an5\pos(1920,1944)}from {\c&HDAE87D&}a{\c&HF4EFF3&} separate key.
-Dialogue: 0,0:00:56.72,0:00:57.06,Cap,,0,0,0,,{\an5\pos(1920,1944)}from a {\c&HDAE87D&}separate{\c&HF4EFF3&} key.
-Dialogue: 0,0:00:57.06,0:00:57.67,Cap,,0,0,0,,{\an5\pos(1920,1944)}from a separate {\c&HDAE87D&}key.{\c&HF4EFF3&}
-Dialogue: 0,0:00:58.12,0:00:58.44,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}The{\c&HF4EFF3&} payment then runs
-Dialogue: 0,0:00:58.44,0:00:58.76,Cap,,0,0,0,,{\an5\pos(1920,1944)}The {\c&HDAE87D&}payment{\c&HF4EFF3&} then runs
-Dialogue: 0,0:00:58.76,0:00:59.00,Cap,,0,0,0,,{\an5\pos(1920,1944)}The payment {\c&HDAE87D&}then{\c&HF4EFF3&} runs
-Dialogue: 0,0:00:59.00,0:00:59.30,Cap,,0,0,0,,{\an5\pos(1920,1944)}The payment then {\c&HDAE87D&}runs{\c&HF4EFF3&}
-Dialogue: 0,0:00:59.32,0:00:59.52,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}through{\c&HF4EFF3&} HashKey's HSP steps.
-Dialogue: 0,0:00:59.52,0:01:00.22,Cap,,0,0,0,,{\an5\pos(1920,1944)}through {\c&HDAE87D&}HashKey's{\c&HF4EFF3&} HSP steps.
-Dialogue: 0,0:01:00.22,0:01:00.90,Cap,,0,0,0,,{\an5\pos(1920,1944)}through HashKey's {\c&HDAE87D&}HSP{\c&HF4EFF3&} steps.
-Dialogue: 0,0:01:00.90,0:01:01.67,Cap,,0,0,0,,{\an5\pos(1920,1944)}through HashKey's HSP {\c&HDAE87D&}steps.{\c&HF4EFF3&}
-Dialogue: 0,0:01:02.00,0:01:02.66,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Create{\c&HF4EFF3&} order, prepare, check the EIP-712
-Dialogue: 0,0:01:02.66,0:01:03.46,Cap,,0,0,0,,{\an5\pos(1920,1944)}Create {\c&HDAE87D&}order,{\c&HF4EFF3&} prepare, check the EIP-712
-Dialogue: 0,0:01:03.46,0:01:04.40,Cap,,0,0,0,,{\an5\pos(1920,1944)}Create order, {\c&HDAE87D&}prepare,{\c&HF4EFF3&} check the EIP-712
-Dialogue: 0,0:01:04.40,0:01:04.64,Cap,,0,0,0,,{\an5\pos(1920,1944)}Create order, prepare, {\c&HDAE87D&}check{\c&HF4EFF3&} the EIP-712
-Dialogue: 0,0:01:04.64,0:01:04.84,Cap,,0,0,0,,{\an5\pos(1920,1944)}Create order, prepare, check {\c&HDAE87D&}the{\c&HF4EFF3&} EIP-712
-Dialogue: 0,0:01:04.84,0:01:06.32,Cap,,0,0,0,,{\an5\pos(1920,1944)}Create order, prepare, check the {\c&HDAE87D&}EIP-712{\c&HF4EFF3&}
-Dialogue: 0,0:01:06.34,0:01:07.10,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}data,{\c&HF4EFF3&} then one human approval.
-Dialogue: 0,0:01:07.10,0:01:07.48,Cap,,0,0,0,,{\an5\pos(1920,1944)}data, {\c&HDAE87D&}then{\c&HF4EFF3&} one human approval.
-Dialogue: 0,0:01:07.48,0:01:07.76,Cap,,0,0,0,,{\an5\pos(1920,1944)}data, then {\c&HDAE87D&}one{\c&HF4EFF3&} human approval.
-Dialogue: 0,0:01:07.76,0:01:08.12,Cap,,0,0,0,,{\an5\pos(1920,1944)}data, then one {\c&HDAE87D&}human{\c&HF4EFF3&} approval.
-Dialogue: 0,0:01:08.12,0:01:08.83,Cap,,0,0,0,,{\an5\pos(1920,1944)}data, then one human {\c&HDAE87D&}approval.{\c&HF4EFF3&}
-Dialogue: 0,0:01:09.08,0:01:09.78,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}These{\c&HF4EFF3&} HSP steps run on
-Dialogue: 0,0:01:09.78,0:01:10.38,Cap,,0,0,0,,{\an5\pos(1920,1944)}These {\c&HDAE87D&}HSP{\c&HF4EFF3&} steps run on
-Dialogue: 0,0:01:10.38,0:01:10.82,Cap,,0,0,0,,{\an5\pos(1920,1944)}These HSP {\c&HDAE87D&}steps{\c&HF4EFF3&} run on
-Dialogue: 0,0:01:10.82,0:01:11.22,Cap,,0,0,0,,{\an5\pos(1920,1944)}These HSP steps {\c&HDAE87D&}run{\c&HF4EFF3&} on
-Dialogue: 0,0:01:11.22,0:01:11.32,Cap,,0,0,0,,{\an5\pos(1920,1944)}These HSP steps run {\c&HDAE87D&}on{\c&HF4EFF3&}
-Dialogue: 0,0:01:11.34,0:01:11.46,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}a{\c&HF4EFF3&} mock while our
-Dialogue: 0,0:01:11.46,0:01:11.70,Cap,,0,0,0,,{\an5\pos(1920,1944)}a {\c&HDAE87D&}mock{\c&HF4EFF3&} while our
-Dialogue: 0,0:01:11.70,0:01:12.06,Cap,,0,0,0,,{\an5\pos(1920,1944)}a mock {\c&HDAE87D&}while{\c&HF4EFF3&} our
-Dialogue: 0,0:01:12.06,0:01:12.30,Cap,,0,0,0,,{\an5\pos(1920,1944)}a mock while {\c&HDAE87D&}our{\c&HF4EFF3&}
-Dialogue: 0,0:01:12.32,0:01:12.68,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}QA{\c&HF4EFF3&} access is pending.
-Dialogue: 0,0:01:12.68,0:01:13.06,Cap,,0,0,0,,{\an5\pos(1920,1944)}QA {\c&HDAE87D&}access{\c&HF4EFF3&} is pending.
-Dialogue: 0,0:01:13.06,0:01:13.34,Cap,,0,0,0,,{\an5\pos(1920,1944)}QA access {\c&HDAE87D&}is{\c&HF4EFF3&} pending.
-Dialogue: 0,0:01:13.34,0:01:13.68,Cap,,0,0,0,,{\an5\pos(1920,1944)}QA access is {\c&HDAE87D&}pending.{\c&HF4EFF3&}
-Dialogue: 0,0:01:13.70,0:01:14.72,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}The{\c&HF4EFF3&} budget contract and the
-Dialogue: 0,0:01:14.72,0:01:15.00,Cap,,0,0,0,,{\an5\pos(1920,1944)}The {\c&HDAE87D&}budget{\c&HF4EFF3&} contract and the
-Dialogue: 0,0:01:15.00,0:01:15.46,Cap,,0,0,0,,{\an5\pos(1920,1944)}The budget {\c&HDAE87D&}contract{\c&HF4EFF3&} and the
-Dialogue: 0,0:01:15.46,0:01:15.70,Cap,,0,0,0,,{\an5\pos(1920,1944)}The budget contract {\c&HDAE87D&}and{\c&HF4EFF3&} the
-Dialogue: 0,0:01:15.70,0:01:15.76,Cap,,0,0,0,,{\an5\pos(1920,1944)}The budget contract and {\c&HDAE87D&}the{\c&HF4EFF3&}
-Dialogue: 0,0:01:15.78,0:01:16.24,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}receipts{\c&HF4EFF3&} are real mainnet.
-Dialogue: 0,0:01:16.24,0:01:16.58,Cap,,0,0,0,,{\an5\pos(1920,1944)}receipts {\c&HDAE87D&}are{\c&HF4EFF3&} real mainnet.
-Dialogue: 0,0:01:16.58,0:01:16.82,Cap,,0,0,0,,{\an5\pos(1920,1944)}receipts are {\c&HDAE87D&}real{\c&HF4EFF3&} mainnet.
-Dialogue: 0,0:01:16.82,0:01:17.61,Cap,,0,0,0,,{\an5\pos(1920,1944)}receipts are real {\c&HDAE87D&}mainnet.{\c&HF4EFF3&}
-Dialogue: 0,0:01:17.72,0:01:18.46,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Every{\c&HF4EFF3&} settled payment leaves a signed
-Dialogue: 0,0:01:18.46,0:01:18.98,Cap,,0,0,0,,{\an5\pos(1920,1944)}Every {\c&HDAE87D&}settled{\c&HF4EFF3&} payment leaves a signed
-Dialogue: 0,0:01:18.98,0:01:19.52,Cap,,0,0,0,,{\an5\pos(1920,1944)}Every settled {\c&HDAE87D&}payment{\c&HF4EFF3&} leaves a signed
-Dialogue: 0,0:01:19.52,0:01:20.28,Cap,,0,0,0,,{\an5\pos(1920,1944)}Every settled payment {\c&HDAE87D&}leaves{\c&HF4EFF3&} a signed
-Dialogue: 0,0:01:20.28,0:01:20.52,Cap,,0,0,0,,{\an5\pos(1920,1944)}Every settled payment leaves {\c&HDAE87D&}a{\c&HF4EFF3&} signed
-Dialogue: 0,0:01:20.52,0:01:20.78,Cap,,0,0,0,,{\an5\pos(1920,1944)}Every settled payment leaves a {\c&HDAE87D&}signed{\c&HF4EFF3&}
-Dialogue: 0,0:01:20.80,0:01:21.20,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}receipt{\c&HF4EFF3&} that matches the chain.
-Dialogue: 0,0:01:21.20,0:01:21.80,Cap,,0,0,0,,{\an5\pos(1920,1944)}receipt {\c&HDAE87D&}that{\c&HF4EFF3&} matches the chain.
-Dialogue: 0,0:01:21.80,0:01:22.14,Cap,,0,0,0,,{\an5\pos(1920,1944)}receipt that {\c&HDAE87D&}matches{\c&HF4EFF3&} the chain.
-Dialogue: 0,0:01:22.14,0:01:22.34,Cap,,0,0,0,,{\an5\pos(1920,1944)}receipt that matches {\c&HDAE87D&}the{\c&HF4EFF3&} chain.
-Dialogue: 0,0:01:22.34,0:01:22.97,Cap,,0,0,0,,{\an5\pos(1920,1944)}receipt that matches the {\c&HDAE87D&}chain.{\c&HF4EFF3&}
-Dialogue: 0,0:01:23.54,0:01:24.06,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}Leash.{\c&HF4EFF3&} A budget for every AI
-Dialogue: 0,0:01:24.06,0:01:24.48,Cap,,0,0,0,,{\an5\pos(1920,1944)}Leash. {\c&HDAE87D&}A{\c&HF4EFF3&} budget for every AI
-Dialogue: 0,0:01:24.48,0:01:24.72,Cap,,0,0,0,,{\an5\pos(1920,1944)}Leash. A {\c&HDAE87D&}budget{\c&HF4EFF3&} for every AI
-Dialogue: 0,0:01:24.72,0:01:24.94,Cap,,0,0,0,,{\an5\pos(1920,1944)}Leash. A budget {\c&HDAE87D&}for{\c&HF4EFF3&} every AI
-Dialogue: 0,0:01:24.94,0:01:25.32,Cap,,0,0,0,,{\an5\pos(1920,1944)}Leash. A budget for {\c&HDAE87D&}every{\c&HF4EFF3&} AI
-Dialogue: 0,0:01:25.32,0:01:25.72,Cap,,0,0,0,,{\an5\pos(1920,1944)}Leash. A budget for every {\c&HDAE87D&}AI{\c&HF4EFF3&}
-Dialogue: 0,0:01:25.74,0:01:26.28,Cap,,0,0,0,,{\an5\pos(1920,1944)}{\c&HDAE87D&}agent,{\c&HF4EFF3&} enforced on HSK mainnet.
-Dialogue: 0,0:01:26.28,0:01:27.04,Cap,,0,0,0,,{\an5\pos(1920,1944)}agent, {\c&HDAE87D&}enforced{\c&HF4EFF3&} on HSK mainnet.
-Dialogue: 0,0:01:27.04,0:01:27.30,Cap,,0,0,0,,{\an5\pos(1920,1944)}agent, enforced {\c&HDAE87D&}on{\c&HF4EFF3&} HSK mainnet.
-Dialogue: 0,0:01:27.30,0:01:27.90,Cap,,0,0,0,,{\an5\pos(1920,1944)}agent, enforced on {\c&HDAE87D&}HSK{\c&HF4EFF3&} mainnet.
-Dialogue: 0,0:01:27.90,0:01:28.71,Cap,,0,0,0,,{\an5\pos(1920,1944)}agent, enforced on HSK {\c&HDAE87D&}mainnet.{\c&HF4EFF3&}
+Dialogue: 0,0:00:00.00,0:00:00.30,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}AI{\c&HF4EFF3&} agents can now
+Dialogue: 0,0:00:00.30,0:00:00.76,Cap,,0,0,0,,{\an5\pos(1920,1922)}AI {\c&HDAE87D&}agents{\c&HF4EFF3&} can now
+Dialogue: 0,0:00:00.76,0:00:00.98,Cap,,0,0,0,,{\an5\pos(1920,1922)}AI agents {\c&HDAE87D&}can{\c&HF4EFF3&} now
+Dialogue: 0,0:00:00.98,0:00:01.16,Cap,,0,0,0,,{\an5\pos(1920,1922)}AI agents can {\c&HDAE87D&}now{\c&HF4EFF3&}
+Dialogue: 0,0:00:01.18,0:00:01.40,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}pay{\c&HF4EFF3&} for things.
+Dialogue: 0,0:00:01.40,0:00:01.58,Cap,,0,0,0,,{\an5\pos(1920,1922)}pay {\c&HDAE87D&}for{\c&HF4EFF3&} things.
+Dialogue: 0,0:00:01.58,0:00:02.16,Cap,,0,0,0,,{\an5\pos(1920,1922)}pay for {\c&HDAE87D&}things.{\c&HF4EFF3&}
+Dialogue: 0,0:00:02.18,0:00:02.92,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}But{\c&HF4EFF3&} one bad loop
+Dialogue: 0,0:00:02.92,0:00:03.26,Cap,,0,0,0,,{\an5\pos(1920,1922)}But {\c&HDAE87D&}one{\c&HF4EFF3&} bad loop
+Dialogue: 0,0:00:03.26,0:00:03.66,Cap,,0,0,0,,{\an5\pos(1920,1922)}But one {\c&HDAE87D&}bad{\c&HF4EFF3&} loop
+Dialogue: 0,0:00:03.66,0:00:03.96,Cap,,0,0,0,,{\an5\pos(1920,1922)}But one bad {\c&HDAE87D&}loop{\c&HF4EFF3&}
+Dialogue: 0,0:00:03.98,0:00:04.36,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}can{\c&HF4EFF3&} drain a wallet.
+Dialogue: 0,0:00:04.36,0:00:04.62,Cap,,0,0,0,,{\an5\pos(1920,1922)}can {\c&HDAE87D&}drain{\c&HF4EFF3&} a wallet.
+Dialogue: 0,0:00:04.62,0:00:04.82,Cap,,0,0,0,,{\an5\pos(1920,1922)}can drain {\c&HDAE87D&}a{\c&HF4EFF3&} wallet.
+Dialogue: 0,0:00:04.82,0:00:05.39,Cap,,0,0,0,,{\an5\pos(1920,1922)}can drain a {\c&HDAE87D&}wallet.{\c&HF4EFF3&}
+Dialogue: 0,0:00:05.64,0:00:06.26,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Leash{\c&HF4EFF3&} gives each agent a
+Dialogue: 0,0:00:06.26,0:00:06.54,Cap,,0,0,0,,{\an5\pos(1920,1922)}Leash {\c&HDAE87D&}gives{\c&HF4EFF3&} each agent a
+Dialogue: 0,0:00:06.54,0:00:06.86,Cap,,0,0,0,,{\an5\pos(1920,1922)}Leash gives {\c&HDAE87D&}each{\c&HF4EFF3&} agent a
+Dialogue: 0,0:00:06.86,0:00:07.22,Cap,,0,0,0,,{\an5\pos(1920,1922)}Leash gives each {\c&HDAE87D&}agent{\c&HF4EFF3&} a
+Dialogue: 0,0:00:07.22,0:00:07.38,Cap,,0,0,0,,{\an5\pos(1920,1922)}Leash gives each agent {\c&HDAE87D&}a{\c&HF4EFF3&}
+Dialogue: 0,0:00:07.40,0:00:07.70,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}budget{\c&HF4EFF3&} it cannot overspend.
+Dialogue: 0,0:00:07.70,0:00:08.06,Cap,,0,0,0,,{\an5\pos(1920,1922)}budget {\c&HDAE87D&}it{\c&HF4EFF3&} cannot overspend.
+Dialogue: 0,0:00:08.06,0:00:08.32,Cap,,0,0,0,,{\an5\pos(1920,1922)}budget it {\c&HDAE87D&}cannot{\c&HF4EFF3&} overspend.
+Dialogue: 0,0:00:08.32,0:00:09.47,Cap,,0,0,0,,{\an5\pos(1920,1922)}budget it cannot {\c&HDAE87D&}overspend.{\c&HF4EFF3&}
+Dialogue: 0,0:00:09.88,0:00:10.52,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Enforced{\c&HF4EFF3&} by a contract
+Dialogue: 0,0:00:10.52,0:00:10.68,Cap,,0,0,0,,{\an5\pos(1920,1922)}Enforced {\c&HDAE87D&}by{\c&HF4EFF3&} a contract
+Dialogue: 0,0:00:10.68,0:00:10.80,Cap,,0,0,0,,{\an5\pos(1920,1922)}Enforced by {\c&HDAE87D&}a{\c&HF4EFF3&} contract
+Dialogue: 0,0:00:10.80,0:00:11.18,Cap,,0,0,0,,{\an5\pos(1920,1922)}Enforced by a {\c&HDAE87D&}contract{\c&HF4EFF3&}
+Dialogue: 0,0:00:11.20,0:00:11.44,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}on{\c&HF4EFF3&} HSK mainnet.
+Dialogue: 0,0:00:11.44,0:00:11.98,Cap,,0,0,0,,{\an5\pos(1920,1922)}on {\c&HDAE87D&}HSK{\c&HF4EFF3&} mainnet.
+Dialogue: 0,0:00:11.98,0:00:12.71,Cap,,0,0,0,,{\an5\pos(1920,1922)}on HSK {\c&HDAE87D&}mainnet.{\c&HF4EFF3&}
+Dialogue: 0,0:00:12.92,0:00:13.44,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}The{\c&HF4EFF3&} owner sets a daily
+Dialogue: 0,0:00:13.44,0:00:13.68,Cap,,0,0,0,,{\an5\pos(1920,1922)}The {\c&HDAE87D&}owner{\c&HF4EFF3&} sets a daily
+Dialogue: 0,0:00:13.68,0:00:14.02,Cap,,0,0,0,,{\an5\pos(1920,1922)}The owner {\c&HDAE87D&}sets{\c&HF4EFF3&} a daily
+Dialogue: 0,0:00:14.02,0:00:14.20,Cap,,0,0,0,,{\an5\pos(1920,1922)}The owner sets {\c&HDAE87D&}a{\c&HF4EFF3&} daily
+Dialogue: 0,0:00:14.20,0:00:14.46,Cap,,0,0,0,,{\an5\pos(1920,1922)}The owner sets a {\c&HDAE87D&}daily{\c&HF4EFF3&}
+Dialogue: 0,0:00:14.48,0:00:14.94,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}allowance{\c&HF4EFF3&} and a per-payment limit.
+Dialogue: 0,0:00:14.94,0:00:15.48,Cap,,0,0,0,,{\an5\pos(1920,1922)}allowance {\c&HDAE87D&}and{\c&HF4EFF3&} a per-payment limit.
+Dialogue: 0,0:00:15.48,0:00:15.60,Cap,,0,0,0,,{\an5\pos(1920,1922)}allowance and {\c&HDAE87D&}a{\c&HF4EFF3&} per-payment limit.
+Dialogue: 0,0:00:15.60,0:00:16.22,Cap,,0,0,0,,{\an5\pos(1920,1922)}allowance and a {\c&HDAE87D&}per-payment{\c&HF4EFF3&} limit.
+Dialogue: 0,0:00:16.22,0:00:16.79,Cap,,0,0,0,,{\an5\pos(1920,1922)}allowance and a per-payment {\c&HDAE87D&}limit.{\c&HF4EFF3&}
+Dialogue: 0,0:00:17.06,0:00:17.70,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Plus{\c&HF4EFF3&} the shops the agent
+Dialogue: 0,0:00:17.70,0:00:17.90,Cap,,0,0,0,,{\an5\pos(1920,1922)}Plus {\c&HDAE87D&}the{\c&HF4EFF3&} shops the agent
+Dialogue: 0,0:00:17.90,0:00:18.20,Cap,,0,0,0,,{\an5\pos(1920,1922)}Plus the {\c&HDAE87D&}shops{\c&HF4EFF3&} the agent
+Dialogue: 0,0:00:18.20,0:00:18.40,Cap,,0,0,0,,{\an5\pos(1920,1922)}Plus the shops {\c&HDAE87D&}the{\c&HF4EFF3&} agent
+Dialogue: 0,0:00:18.40,0:00:18.68,Cap,,0,0,0,,{\an5\pos(1920,1922)}Plus the shops the {\c&HDAE87D&}agent{\c&HF4EFF3&}
+Dialogue: 0,0:00:18.70,0:00:18.92,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}may{\c&HF4EFF3&} pay, and a cooldown.
+Dialogue: 0,0:00:18.92,0:00:19.30,Cap,,0,0,0,,{\an5\pos(1920,1922)}may {\c&HDAE87D&}pay,{\c&HF4EFF3&} and a cooldown.
+Dialogue: 0,0:00:19.30,0:00:19.82,Cap,,0,0,0,,{\an5\pos(1920,1922)}may pay, {\c&HDAE87D&}and{\c&HF4EFF3&} a cooldown.
+Dialogue: 0,0:00:19.82,0:00:19.96,Cap,,0,0,0,,{\an5\pos(1920,1922)}may pay, and {\c&HDAE87D&}a{\c&HF4EFF3&} cooldown.
+Dialogue: 0,0:00:19.96,0:00:20.75,Cap,,0,0,0,,{\an5\pos(1920,1922)}may pay, and a {\c&HDAE87D&}cooldown.{\c&HF4EFF3&}
+Dialogue: 0,0:00:21.20,0:00:21.52,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}The{\c&HF4EFF3&} agent must ask the
+Dialogue: 0,0:00:21.52,0:00:21.84,Cap,,0,0,0,,{\an5\pos(1920,1922)}The {\c&HDAE87D&}agent{\c&HF4EFF3&} must ask the
+Dialogue: 0,0:00:21.84,0:00:22.14,Cap,,0,0,0,,{\an5\pos(1920,1922)}The agent {\c&HDAE87D&}must{\c&HF4EFF3&} ask the
+Dialogue: 0,0:00:22.14,0:00:22.40,Cap,,0,0,0,,{\an5\pos(1920,1922)}The agent must {\c&HDAE87D&}ask{\c&HF4EFF3&} the
+Dialogue: 0,0:00:22.40,0:00:22.54,Cap,,0,0,0,,{\an5\pos(1920,1922)}The agent must ask {\c&HDAE87D&}the{\c&HF4EFF3&}
+Dialogue: 0,0:00:22.56,0:00:23.02,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}contract{\c&HF4EFF3&} before every payment.
+Dialogue: 0,0:00:23.02,0:00:23.40,Cap,,0,0,0,,{\an5\pos(1920,1922)}contract {\c&HDAE87D&}before{\c&HF4EFF3&} every payment.
+Dialogue: 0,0:00:23.40,0:00:23.80,Cap,,0,0,0,,{\an5\pos(1920,1922)}contract before {\c&HDAE87D&}every{\c&HF4EFF3&} payment.
+Dialogue: 0,0:00:23.80,0:00:24.51,Cap,,0,0,0,,{\an5\pos(1920,1922)}contract before every {\c&HDAE87D&}payment.{\c&HF4EFF3&}
+Dialogue: 0,0:00:24.78,0:00:25.34,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}This{\c&HF4EFF3&} panel reads the
+Dialogue: 0,0:00:25.34,0:00:25.66,Cap,,0,0,0,,{\an5\pos(1920,1922)}This {\c&HDAE87D&}panel{\c&HF4EFF3&} reads the
+Dialogue: 0,0:00:25.66,0:00:26.28,Cap,,0,0,0,,{\an5\pos(1920,1922)}This panel {\c&HDAE87D&}reads{\c&HF4EFF3&} the
+Dialogue: 0,0:00:26.28,0:00:26.48,Cap,,0,0,0,,{\an5\pos(1920,1922)}This panel reads {\c&HDAE87D&}the{\c&HF4EFF3&}
+Dialogue: 0,0:00:26.50,0:00:26.80,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}budget{\c&HF4EFF3&} live from mainnet.
+Dialogue: 0,0:00:26.80,0:00:27.18,Cap,,0,0,0,,{\an5\pos(1920,1922)}budget {\c&HDAE87D&}live{\c&HF4EFF3&} from mainnet.
+Dialogue: 0,0:00:27.18,0:00:27.58,Cap,,0,0,0,,{\an5\pos(1920,1922)}budget live {\c&HDAE87D&}from{\c&HF4EFF3&} mainnet.
+Dialogue: 0,0:00:27.58,0:00:28.37,Cap,,0,0,0,,{\an5\pos(1920,1922)}budget live from {\c&HDAE87D&}mainnet.{\c&HF4EFF3&}
+Dialogue: 0,0:00:28.87,0:00:29.03,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Fifty{\c&HF4EFF3&} dollars a day. Five
+Dialogue: 0,0:00:29.03,0:00:29.26,Cap,,0,0,0,,{\an5\pos(1920,1922)}Fifty {\c&HDAE87D&}dollars{\c&HF4EFF3&} a day. Five
+Dialogue: 0,0:00:29.26,0:00:29.68,Cap,,0,0,0,,{\an5\pos(1920,1922)}Fifty dollars {\c&HDAE87D&}a{\c&HF4EFF3&} day. Five
+Dialogue: 0,0:00:29.68,0:00:30.42,Cap,,0,0,0,,{\an5\pos(1920,1922)}Fifty dollars a {\c&HDAE87D&}day.{\c&HF4EFF3&} Five
+Dialogue: 0,0:00:30.42,0:00:30.50,Cap,,0,0,0,,{\an5\pos(1920,1922)}Fifty dollars a day. {\c&HDAE87D&}Five{\c&HF4EFF3&}
+Dialogue: 0,0:00:30.52,0:00:30.70,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}dollars{\c&HF4EFF3&} per payment, at most.
+Dialogue: 0,0:00:30.70,0:00:31.14,Cap,,0,0,0,,{\an5\pos(1920,1922)}dollars {\c&HDAE87D&}per{\c&HF4EFF3&} payment, at most.
+Dialogue: 0,0:00:31.14,0:00:31.50,Cap,,0,0,0,,{\an5\pos(1920,1922)}dollars per {\c&HDAE87D&}payment,{\c&HF4EFF3&} at most.
+Dialogue: 0,0:00:31.50,0:00:31.86,Cap,,0,0,0,,{\an5\pos(1920,1922)}dollars per payment, {\c&HDAE87D&}at{\c&HF4EFF3&} most.
+Dialogue: 0,0:00:31.86,0:00:32.41,Cap,,0,0,0,,{\an5\pos(1920,1922)}dollars per payment, at {\c&HDAE87D&}most.{\c&HF4EFF3&}
+Dialogue: 0,0:00:32.58,0:00:33.32,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Let's{\c&HF4EFF3&} ask the contract about
+Dialogue: 0,0:00:33.32,0:00:33.60,Cap,,0,0,0,,{\an5\pos(1920,1922)}Let's {\c&HDAE87D&}ask{\c&HF4EFF3&} the contract about
+Dialogue: 0,0:00:33.60,0:00:33.74,Cap,,0,0,0,,{\an5\pos(1920,1922)}Let's ask {\c&HDAE87D&}the{\c&HF4EFF3&} contract about
+Dialogue: 0,0:00:33.74,0:00:34.16,Cap,,0,0,0,,{\an5\pos(1920,1922)}Let's ask the {\c&HDAE87D&}contract{\c&HF4EFF3&} about
+Dialogue: 0,0:00:34.16,0:00:34.58,Cap,,0,0,0,,{\an5\pos(1920,1922)}Let's ask the contract {\c&HDAE87D&}about{\c&HF4EFF3&}
+Dialogue: 0,0:00:34.60,0:00:34.76,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}a{\c&HF4EFF3&} nine dollar payment.
+Dialogue: 0,0:00:34.76,0:00:34.92,Cap,,0,0,0,,{\an5\pos(1920,1922)}a {\c&HDAE87D&}nine{\c&HF4EFF3&} dollar payment.
+Dialogue: 0,0:00:34.92,0:00:35.16,Cap,,0,0,0,,{\an5\pos(1920,1922)}a nine {\c&HDAE87D&}dollar{\c&HF4EFF3&} payment.
+Dialogue: 0,0:00:35.16,0:00:36.03,Cap,,0,0,0,,{\an5\pos(1920,1922)}a nine dollar {\c&HDAE87D&}payment.{\c&HF4EFF3&}
+Dialogue: 0,0:00:36.52,0:00:37.32,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Blocked.{\c&HF4EFF3&} It is over the
+Dialogue: 0,0:00:37.32,0:00:37.86,Cap,,0,0,0,,{\an5\pos(1920,1922)}Blocked. {\c&HDAE87D&}It{\c&HF4EFF3&} is over the
+Dialogue: 0,0:00:37.86,0:00:38.00,Cap,,0,0,0,,{\an5\pos(1920,1922)}Blocked. It {\c&HDAE87D&}is{\c&HF4EFF3&} over the
+Dialogue: 0,0:00:38.00,0:00:38.28,Cap,,0,0,0,,{\an5\pos(1920,1922)}Blocked. It is {\c&HDAE87D&}over{\c&HF4EFF3&} the
+Dialogue: 0,0:00:38.28,0:00:38.40,Cap,,0,0,0,,{\an5\pos(1920,1922)}Blocked. It is over {\c&HDAE87D&}the{\c&HF4EFF3&}
+Dialogue: 0,0:00:38.42,0:00:39.00,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}per-payment{\c&HF4EFF3&} limit. Reason four.
+Dialogue: 0,0:00:39.00,0:00:39.78,Cap,,0,0,0,,{\an5\pos(1920,1922)}per-payment {\c&HDAE87D&}limit.{\c&HF4EFF3&} Reason four.
+Dialogue: 0,0:00:39.78,0:00:40.30,Cap,,0,0,0,,{\an5\pos(1920,1922)}per-payment limit. {\c&HDAE87D&}Reason{\c&HF4EFF3&} four.
+Dialogue: 0,0:00:40.30,0:00:40.95,Cap,,0,0,0,,{\an5\pos(1920,1922)}per-payment limit. Reason {\c&HDAE87D&}four.{\c&HF4EFF3&}
+Dialogue: 0,0:00:41.18,0:00:41.72,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}And{\c&HF4EFF3&} here is the real
+Dialogue: 0,0:00:41.72,0:00:42.06,Cap,,0,0,0,,{\an5\pos(1920,1922)}And {\c&HDAE87D&}here{\c&HF4EFF3&} is the real
+Dialogue: 0,0:00:42.06,0:00:42.68,Cap,,0,0,0,,{\an5\pos(1920,1922)}And here {\c&HDAE87D&}is{\c&HF4EFF3&} the real
+Dialogue: 0,0:00:42.68,0:00:42.82,Cap,,0,0,0,,{\an5\pos(1920,1922)}And here is {\c&HDAE87D&}the{\c&HF4EFF3&} real
+Dialogue: 0,0:00:42.82,0:00:43.12,Cap,,0,0,0,,{\an5\pos(1920,1922)}And here is the {\c&HDAE87D&}real{\c&HF4EFF3&}
+Dialogue: 0,0:00:43.14,0:00:43.56,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}blocked{\c&HF4EFF3&} payment, on chain.
+Dialogue: 0,0:00:43.56,0:00:44.42,Cap,,0,0,0,,{\an5\pos(1920,1922)}blocked {\c&HDAE87D&}payment,{\c&HF4EFF3&} on chain.
+Dialogue: 0,0:00:44.42,0:00:44.84,Cap,,0,0,0,,{\an5\pos(1920,1922)}blocked payment, {\c&HDAE87D&}on{\c&HF4EFF3&} chain.
+Dialogue: 0,0:00:44.84,0:00:45.39,Cap,,0,0,0,,{\an5\pos(1920,1922)}blocked payment, on {\c&HDAE87D&}chain.{\c&HF4EFF3&}
+Dialogue: 0,0:00:45.94,0:00:46.60,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Blockscout{\c&HF4EFF3&} shows the nine dollar request
+Dialogue: 0,0:00:46.60,0:00:47.02,Cap,,0,0,0,,{\an5\pos(1920,1922)}Blockscout {\c&HDAE87D&}shows{\c&HF4EFF3&} the nine dollar request
+Dialogue: 0,0:00:47.02,0:00:47.20,Cap,,0,0,0,,{\an5\pos(1920,1922)}Blockscout shows {\c&HDAE87D&}the{\c&HF4EFF3&} nine dollar request
+Dialogue: 0,0:00:47.20,0:00:47.31,Cap,,0,0,0,,{\an5\pos(1920,1922)}Blockscout shows the {\c&HDAE87D&}nine{\c&HF4EFF3&} dollar request
+Dialogue: 0,0:00:47.31,0:00:47.48,Cap,,0,0,0,,{\an5\pos(1920,1922)}Blockscout shows the nine {\c&HDAE87D&}dollar{\c&HF4EFF3&} request
+Dialogue: 0,0:00:47.48,0:00:48.08,Cap,,0,0,0,,{\an5\pos(1920,1922)}Blockscout shows the nine dollar {\c&HDAE87D&}request{\c&HF4EFF3&}
+Dialogue: 0,0:00:48.10,0:00:48.66,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}and{\c&HF4EFF3&} the reason it failed.
+Dialogue: 0,0:00:48.66,0:00:48.76,Cap,,0,0,0,,{\an5\pos(1920,1922)}and {\c&HDAE87D&}the{\c&HF4EFF3&} reason it failed.
+Dialogue: 0,0:00:48.76,0:00:49.06,Cap,,0,0,0,,{\an5\pos(1920,1922)}and the {\c&HDAE87D&}reason{\c&HF4EFF3&} it failed.
+Dialogue: 0,0:00:49.06,0:00:49.24,Cap,,0,0,0,,{\an5\pos(1920,1922)}and the reason {\c&HDAE87D&}it{\c&HF4EFF3&} failed.
+Dialogue: 0,0:00:49.24,0:00:49.91,Cap,,0,0,0,,{\an5\pos(1920,1922)}and the reason it {\c&HDAE87D&}failed.{\c&HF4EFF3&}
+Dialogue: 0,0:00:50.10,0:00:50.56,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}A{\c&HF4EFF3&} two dollar payment, inside
+Dialogue: 0,0:00:50.56,0:00:50.65,Cap,,0,0,0,,{\an5\pos(1920,1922)}A {\c&HDAE87D&}two{\c&HF4EFF3&} dollar payment, inside
+Dialogue: 0,0:00:50.65,0:00:50.82,Cap,,0,0,0,,{\an5\pos(1920,1922)}A two {\c&HDAE87D&}dollar{\c&HF4EFF3&} payment, inside
+Dialogue: 0,0:00:50.82,0:00:51.72,Cap,,0,0,0,,{\an5\pos(1920,1922)}A two dollar {\c&HDAE87D&}payment,{\c&HF4EFF3&} inside
+Dialogue: 0,0:00:51.72,0:00:52.30,Cap,,0,0,0,,{\an5\pos(1920,1922)}A two dollar payment, {\c&HDAE87D&}inside{\c&HF4EFF3&}
+Dialogue: 0,0:00:52.32,0:00:52.56,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}the{\c&HF4EFF3&} budget, goes through.
+Dialogue: 0,0:00:52.56,0:00:53.20,Cap,,0,0,0,,{\an5\pos(1920,1922)}the {\c&HDAE87D&}budget,{\c&HF4EFF3&} goes through.
+Dialogue: 0,0:00:53.20,0:00:53.68,Cap,,0,0,0,,{\an5\pos(1920,1922)}the budget, {\c&HDAE87D&}goes{\c&HF4EFF3&} through.
+Dialogue: 0,0:00:53.68,0:00:54.21,Cap,,0,0,0,,{\an5\pos(1920,1922)}the budget, goes {\c&HDAE87D&}through.{\c&HF4EFF3&}
+Dialogue: 0,0:00:54.50,0:00:55.04,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Only{\c&HF4EFF3&} the owner approves it,
+Dialogue: 0,0:00:55.04,0:00:55.20,Cap,,0,0,0,,{\an5\pos(1920,1922)}Only {\c&HDAE87D&}the{\c&HF4EFF3&} owner approves it,
+Dialogue: 0,0:00:55.20,0:00:55.46,Cap,,0,0,0,,{\an5\pos(1920,1922)}Only the {\c&HDAE87D&}owner{\c&HF4EFF3&} approves it,
+Dialogue: 0,0:00:55.46,0:00:55.96,Cap,,0,0,0,,{\an5\pos(1920,1922)}Only the owner {\c&HDAE87D&}approves{\c&HF4EFF3&} it,
+Dialogue: 0,0:00:55.96,0:00:56.10,Cap,,0,0,0,,{\an5\pos(1920,1922)}Only the owner approves {\c&HDAE87D&}it,{\c&HF4EFF3&}
+Dialogue: 0,0:00:56.12,0:00:56.58,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}from{\c&HF4EFF3&} a separate key.
+Dialogue: 0,0:00:56.58,0:00:56.72,Cap,,0,0,0,,{\an5\pos(1920,1922)}from {\c&HDAE87D&}a{\c&HF4EFF3&} separate key.
+Dialogue: 0,0:00:56.72,0:00:57.06,Cap,,0,0,0,,{\an5\pos(1920,1922)}from a {\c&HDAE87D&}separate{\c&HF4EFF3&} key.
+Dialogue: 0,0:00:57.06,0:00:57.67,Cap,,0,0,0,,{\an5\pos(1920,1922)}from a separate {\c&HDAE87D&}key.{\c&HF4EFF3&}
+Dialogue: 0,0:00:58.12,0:00:58.44,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}The{\c&HF4EFF3&} payment then runs
+Dialogue: 0,0:00:58.44,0:00:58.76,Cap,,0,0,0,,{\an5\pos(1920,1922)}The {\c&HDAE87D&}payment{\c&HF4EFF3&} then runs
+Dialogue: 0,0:00:58.76,0:00:59.00,Cap,,0,0,0,,{\an5\pos(1920,1922)}The payment {\c&HDAE87D&}then{\c&HF4EFF3&} runs
+Dialogue: 0,0:00:59.00,0:00:59.30,Cap,,0,0,0,,{\an5\pos(1920,1922)}The payment then {\c&HDAE87D&}runs{\c&HF4EFF3&}
+Dialogue: 0,0:00:59.32,0:00:59.52,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}through{\c&HF4EFF3&} HashKey's HSP steps.
+Dialogue: 0,0:00:59.52,0:01:00.22,Cap,,0,0,0,,{\an5\pos(1920,1922)}through {\c&HDAE87D&}HashKey's{\c&HF4EFF3&} HSP steps.
+Dialogue: 0,0:01:00.22,0:01:00.90,Cap,,0,0,0,,{\an5\pos(1920,1922)}through HashKey's {\c&HDAE87D&}HSP{\c&HF4EFF3&} steps.
+Dialogue: 0,0:01:00.90,0:01:01.67,Cap,,0,0,0,,{\an5\pos(1920,1922)}through HashKey's HSP {\c&HDAE87D&}steps.{\c&HF4EFF3&}
+Dialogue: 0,0:01:02.00,0:01:02.66,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Create{\c&HF4EFF3&} order, prepare, check the EIP-712
+Dialogue: 0,0:01:02.66,0:01:03.46,Cap,,0,0,0,,{\an5\pos(1920,1922)}Create {\c&HDAE87D&}order,{\c&HF4EFF3&} prepare, check the EIP-712
+Dialogue: 0,0:01:03.46,0:01:04.40,Cap,,0,0,0,,{\an5\pos(1920,1922)}Create order, {\c&HDAE87D&}prepare,{\c&HF4EFF3&} check the EIP-712
+Dialogue: 0,0:01:04.40,0:01:04.64,Cap,,0,0,0,,{\an5\pos(1920,1922)}Create order, prepare, {\c&HDAE87D&}check{\c&HF4EFF3&} the EIP-712
+Dialogue: 0,0:01:04.64,0:01:04.84,Cap,,0,0,0,,{\an5\pos(1920,1922)}Create order, prepare, check {\c&HDAE87D&}the{\c&HF4EFF3&} EIP-712
+Dialogue: 0,0:01:04.84,0:01:06.32,Cap,,0,0,0,,{\an5\pos(1920,1922)}Create order, prepare, check the {\c&HDAE87D&}EIP-712{\c&HF4EFF3&}
+Dialogue: 0,0:01:06.34,0:01:07.10,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}data,{\c&HF4EFF3&} then one human approval.
+Dialogue: 0,0:01:07.10,0:01:07.48,Cap,,0,0,0,,{\an5\pos(1920,1922)}data, {\c&HDAE87D&}then{\c&HF4EFF3&} one human approval.
+Dialogue: 0,0:01:07.48,0:01:07.76,Cap,,0,0,0,,{\an5\pos(1920,1922)}data, then {\c&HDAE87D&}one{\c&HF4EFF3&} human approval.
+Dialogue: 0,0:01:07.76,0:01:08.12,Cap,,0,0,0,,{\an5\pos(1920,1922)}data, then one {\c&HDAE87D&}human{\c&HF4EFF3&} approval.
+Dialogue: 0,0:01:08.12,0:01:08.83,Cap,,0,0,0,,{\an5\pos(1920,1922)}data, then one human {\c&HDAE87D&}approval.{\c&HF4EFF3&}
+Dialogue: 0,0:01:09.08,0:01:09.78,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}These{\c&HF4EFF3&} HSP steps run on
+Dialogue: 0,0:01:09.78,0:01:10.38,Cap,,0,0,0,,{\an5\pos(1920,1922)}These {\c&HDAE87D&}HSP{\c&HF4EFF3&} steps run on
+Dialogue: 0,0:01:10.38,0:01:10.82,Cap,,0,0,0,,{\an5\pos(1920,1922)}These HSP {\c&HDAE87D&}steps{\c&HF4EFF3&} run on
+Dialogue: 0,0:01:10.82,0:01:11.22,Cap,,0,0,0,,{\an5\pos(1920,1922)}These HSP steps {\c&HDAE87D&}run{\c&HF4EFF3&} on
+Dialogue: 0,0:01:11.22,0:01:11.32,Cap,,0,0,0,,{\an5\pos(1920,1922)}These HSP steps run {\c&HDAE87D&}on{\c&HF4EFF3&}
+Dialogue: 0,0:01:11.34,0:01:11.46,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}a{\c&HF4EFF3&} mock while our
+Dialogue: 0,0:01:11.46,0:01:11.70,Cap,,0,0,0,,{\an5\pos(1920,1922)}a {\c&HDAE87D&}mock{\c&HF4EFF3&} while our
+Dialogue: 0,0:01:11.70,0:01:12.06,Cap,,0,0,0,,{\an5\pos(1920,1922)}a mock {\c&HDAE87D&}while{\c&HF4EFF3&} our
+Dialogue: 0,0:01:12.06,0:01:12.30,Cap,,0,0,0,,{\an5\pos(1920,1922)}a mock while {\c&HDAE87D&}our{\c&HF4EFF3&}
+Dialogue: 0,0:01:12.32,0:01:12.68,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}QA{\c&HF4EFF3&} access is pending.
+Dialogue: 0,0:01:12.68,0:01:13.06,Cap,,0,0,0,,{\an5\pos(1920,1922)}QA {\c&HDAE87D&}access{\c&HF4EFF3&} is pending.
+Dialogue: 0,0:01:13.06,0:01:13.34,Cap,,0,0,0,,{\an5\pos(1920,1922)}QA access {\c&HDAE87D&}is{\c&HF4EFF3&} pending.
+Dialogue: 0,0:01:13.34,0:01:13.68,Cap,,0,0,0,,{\an5\pos(1920,1922)}QA access is {\c&HDAE87D&}pending.{\c&HF4EFF3&}
+Dialogue: 0,0:01:13.70,0:01:14.72,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}The{\c&HF4EFF3&} budget contract and the
+Dialogue: 0,0:01:14.72,0:01:15.00,Cap,,0,0,0,,{\an5\pos(1920,1922)}The {\c&HDAE87D&}budget{\c&HF4EFF3&} contract and the
+Dialogue: 0,0:01:15.00,0:01:15.46,Cap,,0,0,0,,{\an5\pos(1920,1922)}The budget {\c&HDAE87D&}contract{\c&HF4EFF3&} and the
+Dialogue: 0,0:01:15.46,0:01:15.70,Cap,,0,0,0,,{\an5\pos(1920,1922)}The budget contract {\c&HDAE87D&}and{\c&HF4EFF3&} the
+Dialogue: 0,0:01:15.70,0:01:15.76,Cap,,0,0,0,,{\an5\pos(1920,1922)}The budget contract and {\c&HDAE87D&}the{\c&HF4EFF3&}
+Dialogue: 0,0:01:15.78,0:01:16.24,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}receipts{\c&HF4EFF3&} are real mainnet.
+Dialogue: 0,0:01:16.24,0:01:16.58,Cap,,0,0,0,,{\an5\pos(1920,1922)}receipts {\c&HDAE87D&}are{\c&HF4EFF3&} real mainnet.
+Dialogue: 0,0:01:16.58,0:01:16.82,Cap,,0,0,0,,{\an5\pos(1920,1922)}receipts are {\c&HDAE87D&}real{\c&HF4EFF3&} mainnet.
+Dialogue: 0,0:01:16.82,0:01:17.61,Cap,,0,0,0,,{\an5\pos(1920,1922)}receipts are real {\c&HDAE87D&}mainnet.{\c&HF4EFF3&}
+Dialogue: 0,0:01:17.72,0:01:18.46,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Every{\c&HF4EFF3&} settled payment leaves a signed
+Dialogue: 0,0:01:18.46,0:01:18.98,Cap,,0,0,0,,{\an5\pos(1920,1922)}Every {\c&HDAE87D&}settled{\c&HF4EFF3&} payment leaves a signed
+Dialogue: 0,0:01:18.98,0:01:19.52,Cap,,0,0,0,,{\an5\pos(1920,1922)}Every settled {\c&HDAE87D&}payment{\c&HF4EFF3&} leaves a signed
+Dialogue: 0,0:01:19.52,0:01:20.28,Cap,,0,0,0,,{\an5\pos(1920,1922)}Every settled payment {\c&HDAE87D&}leaves{\c&HF4EFF3&} a signed
+Dialogue: 0,0:01:20.28,0:01:20.52,Cap,,0,0,0,,{\an5\pos(1920,1922)}Every settled payment leaves {\c&HDAE87D&}a{\c&HF4EFF3&} signed
+Dialogue: 0,0:01:20.52,0:01:20.78,Cap,,0,0,0,,{\an5\pos(1920,1922)}Every settled payment leaves a {\c&HDAE87D&}signed{\c&HF4EFF3&}
+Dialogue: 0,0:01:20.80,0:01:21.20,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}receipt{\c&HF4EFF3&} that matches the chain.
+Dialogue: 0,0:01:21.20,0:01:21.80,Cap,,0,0,0,,{\an5\pos(1920,1922)}receipt {\c&HDAE87D&}that{\c&HF4EFF3&} matches the chain.
+Dialogue: 0,0:01:21.80,0:01:22.14,Cap,,0,0,0,,{\an5\pos(1920,1922)}receipt that {\c&HDAE87D&}matches{\c&HF4EFF3&} the chain.
+Dialogue: 0,0:01:22.14,0:01:22.34,Cap,,0,0,0,,{\an5\pos(1920,1922)}receipt that matches {\c&HDAE87D&}the{\c&HF4EFF3&} chain.
+Dialogue: 0,0:01:22.34,0:01:22.97,Cap,,0,0,0,,{\an5\pos(1920,1922)}receipt that matches the {\c&HDAE87D&}chain.{\c&HF4EFF3&}
+Dialogue: 0,0:01:23.54,0:01:24.06,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}Leash.{\c&HF4EFF3&} A budget for every AI
+Dialogue: 0,0:01:24.06,0:01:24.48,Cap,,0,0,0,,{\an5\pos(1920,1922)}Leash. {\c&HDAE87D&}A{\c&HF4EFF3&} budget for every AI
+Dialogue: 0,0:01:24.48,0:01:24.72,Cap,,0,0,0,,{\an5\pos(1920,1922)}Leash. A {\c&HDAE87D&}budget{\c&HF4EFF3&} for every AI
+Dialogue: 0,0:01:24.72,0:01:24.94,Cap,,0,0,0,,{\an5\pos(1920,1922)}Leash. A budget {\c&HDAE87D&}for{\c&HF4EFF3&} every AI
+Dialogue: 0,0:01:24.94,0:01:25.32,Cap,,0,0,0,,{\an5\pos(1920,1922)}Leash. A budget for {\c&HDAE87D&}every{\c&HF4EFF3&} AI
+Dialogue: 0,0:01:25.32,0:01:25.72,Cap,,0,0,0,,{\an5\pos(1920,1922)}Leash. A budget for every {\c&HDAE87D&}AI{\c&HF4EFF3&}
+Dialogue: 0,0:01:25.74,0:01:26.28,Cap,,0,0,0,,{\an5\pos(1920,1922)}{\c&HDAE87D&}agent,{\c&HF4EFF3&} enforced on HSK mainnet.
+Dialogue: 0,0:01:26.28,0:01:27.04,Cap,,0,0,0,,{\an5\pos(1920,1922)}agent, {\c&HDAE87D&}enforced{\c&HF4EFF3&} on HSK mainnet.
+Dialogue: 0,0:01:27.04,0:01:27.30,Cap,,0,0,0,,{\an5\pos(1920,1922)}agent, enforced {\c&HDAE87D&}on{\c&HF4EFF3&} HSK mainnet.
+Dialogue: 0,0:01:27.30,0:01:27.90,Cap,,0,0,0,,{\an5\pos(1920,1922)}agent, enforced on {\c&HDAE87D&}HSK{\c&HF4EFF3&} mainnet.
+Dialogue: 0,0:01:27.90,0:01:28.71,Cap,,0,0,0,,{\an5\pos(1920,1922)}agent, enforced on HSK {\c&HDAE87D&}mainnet.{\c&HF4EFF3&}

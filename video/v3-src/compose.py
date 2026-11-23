@@ -32,7 +32,7 @@ for ci,c in enumerate(cues):
         st=c[0][1] if wi==0 else ws
         en=c[wi+1][1] if wi+1<len(c) else cend
         txt=' '.join((f'{{\\c{HL}}}{x[0]}{{\\c{INK}}}' if j==wi else x[0]) for j,x in enumerate(c))
-        ev.append(f'Dialogue: 0,{t(st)},{t(en)},Cap,,0,0,0,,{{\\an5\\pos(1920,1944)}}{txt}')
+        ev.append(f'Dialogue: 0,{t(st)},{t(en)},Cap,,0,0,0,,{{\\an5\\pos(1920,1922)}}{txt}')
 hdr=f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: 3840
@@ -42,7 +42,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Cap,Poppins,132,{INK},{INK},&H00000000&,&H00000000&,1,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
+Style: Cap,Poppins,205,{INK},{INK},&H00000000&,&H00000000&,-1,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
