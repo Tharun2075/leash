@@ -14,10 +14,12 @@
   <div class="wrap top-row">
     <a class="logo" href="#top" aria-label="Leash home">Leash</a>
     <nav class="top-nav" aria-label="Sections">
+      <a href="#demo">Demo</a>
       <a href="#how">How it works</a>
       <a href="#live">Live budget</a>
       <a href="#hsp">HSP</a>
       <a href="#team">Team</a>
+      <a href="https://github.com/Tharun2075/leash" rel="noopener">Source code</a>
     </nav>
   </div>
 </header>
@@ -35,12 +37,13 @@
       <li><a class="badge" href="https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9?tab=contract" rel="noopener">✓ Contract source verified on Blockscout</a></li>
       <li><a class="badge mono" href="https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9" rel="noopener">PolicyVault 0x7360…13a9</a></li>
     </ul>
-    <div class="video-slot" role="img" aria-label="Demo video placeholder">
-      <div class="video-inner">
-        <span class="play" aria-hidden="true">▶</span>
-        <p><strong>2-minute demo video</strong></p>
-        <p class="muted">Coming soon. Until then, every claim on this page links to a mainnet transaction.</p>
-      </div>
+    <div class="demo" id="demo">
+      <h2>Watch the demo</h2>
+      <video class="demo-video" src="assets/demo.mp4" poster="assets/demo-poster.jpg" width="1920" height="1080"
+        controls playsinline preload="metadata" aria-label="Leash demo video, 89 seconds, with captions burned in">
+        <a href="assets/demo.mp4">Download the demo video (MP4)</a>
+      </video>
+      <p class="muted small">89 seconds, captions on screen. Every claim links to a mainnet transaction below. <a href="https://github.com/Tharun2075/leash" rel="noopener">Source code on GitHub</a></p>
     </div>
   </section>
 
@@ -211,12 +214,12 @@
     <h2>Team</h2>
     <p><strong>Dr. Tharun Reddy Kandukuri</strong>, individual entrant.</p>
     <p class="muted">Hackathon prototype. No financial returns are promised. Leash is non-custodial: it holds no one's keys or funds, and the mainnet contract only reserves budget and records receipts.</p>
-    <p>Code: <span class="placeholder" id="repo-link">GitHub repository link added at submission</span></p>
+    <p><a class="badge" id="repo-link" href="https://github.com/Tharun2075/leash" rel="noopener">Source code on GitHub: Tharun2075/leash</a></p>
   </section>
 </main>
 
 <footer class="foot">
-  <div class="wrap small muted">Leash · MIT licence · HSK Chain mainnet (chain 177) · <a href="https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9" rel="noopener">PolicyVault on Blockscout</a></div>
+  <div class="wrap small muted">Leash · MIT licence · <a href="https://github.com/Tharun2075/leash" rel="noopener">Source code</a> · HSK Chain mainnet (chain 177) · <a href="https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9" rel="noopener">PolicyVault on Blockscout</a></div>
 </footer>
 <script src="assets/site.js" defer></script>
 </body>
