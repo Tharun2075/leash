@@ -12,6 +12,8 @@ owner can change the budget. HSK Chain Horizon Hackathon Seoul, Track 2: Agent P
 [`0x736076b308c720d38bb31bdf97e5726ab90f13a9`](https://hsk.blockscout.com/address/0x736076b308c720d38bb31bdf97e5726ab90f13a9)
 (source verified on Blockscout). Owner and agent are two different addresses; transactions in `DEPLOYMENTS.md`.
 
+**Live site:** https://leash-hsk.pages.dev (with the 2-minute demo video) · **Source:** https://github.com/Tharun2075/leash
+
 **Hackathon prototype.** Leash is not an electronic financial service, holds no one's keys or funds
 (non-custodial), and promises no returns. The mainnet contract only reserves budget and records
 receipts; it moves no customer funds.
